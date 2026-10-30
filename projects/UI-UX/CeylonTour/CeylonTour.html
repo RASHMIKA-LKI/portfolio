@@ -1,0 +1,704 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CeylonTour - Portfolio Project Showcase by Ishan Rashmika.">
+    <title>CeylonTour | Ishan Rashmika</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Orbitron (Cyber/Gaming) & Inter (Clean Content) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Custom Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        gaming: ['Orbitron', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        neonLime: '#ccff00',
+                        neonCyan: '#00f0ff',
+                        neonOrange: '#ff6b00',
+                        panelDark: '#1a1a1d',
+                        panelDarker: '#111113',
+                        panelBorder: '#27272a',
+                        dangerRed: '#d32f2f'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --accent-primary: #ff7043;
+            --accent-glow: rgba(255, 112, 67, 0.35);
+            --bg-color: #08080a;
+        }
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background-color: var(--bg-color);
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            background-image:
+                radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 60%),
+                radial-gradient(circle at center, #111115 0%, #050507 100%);
+            min-height: 100vh;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #111113;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333338;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-primary);
+        }
+
+        /* Navigation Tab Buttons */
+        .tab-btn {
+            position: relative;
+            transition: all 0.25s ease;
+            user-select: none;
+        }
+
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-primary);
+            box-shadow: 0 0 10px var(--accent-primary);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tab-btn.active {
+            color: var(--accent-primary);
+            background-color: rgba(255, 255, 255, 0.04);
+        }
+
+        .tab-btn.active::after {
+            width: 100%;
+        }
+
+        .tab-btn:hover:not(.active) {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.04);
+        }
+
+        /* Tab Content Panel Transitions */
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Scanline Overlay for Cyber Visuals */
+        .scanlines {
+            background: linear-gradient(to bottom,
+                    rgba(255, 255, 255, 0),
+                    rgba(255, 255, 255, 0) 50%,
+                    rgba(0, 0, 0, 0.35) 50%,
+                    rgba(0, 0, 0, 0.35));
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+
+        /* Modal Lightbox for Fullscreen Image Zoom */
+        #lightbox-modal {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #lightbox-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* Gaming Style Reusable Hover System */
+        .media-card,
+        .gaming-card {
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+        }
+
+        .media-card:hover,
+        .gaming-card:hover {
+            border-color: var(--accent-primary) !important;
+            box-shadow: 0 0 20px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        /* Arcade CRT / HUD Neon Blink on Hover */
+        @keyframes gamingBlink {
+            0% {
+                opacity: 0.25;
+            }
+            20% {
+                opacity: 1;
+            }
+            40% {
+                opacity: 0.35;
+            }
+            60% {
+                opacity: 0.85;
+            }
+            80% {
+                opacity: 0.6;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Universal trigger for gaming blink on hover (clean & sharp, no blinding bloom) */
+        .media-card:hover .gaming-caption,
+        .gaming-card:hover .gaming-title,
+        .tab-btn:hover:not(.active),
+        .gaming-btn:hover {
+            color: var(--accent-primary) !important;
+            animation: gamingBlink 0.4s ease-out forwards;
+            text-shadow: none !important;
+        }
+
+        /* Blinking Arcade Command Cursor */
+        .gaming-cursor {
+            display: inline-block;
+            opacity: 0;
+            margin-left: 5px;
+            color: var(--accent-primary);
+            font-weight: 700;
+        }
+
+        .media-card:hover .gaming-cursor,
+        .gaming-card:hover .gaming-cursor {
+            opacity: 1;
+            animation: cursorBlink 0.6s infinite alternate;
+        }
+
+        @keyframes cursorBlink {
+            0% { opacity: 0; }
+            50%, 100% { opacity: 1; text-shadow: none; }
+        }
+
+        /* Matte Glass Cyberpunk Window & Text Panel (Exact Match to Learnings & About) */
+        main {
+            background: rgba(18, 18, 23, 0.72) !important;
+            backdrop-filter: blur(24px) saturate(130%) !important;
+            -webkit-backdrop-filter: blur(24px) saturate(130%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 240, 255, 0.06) !important;
+        }
+
+        .bg-panelDarker {
+            background-color: transparent !important;
+        }
+
+        .bg-panelDark {
+            background-color: rgba(12, 12, 16, 0.55) !important;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center p-3 sm:p-5 md:p-8">
+
+    <!-- Main Project Window -->
+    <main
+        class="w-full max-w-7xl h-[92vh] md:h-[86vh] min-h-[620px] flex flex-col md:flex-row bg-panelDarker border border-gray-800 shadow-[0_0_50px_rgba(255, 112, 67, 0.35)] rounded-xl overflow-hidden relative">
+
+        <!-- Left Side: Hero Media Presentation -->
+        <section
+            class="w-full md:w-1/2 h-56 sm:h-72 md:h-full relative border-b md:border-b-0 md:border-r border-gray-800 overflow-hidden group">
+            <!-- Background Image -->
+            <div id="hero-image"
+                class="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105 brightness-110 contrast-105"
+                style="background-image: url('Screenshot 2026-10-27 231016.png');">
+            </div>
+
+            <!-- Subtle Edge Blend Overlay -->
+            <div
+                class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-transparent via-transparent to-panelDarker/30 pointer-events-none">
+            </div>
+            <div class="absolute inset-0 scanlines opacity-10 pointer-events-none"></div>
+
+            <!-- Badges -->
+            <div class="absolute top-4 left-4 flex flex-wrap gap-2 z-10">
+                <span style="color: #ff7043; border-color: #ff7043;"
+                    class="bg-black/75 backdrop-blur-md border text-[10px] font-bold px-2.5 py-1 tracking-widest uppercase rounded-sm shadow-[0_0_10px_rgba(255, 112, 67, 0.35)]">
+                    FIGMA UI/UX
+                </span>
+                <span
+                    class="bg-black/75 backdrop-blur-md border border-gray-700 text-gray-300 text-[10px] px-2.5 py-1 tracking-widest uppercase rounded-sm">
+                    TRAVEL APP
+                </span>
+                <button onclick="switchTab('images')" style="color: #ff7043; border-color: #ff7043;"
+                    class="bg-black/75 backdrop-blur-md border hover:bg-white/10 transition-colors text-[10px] px-2.5 py-1 tracking-widest uppercase rounded-sm flex items-center gap-1 cursor-pointer"
+                    title="View Gallery">
+                    <span style="background-color: #ff7043;" class="w-1.5 h-1.5 rounded-full animate-ping"></span>
+                    GALLERY
+                </button>
+            </div>
+
+            <!-- Bottom Label -->
+            <div class="absolute bottom-4 left-4 right-4 z-10 flex items-center justify-between pointer-events-none">
+                <span
+                    class="text-[11px] font-gaming text-gray-400 tracking-widest uppercase bg-black/60 px-3 py-1 rounded backdrop-blur border border-white/5">
+                    // CEYLONTOUR
+                </span>
+                <span style="color: #ff7043; border-color: #ff7043;"
+                    class="text-[10px] font-mono tracking-wider bg-black/60 px-2 py-1 rounded backdrop-blur border">
+                    STATUS: PROTOTYPE READY
+                </span>
+            </div>
+        </section>
+
+        <!-- Right Side: Content Panel -->
+        <section class="w-full md:w-1/2 flex-1 flex flex-col bg-panelDarker relative overflow-hidden">
+
+            <!-- Top Navigation Bar -->
+            <nav class="flex items-stretch border-b border-gray-800 bg-panelDark h-16 shrink-0">
+
+                <!-- Tab Buttons -->
+                <div class="flex flex-1 overflow-x-auto no-scrollbar" role="tablist">
+                    <button onclick="switchTab('overview')"
+                        class="tab-btn active flex-1 flex flex-col items-center justify-center px-3 min-w-[85px] text-gray-400"
+                        data-tab="overview">
+                        <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                            </path>
+                        </svg>
+                        <span class="text-[10px] uppercase tracking-wider font-bold">Overview</span>
+                    </button>
+
+                    <button onclick="switchTab('tech')"
+                        class="tab-btn flex-1 flex flex-col items-center justify-center px-3 min-w-[85px] text-gray-400"
+                        data-tab="tech">
+                        <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                        </svg>
+                        <span class="text-[10px] uppercase tracking-wider font-bold">Tech Stack</span>
+                    </button>
+
+                    <button onclick="switchTab('images')"
+                        class="tab-btn flex-1 flex flex-col items-center justify-center px-3 min-w-[85px] text-gray-400"
+                        data-tab="images">
+                        <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                        <span class="text-[10px] uppercase tracking-wider font-bold">Media</span>
+                    </button>
+
+                    <button onclick="switchTab('links')"
+                        class="tab-btn flex-1 flex flex-col items-center justify-center px-3 min-w-[85px] text-gray-400"
+                        data-tab="links">
+                        <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1">
+                            </path>
+                        </svg>
+                        <span class="text-[10px] uppercase tracking-wider font-bold">Links</span>
+                    </button>
+                </div>
+
+                <!-- Close / Return Button -->
+                <button onclick="closePreview()"
+                    class="w-16 h-16 bg-dangerRed hover:bg-red-600 text-white flex flex-col items-center justify-center transition-all duration-200 shrink-0 border-l border-red-700/50 group"
+                    title="Close preview and return to portfolio">
+                    <svg class="w-6 h-6 transform group-hover:rotate-90 transition-transform duration-200" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                    <span class="text-[9px] uppercase tracking-widest mt-1 opacity-90 font-bold">Close</span>
+                </button>
+            </nav>
+
+            <!-- Dynamic Content Area -->
+            <div class="flex-1 overflow-y-auto p-6 md:p-10 space-y-8">
+
+                <!-- TAB 1: OVERVIEW -->
+                <div id="content-overview" class="tab-content active">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+                        <h1
+                            class="text-2xl sm:text-3xl md:text-4xl font-black text-white uppercase tracking-wider drop-shadow-[0_0_10px_rgba(255,255,255,0.25)]">
+                            CeylonTour
+                        </h1>
+                        <span style="color: #ff7043; border-color: #ff7043;"
+                            class="self-start sm:self-auto border bg-white/5 px-3 py-1 text-xs rounded uppercase font-bold tracking-widest">
+                            Mobile Travel Companion
+                        </span>
+                    </div>
+
+                    <div style="background-color: #ff7043; box-shadow: 0 0 12px #ff7043;" class="w-20 h-1 mb-6"></div>
+
+                    <div class="space-y-4 text-gray-300 font-sans leading-relaxed text-sm md:text-base">
+                        <p>
+                            <span style="color: #ff7043;" class="font-gaming mr-2 font-semibold">>_ BRIEFING:</span>
+                            CeylonTour is an all-in-one mobile travel companion app UI designed in Figma, enabling travelers to explore Sri Lankan destinations, curate day-by-day itineraries, and book eco-resorts.
+                        </p>
+
+                        <!-- Key Feature Highlights -->
+                        <div class="mt-6 border-t border-gray-800/80 pt-6">
+                            <h3 class="text-xs uppercase tracking-widest text-gray-400 font-gaming mb-3">// KEY DESIGN SYSTEMS</h3>
+                            <ul class="space-y-2 text-xs md:text-sm text-gray-300 font-sans">
+                                <li class="flex items-center gap-2.5 min-w-0">
+                                    <span style="background-color: var(--accent-primary);" class="w-1.5 h-3.5 inline-block shrink-0 rounded-[1px] shadow-[0_0_8px_var(--accent-glow)]"></span>
+                                    <span class="truncate"><strong>Destinations:</strong> Curated carousels for heritage and hikes.</span>
+                                </li>
+                                <li class="flex items-center gap-2.5 min-w-0">
+                                    <span style="background-color: var(--accent-primary);" class="w-1.5 h-3.5 inline-block shrink-0 rounded-[1px] shadow-[0_0_8px_var(--accent-glow)]"></span>
+                                    <span class="truncate"><strong>Itinerary Planner:</strong> Daily timelines and map routes.</span>
+                                </li>
+                                <li class="flex items-center gap-2.5 min-w-0">
+                                    <span style="background-color: var(--accent-primary);" class="w-1.5 h-3.5 inline-block shrink-0 rounded-[1px] shadow-[0_0_8px_var(--accent-glow)]"></span>
+                                    <span class="truncate"><strong>Resort Booking:</strong> Room profiles and instant reservation.</span>
+                                </li>
+                                <li class="flex items-center gap-2.5 min-w-0">
+                                    <span style="background-color: var(--accent-primary);" class="w-1.5 h-3.5 inline-block shrink-0 rounded-[1px] shadow-[0_0_8px_var(--accent-glow)]"></span>
+                                    <span class="truncate"><strong>Local Guides:</strong> Direct chat with certified island guides.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Stats Grid -->
+                        <div class="grid grid-cols-2 gap-3 sm:gap-4 mt-8 pt-4">
+                            <div style="border-left-color: #ff7043;" class="bg-panelDark p-4 border-l-2 rounded-sm">
+                                <span class="block text-gray-500 text-[10px] uppercase tracking-widest mb-1">Architecture</span>
+                                <span class="text-white font-gaming font-bold text-base md:text-lg">Mobile UI/UX</span>
+                            </div>
+                            <div class="bg-panelDark p-4 border-l-2 border-gray-600 rounded-sm">
+                                <span class="block text-gray-500 text-[10px] uppercase tracking-widest mb-1">Role</span>
+                                <span class="text-white font-gaming font-bold text-base md:text-lg">UI/UX Designer</span>
+                            </div>
+                            <div class="bg-panelDark p-4 border-l-2 border-gray-600 rounded-sm">
+                                <span class="block text-gray-500 text-[10px] uppercase tracking-widest mb-1">Platform</span>
+                                <span class="text-white font-gaming font-bold text-base md:text-lg">Figma Prototype</span>
+                            </div>
+                            <div style="border-left-color: #ff7043;" class="bg-panelDark p-4 border-l-2 rounded-sm">
+                                <span class="block text-gray-500 text-[10px] uppercase tracking-widest mb-1">Status</span>
+                                <span style="color: #ff7043;" class="font-gaming font-bold text-base md:text-lg">Case Study Ready</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: TECH STACK -->
+                <div id="content-tech" class="tab-content">
+                    <h2 class="text-2xl font-black text-white uppercase tracking-widest mb-2">Core Mechanics</h2>
+                    <p class="text-gray-500 text-xs uppercase tracking-widest mb-6 pb-4 border-b border-gray-800">
+                        Technology Stack &amp; Development Architecture
+                    </p>
+
+                    <div class="space-y-3 font-sans">
+                        <div class="flex items-center p-3.5 bg-panelDark border border-gray-800 rounded group gaming-card cursor-pointer">
+                            <div class="w-10 h-10 bg-black/60 border border-gray-700 flex items-center justify-center mr-4 group-hover:border-[color:var(--accent-primary)] transition-colors rounded">
+                                <span style="color: #ff7043;" class="font-gaming font-bold text-lg">FIG</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="text-white font-gaming text-sm uppercase tracking-wide gaming-title transition-colors">Figma Prototyping<span class="gaming-cursor">_</span></h4>
+                                    <span style="color: #ff7043; border-color: #ff7043; background-color: rgba(255,255,255,0.03);" class="text-[9px] md:text-[10px] border px-2 py-0.5 rounded uppercase font-gaming font-bold tracking-widest">Tool</span>
+                                </div>
+                                <p class="text-gray-400 text-xs mt-0.5">Interactive auto-layout mobile frames with smart-animate screen transitions.</p>
+                            </div>
+                        </div>                        <div class="flex items-center p-3.5 bg-panelDark border border-gray-800 rounded group gaming-card cursor-pointer">
+                            <div class="w-10 h-10 bg-black/60 border border-gray-700 flex items-center justify-center mr-4 group-hover:border-[color:var(--accent-primary)] transition-colors rounded">
+                                <span style="color: #ff7043;" class="font-gaming font-bold text-lg">DS</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="text-white font-gaming text-sm uppercase tracking-wide gaming-title transition-colors">Tropical Design Tokens<span class="gaming-cursor">_</span></h4>
+                                    <span style="color: #ff7043; border-color: #ff7043; background-color: rgba(255,255,255,0.03);" class="text-[9px] md:text-[10px] border px-2 py-0.5 rounded uppercase font-gaming font-bold tracking-widest">System</span>
+                                </div>
+                                <p class="text-gray-400 text-xs mt-0.5">Warm terracotta, ocean cyan, and organic typography token palette.</p>
+                            </div>
+                        </div>                        <div class="flex items-center p-3.5 bg-panelDark border border-gray-800 rounded group gaming-card cursor-pointer">
+                            <div class="w-10 h-10 bg-black/60 border border-gray-700 flex items-center justify-center mr-4 group-hover:border-[color:var(--accent-primary)] transition-colors rounded">
+                                <span style="color: #ff7043;" class="font-gaming font-bold text-lg">RES</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="text-white font-gaming text-sm uppercase tracking-wide gaming-title transition-colors">User Research<span class="gaming-cursor">_</span></h4>
+                                    <span style="color: #ff7043; border-color: #ff7043; background-color: rgba(255,255,255,0.03);" class="text-[9px] md:text-[10px] border px-2 py-0.5 rounded uppercase font-gaming font-bold tracking-widest">UX Strategy</span>
+                                </div>
+                                <p class="text-gray-400 text-xs mt-0.5">Persona development, traveler journey mapping, and usability testing rounds.</p>
+                            </div>
+                        </div>                        <div class="flex items-center p-3.5 bg-panelDark border border-gray-800 rounded group gaming-card cursor-pointer">
+                            <div class="w-10 h-10 bg-black/60 border border-gray-700 flex items-center justify-center mr-4 group-hover:border-[color:var(--accent-primary)] transition-colors rounded">
+                                <span style="color: #ff7043;" class="font-gaming font-bold text-lg">M3</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="text-white font-gaming text-sm uppercase tracking-wide gaming-title transition-colors">Mobile Guidelines<span class="gaming-cursor">_</span></h4>
+                                    <span style="color: #ff7043; border-color: #ff7043; background-color: rgba(255,255,255,0.03);" class="text-[9px] md:text-[10px] border px-2 py-0.5 rounded uppercase font-gaming font-bold tracking-widest">Standards</span>
+                                </div>
+                                <p class="text-gray-400 text-xs mt-0.5">Adherence to Material Design 3 and iOS Human Interface touch target rules.</p>
+                            </div>
+                        </div>                    </div>
+                </div>
+
+                <!-- TAB 3: MEDIA & VISUAL LOGS -->
+                <div id="content-images" class="tab-content">
+                    <h2 class="text-2xl font-black text-white uppercase tracking-widest mb-2">Visual Logs</h2>
+                    <p class="text-gray-500 text-xs uppercase tracking-widest mb-6 pb-4 border-b border-gray-800">
+                        Captures, Telemetry &amp; System Previews
+                    </p>
+
+                    <!-- Featured Hero Preview -->
+                    <div class="mb-6 bg-panelDark border border-gray-800 rounded overflow-hidden cursor-pointer group media-card"
+                        onclick="openLightbox('Screenshot 2026-10-27 231016.png', 'Core Experience Screens Home Schedule Search')">
+                        <div class="relative bg-black flex items-center justify-center overflow-hidden">
+                            <img src="Screenshot 2026-10-27 231016.png" alt="Core Experience Screens Home Schedule Search"
+                                class="w-full max-h-[360px] object-cover transition-transform duration-500 group-hover:scale-102">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <span style="color: #ff7043; border-color: #ff7043;" class="text-xs uppercase font-bold tracking-widest bg-black/80 px-4 py-2 rounded border flex items-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"></path></svg>
+                                    Click to Enlarge
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-2.5 bg-panelDark border-t border-gray-800">
+                            <span class="gaming-caption text-[11px] font-gaming text-gray-400 uppercase tracking-wider block transition-colors">
+                                Core Experience Screens Home Schedule Search<span class="gaming-cursor">_</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Additional Screenshots Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">                        <div class="relative group media-card cursor-pointer overflow-hidden border border-gray-800 rounded bg-black"
+                            onclick="openLightbox('Screenshot 2026-10-27 231027.png', 'Figma Interactive Flow Architecture')">
+                            <div class="relative overflow-hidden">
+                                <div class="h-40 md:h-48 w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                                    style="background-image: url('Screenshot 2026-10-27 231027.png');">
+                                </div>
+                                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                    <span style="color: #ff7043; border-color: #ff7043;" class="text-xs uppercase font-bold tracking-widest bg-black/80 px-3 py-1.5 rounded border flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"></path></svg>
+                                        Click to Enlarge
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="p-2.5 bg-panelDark border-t border-gray-800">
+                                <span class="gaming-caption text-[11px] font-gaming text-gray-400 uppercase tracking-wider block transition-colors">
+                                    Figma Interactive Flow Architecture<span class="gaming-cursor">_</span>
+                                </span>
+                            </div>
+                        </div>                        <div class="relative group media-card cursor-pointer overflow-hidden border border-gray-800 rounded bg-black"
+                            onclick="openLightbox('Screenshot 2026-10-27 231003.png', 'Onboarding Splash Account Login Flow')">
+                            <div class="relative overflow-hidden">
+                                <div class="h-40 md:h-48 w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                                    style="background-image: url('Screenshot 2026-10-27 231003.png');">
+                                </div>
+                                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                    <span style="color: #ff7043; border-color: #ff7043;" class="text-xs uppercase font-bold tracking-widest bg-black/80 px-3 py-1.5 rounded border flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"></path></svg>
+                                        Click to Enlarge
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="p-2.5 bg-panelDark border-t border-gray-800">
+                                <span class="gaming-caption text-[11px] font-gaming text-gray-400 uppercase tracking-wider block transition-colors">
+                                    Onboarding Splash Account Login Flow<span class="gaming-cursor">_</span>
+                                </span>
+                            </div>
+                        </div>                    </div>
+                </div>
+
+                <!-- TAB 4: LINKS -->
+                <div id="content-links" class="tab-content">
+                    <h2 class="text-2xl font-black text-white uppercase tracking-widest mb-2">Network Uplinks</h2>
+                    <p class="text-gray-500 text-xs uppercase tracking-widest mb-6 pb-4 border-b border-gray-800">
+                        System Access &amp; Technical Documentation
+                    </p>
+
+                    <div class="space-y-4 font-sans">
+                        <!-- Primary Active Link: Figma Prototype -->
+                        <a href="https://www.figma.com/proto/jBIUeUVyjXXU2sCxt7CGD1/CeylonTour?t=yWQcY7xhLuTiWTGB-1" target="_blank" rel="noopener noreferrer"
+                            class="block p-5 bg-panelDark border border-gray-800 rounded group relative overflow-hidden gaming-card cursor-pointer">
+                            <div style="background-color: #ff7043;"
+                                class="absolute inset-0 opacity-5 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out">
+                            </div>
+                            <div class="relative z-10 flex justify-between items-center">
+                                <div class="flex items-center gap-3">
+                                    <div style="color: #ff7043;"
+                                        class="w-10 h-10 rounded bg-black/60 border border-gray-700 flex items-center justify-center shrink-0 group-hover:border-[color:var(--accent-primary)] transition-colors">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 38 57"><path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0zM0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0zM0 28.5A9.5 9.5 0 0 1 9.5 19H19v19H9.5A9.5 9.5 0 0 1 0 28.5zM0 9.5A9.5 9.5 0 0 1 9.5 0H19v19H9.5A9.5 9.5 0 0 1 0 9.5zM19 0h9.5a9.5 9.5 0 1 1 0 19H19V0z"/></svg>
+                                    </div>
+                                    <div>
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <span
+                                                class="block text-white font-gaming font-bold uppercase tracking-wider text-sm md:text-base gaming-title transition-colors">
+                                                Figma Prototype<span class="gaming-cursor">_</span>
+                                            </span>
+                                            <span style="color: #ff7043; border-color: #ff7043;"
+                                                class="text-[9px] bg-white/5 border px-1.5 py-0.5 rounded uppercase font-bold tracking-widest">
+                                                Prototype
+                                            </span>
+                                        </div>
+                                        <span class="text-gray-400 text-xs block font-mono truncate max-w-[260px] sm:max-w-[420px]">https://www.figma.com/proto/jBIUeUVyjXXU2sCxt7CGD1/CeylonTour?t=yWQcY7xhLuTiWTGB-1</span>
+                                    </div>
+                                </div>
+                                <svg style="color: #ff7043;"
+                                    class="h-6 w-6 opacity-60 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1 shrink-0 ml-3"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
+                                    </path>
+                                </svg>
+                            </div>
+                        </a>
+
+                        <!-- Neutral Document Breakdown Link -->
+                        <div class="block p-5 bg-panelDark/60 border border-gray-800/80 rounded relative overflow-hidden cursor-default select-none opacity-60">
+                            <div class="relative z-10 flex justify-between items-center">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded bg-black/60 border border-gray-700 flex items-center justify-center shrink-0">
+                                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <span class="block text-gray-300 font-gaming font-bold uppercase tracking-wider text-sm md:text-base">
+                                                DOCUMENT BREAKDOWN
+                                            </span>
+                                            <span class="text-[9px] bg-gray-800 border border-gray-700 text-gray-400 px-1.5 py-0.5 rounded uppercase font-mono">
+                                                INTERNAL
+                                            </span>
+                                        </div>
+                                        <span class="text-gray-500 text-xs block font-mono">User flow diagrams & design system documentation</span>
+                                    </div>
+                                </div>
+                                <svg class="h-6 w-6 text-gray-600 shrink-0 ml-3"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Fullscreen Image Lightbox Modal -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md items-center justify-center p-4"
+        onclick="closeLightbox(event)">
+        <div class="relative max-w-5xl max-h-[90vh] flex flex-col items-center">
+            <button onclick="closeLightbox(event)"
+                class="absolute -top-12 right-0 text-white font-gaming text-sm uppercase tracking-widest flex items-center gap-1.5 bg-black/60 px-3 py-1.5 rounded border border-gray-700 gaming-btn cursor-pointer transition-all">
+                <span>ESC / CLOSE [X]</span>
+            </button>
+            <img id="lightbox-img" src="" alt="Fullscreen Preview"
+                class="max-w-full max-h-[80vh] rounded border border-gray-700 object-contain shadow-[0_0_40px_rgba(0,0,0,0.8)]">
+            <p id="lightbox-caption" style="color: #ff7043;"
+                class="text-xs font-gaming tracking-widest uppercase mt-3 bg-black/80 px-4 py-1.5 rounded border border-gray-800">
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            const activeTab = document.querySelector('.tab-btn[data-tab="' + tabId + '"]');
+            if (activeTab) {
+                activeTab.classList.add('active');
+            }
+
+            const activeContent = document.getElementById('content-' + tabId);
+            if (activeContent) {
+                activeContent.classList.add('active');
+            }
+        }
+
+        function closePreview() {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = '../../code/projects_section.html';
+            }
+        }
+
+        function openLightbox(imgSrc, captionText) {
+            const modal = document.getElementById('lightbox-modal');
+            const img = document.getElementById('lightbox-img');
+            const caption = document.getElementById('lightbox-caption');
+
+            img.src = imgSrc;
+            caption.textContent = captionText || 'SCREENSHOT VIEW';
+            modal.classList.add('active');
+        }
+
+        function closeLightbox(e) {
+            if (!e || e.target.id === 'lightbox-modal' || e.target.closest('button')) {
+                document.getElementById('lightbox-modal').classList.remove('active');
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const lightbox = document.getElementById('lightbox-modal');
+                if (lightbox.classList.contains('active')) {
+                    lightbox.classList.remove('active');
+                } else {
+                    closePreview();
+                }
+            }
+        });
+    </script>
+    <!-- Fluid Splash Cursor Background Interaction -->
+    <script src="../../../code/splash_cursor.js"></script>
+</body>
+
+</html>
+
+

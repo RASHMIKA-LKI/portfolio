@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events — Ishan Rashmika | Portfolio</title>
+  <meta name="description"
+    content="Competitions and organizing committees participated in by Game Developer Ishan Rashmika.">
+
+  <!-- Google Fonts: Inter, Orbitron, Roboto Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;700;800;900&family=Roboto+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            neon: '#00f0ff',
+            bgdark: '#000000',
+            panelDark: '#121215',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Orbitron', 'sans-serif'],
+            mono: ['"Roboto Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ==========================================================================
+       CSS VARIABLES & BASE RESET
+       ========================================================================== */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #00f0ff;
+      --primary-glow: rgba(0, 240, 255, 0.4);
+      --primary-dim: rgba(0, 240, 255, 0.1);
+      --bg: #000000;
+      --panel-bg: #08080b;
+      --text-gray: #8892b0;
+      --text-light: #e2e8f0;
+      --border-color: #27272a;
+      --header-height: 80px;
+      --radius: clamp(68px, 10vw, 180px);
+      --card-w: clamp(48px, 7.2vw, 112px);
+      --card-h: clamp(110px, 13vw, 182px);
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background-color: var(--bg);
+      font-family: 'Inter', sans-serif;
+      color: #ffffff;
+      user-select: none;
+    }
+
+    /* Ambient Cyber Grid Background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 240, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ==========================================================================
+       FIXED PORTFOLIO HEADER
+       ========================================================================== */
+    .header-6 {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: var(--header-height);
+      padding: 0 60px;
+      background: linear-gradient(180deg, rgba(10, 10, 12, 0.95) 0%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0) 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .header-6::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 5%;
+      width: 90%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(0, 240, 255, 0.25), transparent);
+      pointer-events: none;
+    }
+
+    .logo {
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .logo .logo-svg {
+      flex-shrink: 0;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease;
+    }
+
+    .logo:hover .logo-svg {
+      transform: rotate(60deg) scale(1.08);
+      filter: drop-shadow(0 0 8px #00f0ff);
+    }
+
+    .logo .logo-name {
+      color: #ffffff;
+      text-shadow: 0 0 8px rgba(0, 240, 255, 0.85), 0 0 18px rgba(0, 240, 255, 0.5);
+      transition: text-shadow 0.3s ease;
+    }
+
+    .logo:hover .logo-name {
+      text-shadow: 0 0 12px rgba(0, 240, 255, 1), 0 0 24px rgba(0, 240, 255, 0.8);
+    }
+
+    .logo .logo-badge {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 9px;
+      padding: 1px 5px;
+      border: 1px solid #22c55e;
+      color: #4ade80;
+      border-radius: 2px;
+      margin-left: 4px;
+      letter-spacing: 1px;
+      line-height: 1.2;
+      text-shadow: 0 0 6px rgba(34, 197, 94, 0.7);
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.25);
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 45px;
+      align-items: center;
+    }
+
+    .nav-menu li a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 10px 5px;
+      position: relative;
+      cursor: pointer;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .nav-menu li a::before {
+      content: '[';
+      position: absolute;
+      left: -15px;
+      color: var(--primary);
+      opacity: 0;
+      transform: translateX(10px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-menu li a::after {
+      content: ']';
+      position: absolute;
+      right: -15px;
+      color: var(--primary);
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes headerBlinkText {
+      0% {
+        color: #ffffff;
+        text-shadow: none;
+      }
+      10% {
+        color: #ffffff;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      }
+      22% {
+        color: rgba(255, 255, 255, 0.35);
+        text-shadow: none;
+      }
+      36% {
+        color: #ffffff;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      }
+      50% {
+        color: rgba(255, 255, 255, 0.35);
+        text-shadow: none;
+      }
+      64% {
+        color: #ffffff;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      }
+      78% {
+        color: rgba(255, 255, 255, 0.35);
+        text-shadow: none;
+      }
+      90%, 100% {
+        color: var(--primary);
+        text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+      }
+    }
+
+    @keyframes headerBlinkBracket {
+      0% {
+        opacity: 0;
+        color: #ffffff;
+        text-shadow: none;
+      }
+      10% {
+        opacity: 1;
+        color: #ffffff;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      }
+      22% {
+        opacity: 0.3;
+        color: rgba(255, 255, 255, 0.35);
+        text-shadow: none;
+      }
+      36% {
+        opacity: 1;
+        color: #ffffff;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      }
+      50% {
+        opacity: 0.3;
+        color: rgba(255, 255, 255, 0.35);
+        text-shadow: none;
+      }
+      64% {
+        opacity: 1;
+        color: #ffffff;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      }
+      78% {
+        opacity: 0.3;
+        color: rgba(255, 255, 255, 0.35);
+        text-shadow: none;
+      }
+      90%, 100% {
+        opacity: 1;
+        color: var(--primary);
+        text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+      }
+    }
+
+        .nav-menu li a.active {
+          color: var(--primary);
+          text-shadow: 0 0 12px rgba(0, 240, 255, 0.7);
+        }
+
+        .nav-menu li a.active::before,
+        .nav-menu li a.active::after {
+          opacity: 1;
+          transform: translateX(0);
+        }
+
+        .nav-menu li a:hover {
+          animation: headerBlinkText 0.28s ease-out forwards;
+        }
+
+        .nav-menu li a:hover::before,
+        .nav-menu li a:hover::after {
+          opacity: 1;
+          transform: translateX(0);
+          animation: headerBlinkBracket 0.28s ease-out forwards;
+        }
+
+        .mobile-toggle {
+          display: none;
+          background: transparent;
+          border: 1px solid var(--primary);
+          color: var(--primary);
+          padding: 8px 12px;
+          cursor: pointer;
+          font-family: 'Roboto Mono', monospace;
+          font-size: 14px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+
+        /* ==========================================================================
+       SPLIT LAYOUT (38% INFO / 62% RADIAL CAROUSEL)
+       ========================================================================== */
+        .split-layout {
+          height: 100vh;
+          width: 100vw;
+          padding-top: var(--header-height);
+          display: flex;
+          flex-direction: column;
+          position: relative;
+          z-index: 10;
+        }
+
+        @media (min-width: 1024px) {
+          .split-layout {
+            flex-direction: row;
+          }
+        }
+
+        /* ----- RIGHT INFO PANEL ----- */
+        .info-panel {
+          width: 100%;
+          height: 44%;
+          padding: 1.5rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          z-index: 20;
+          position: relative;
+        }
+
+        @media (min-width: 1024px) {
+          .info-panel {
+            width: 40%;
+            height: 100%;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+          .glass-box {
+            transform: translateX(-85px);
+          }
+        }
+
+        /* ----- MATTE GLASS CYBERPUNK BOX (COMPACT FIXED SIZE) ----- */
+        .glass-box {
+          width: 100%;
+          max-width: 440px;
+          height: 380px;
+          min-height: 380px;
+          max-height: 380px;
+          margin: auto;
+          background: rgba(18, 18, 23, 0.72);
+          backdrop-filter: blur(24px) saturate(130%);
+          -webkit-backdrop-filter: blur(24px) saturate(130%);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-left: 4px solid rgba(0, 240, 255, 0.4);
+          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 240, 255, 0.06);
+          padding: 24px 28px;
+          border-radius: 8px;
+          display: flex;
+          flex-direction: column;
+          position: relative;
+          overflow: hidden;
+        }
+
+        /* Fixed Content Slots to Prevent Layout Shifting */
+        .title-slot {
+          height: 60px;
+          min-height: 60px;
+          max-height: 60px;
+          display: flex;
+          align-items: flex-start;
+          margin-top: 8px;
+          overflow: hidden;
+        }
+
+        .desc-slot {
+          height: 58px;
+          min-height: 58px;
+          max-height: 58px;
+          margin-top: 16px;
+          overflow-y: auto;
+          scrollbar-width: none;
+        }
+
+        .desc-slot::-webkit-scrollbar {
+          display: none;
+        }
+
+        .tags-slot {
+          height: 30px;
+          min-height: 30px;
+          max-height: 30px;
+          margin-top: 14px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          overflow-x: auto;
+          white-space: nowrap;
+          scrollbar-width: none;
+        }
+
+        .tags-slot::-webkit-scrollbar {
+          display: none;
+        }
+
+        .event-tag-pill {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-family: 'Orbitron', sans-serif;
+          font-size: 9.5px;
+          font-weight: 700;
+          letter-spacing: 1px;
+          padding: 4px 10px;
+          border-radius: 4px;
+          text-transform: uppercase;
+          background: rgba(10, 10, 14, 0.85);
+          border: 1px solid #374151;
+          color: #d1d5db;
+          white-space: nowrap;
+          transition: all 0.2s ease;
+        }
+
+        .event-tag-pill.role-accent {
+          border-color: rgba(0, 240, 255, 0.45);
+          color: #00f0ff;
+        }
+
+        @media (max-width: 640px) {
+          .glass-box {
+            height: auto;
+            min-height: 380px;
+            max-height: none;
+            padding: 20px;
+          }
+        }
+
+        /* Dynamic Text Fade */
+        .dynamic-text {
+          transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .fade-out {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+
+        /* Status Dot */
+        .pulsing-dot {
+          width: 7px;
+          height: 7px;
+          background-color: var(--primary);
+          border-radius: 50%;
+          flex-shrink: 0;
+          display: inline-block;
+          box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.7);
+          animation: pulseAnim 2s infinite;
+        }
+
+        @keyframes pulseAnim {
+          0% {
+            box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.7);
+          }
+
+          70% {
+            box-shadow: 0 0 0 8px rgba(0, 240, 255, 0);
+          }
+
+          100% {
+            box-shadow: 0 0 0 0 rgba(0, 240, 255, 0);
+          }
+        }
+
+        /* ==========================================================================
+       LEFT PANEL: RADIAL CIRCULAR CAROUSEL
+       ========================================================================== */
+        .carousel-panel {
+          width: 100%;
+          height: 56%;
+          position: relative;
+          z-index: 10;
+          overflow: hidden;
+        }
+
+        @media (min-width: 1024px) {
+          .carousel-panel {
+            width: 60%;
+            height: 100%;
+          }
+        }
+
+        #gallery-container {
+          width: 100%;
+          height: 100%;
+          position: relative;
+          background: transparent;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .wheel-container {
+          position: absolute;
+          top: calc(50% + 32px);
+          left: 50%;
+          width: 0;
+          height: 0;
+          transform: rotate(0deg);
+          transition: transform 0.55s cubic-bezier(0.25, 1, 0.5, 1);
+          z-index: 10;
+        }
+
+        .radial-card {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: var(--card-w);
+          height: var(--card-h);
+          border-radius: 0;
+          overflow: hidden;
+          transform: translate(-50%, -50%) rotate(var(--rot)) translateY(calc(-1 * var(--radius)));
+          transition: transform 0.55s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s, border-color 0.5s, filter 0.5s ease;
+          z-index: 10;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+          background-color: #111;
+          border: 2px solid rgba(255, 255, 255, 0.06);
+          cursor: pointer;
+          filter: brightness(35%);
+        }
+
+        .radial-card.active {
+          transform: translate(-50%, -50%) rotate(var(--rot)) translateY(calc(-1 * var(--radius) - 26px)) scale(1.6);
+          z-index: 50;
+          border: 2px solid var(--primary);
+          box-shadow: 0 0 8px rgba(0, 240, 255, 0.2), 0 25px 50px rgba(0, 0, 0, 0.95);
+          filter: brightness(100%);
+          cursor: default;
+        }
+
+        .radial-card:not(.active):hover {
+          transform: translate(-50%, -50%) rotate(var(--rot)) translateY(calc(-1 * var(--radius))) scale(1.15);
+          z-index: 40;
+          box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8);
+          border-color: rgba(255, 255, 255, 0.2);
+          filter: brightness(65%);
+        }
+
+        .radial-card img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.5s ease;
+        }
+
+        .radial-card.active img {
+          transform: scale(1.06);
+        }
+
+        .radial-card:not(.active):hover img {
+          transform: scale(1.08);
+        }
+
+        /* Gradient overlay on each card */
+        .radial-card::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.15) 55%, transparent 100%);
+          pointer-events: none;
+        }
+
+        .card-label {
+          position: absolute;
+          bottom: 8px;
+          left: 0;
+          right: 0;
+          text-align: center;
+          font-family: 'Orbitron', sans-serif;
+          font-size: clamp(5px, 0.75vw, 9px);
+          font-weight: 700;
+          letter-spacing: 0.5px;
+          color: rgba(255, 255, 255, 0.65);
+          text-transform: uppercase;
+          z-index: 3;
+          padding: 0 4px;
+          pointer-events: none;
+          line-height: 1.3;
+        }
+
+        .radial-card.active .card-label {
+          color: var(--primary);
+          text-shadow: none;
+          font-weight: 800;
+          letter-spacing: 0.8px;
+        }
+
+        /* Center hub ring */
+        .hub-ring {
+          position: absolute;
+          top: calc(50% + 32px);
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: clamp(40px, 5vw, 70px);
+          height: clamp(40px, 5vw, 70px);
+          border-radius: 50%;
+          border: 1px solid rgba(0, 240, 255, 0.18);
+          box-shadow: 0 0 20px rgba(0, 240, 255, 0.06), inset 0 0 20px rgba(0, 240, 255, 0.04);
+          pointer-events: none;
+          z-index: 5;
+        }
+
+        .hub-ring::before {
+          content: '';
+          position: absolute;
+          inset: 6px;
+          border-radius: 50%;
+          border: 1px solid rgba(0, 240, 255, 0.1);
+        }
+
+        .radial-scroll-hint {
+          position: absolute;
+          bottom: 18px;
+          left: 50%;
+          transform: translateX(-50%);
+          font-family: 'Roboto Mono', monospace;
+          font-size: 9px;
+          letter-spacing: 2px;
+          color: rgba(255, 255, 255, 0.25);
+          text-transform: uppercase;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          pointer-events: none;
+          white-space: nowrap;
+        }
+
+        .radial-scroll-hint span {
+          color: var(--primary);
+          animation: spinHint 2.2s infinite linear;
+          display: inline-block;
+        }
+
+        @keyframes spinHint {
+
+          0%,
+          100% {
+            opacity: 0.4;
+            transform: rotate(0deg);
+          }
+
+          50% {
+            opacity: 1;
+            transform: rotate(20deg);
+          }
+        }
+
+        /* ==========================================================================
+       BOTTOM DOTS NAVIGATION
+       ========================================================================== */
+        .view-indicator {
+          position: fixed;
+          bottom: 24px;
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          gap: 12px;
+          z-index: 50;
+          align-items: center;
+        }
+
+        .dot-btn {
+          width: 28px;
+          height: 4px;
+          background: rgba(255, 255, 255, 0.2);
+          border: none;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          border-radius: 2px;
+        }
+
+        .dot-btn:hover {
+          background: rgba(255, 255, 255, 0.4);
+        }
+
+        .dot-btn.active {
+          background: var(--primary);
+          box-shadow: 0 0 10px var(--primary);
+          width: 44px;
+        }
+
+        .scroll-hint {
+          position: fixed;
+          bottom: 24px;
+          right: 40px;
+          font-family: 'Roboto Mono', monospace;
+          font-size: 10px;
+          letter-spacing: 2px;
+          color: rgba(255, 255, 255, 0.4);
+          text-transform: uppercase;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          z-index: 50;
+          pointer-events: none;
+        }
+
+        .scroll-hint span {
+          color: var(--primary);
+          animation: bounce 1.8s infinite;
+        }
+
+        @keyframes bounce {
+
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+
+          50% {
+            transform: translateY(-4px);
+          }
+        }
+
+        /* ==========================================================================
+       IMAGE ZOOM BUTTON & FULLSCREEN LIGHTBOX MODAL
+       ========================================================================== */
+        .card-zoom-btn {
+          position: absolute;
+          top: 6px;
+          right: 6px;
+          background: rgba(10, 10, 12, 0.88);
+          border: 1px solid var(--primary);
+          color: var(--primary);
+          font-family: 'Roboto Mono', monospace;
+          font-size: 8px;
+          font-weight: 700;
+          padding: 3px 6px;
+          letter-spacing: 0.5px;
+          opacity: 0;
+          pointer-events: none;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          z-index: 10;
+          display: flex;
+          align-items: center;
+          gap: 3px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .radial-card.active .card-zoom-btn {
+          opacity: 0.85;
+          pointer-events: auto;
+        }
+
+        .radial-card.active .card-zoom-btn:hover {
+          opacity: 1;
+          background: var(--primary);
+          color: #000000;
+          box-shadow: 0 0 10px var(--primary);
+          transform: scale(1.05);
+        }
+
+        .radial-card.active {
+          cursor: default;
+        }
+
+        .image-modal {
+          position: fixed;
+          inset: 0;
+          z-index: 9999;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .image-modal.open {
+          opacity: 1;
+          pointer-events: auto;
+        }
+
+        .modal-backdrop {
+          position: absolute;
+          inset: 0;
+          background: rgba(3, 3, 5, 0.9);
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+        }
+
+        .modal-content {
+          position: relative;
+          z-index: 10;
+          max-width: 90vw;
+          max-height: 90vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          transform: scale(0.92);
+          transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+        }
+
+        .image-modal.open .modal-content {
+          transform: scale(1);
+        }
+
+        .modal-header {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 10px 16px;
+          background: rgba(14, 14, 18, 0.95);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-bottom: none;
+          border-top: 2px solid var(--primary);
+        }
+
+        .modal-title-group {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          overflow: hidden;
+        }
+
+        .modal-badge {
+          font-family: 'Roboto Mono', monospace;
+          font-size: 10px;
+          color: var(--primary);
+          background: rgba(0, 240, 255, 0.1);
+          border: 1px solid rgba(0, 240, 255, 0.35);
+          padding: 2px 8px;
+          border-radius: 2px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          white-space: nowrap;
+        }
+
+        .modal-title {
+          font-family: 'Orbitron', sans-serif;
+          font-size: 14px;
+          color: #ffffff;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .modal-year {
+          font-family: 'Roboto Mono', monospace;
+          font-size: 11px;
+          color: #9ca3af;
+          letter-spacing: 1px;
+        }
+
+        .modal-close {
+          background: transparent;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: #e2e8f0;
+          font-family: 'Roboto Mono', monospace;
+          font-size: 11px;
+          padding: 6px 14px;
+          cursor: pointer;
+          border-radius: 2px;
+          transition: all 0.2s ease;
+          letter-spacing: 1px;
+          white-space: nowrap;
+          margin-left: 12px;
+        }
+
+        .modal-close:hover {
+          border-color: var(--primary);
+          color: var(--primary);
+          box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+        }
+
+        .modal-img-wrapper {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #000000;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+          max-width: 88vw;
+          max-height: 72vh;
+          overflow: hidden;
+        }
+
+        .modal-img {
+          max-width: 88vw;
+          max-height: 72vh;
+          width: auto;
+          height: auto;
+          object-fit: contain;
+          display: block;
+          user-select: none;
+        }
+
+        .modal-nav-btn {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 44px;
+          height: 44px;
+          background: rgba(0, 0, 0, 0.65);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 14px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          z-index: 10;
+        }
+
+        .modal-nav-btn:hover {
+          border-color: var(--primary);
+          color: var(--primary);
+          background: rgba(0, 0, 0, 0.9);
+          box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+        }
+
+        .modal-nav-btn.prev-btn {
+          left: 12px;
+        }
+
+        .modal-nav-btn.next-btn {
+          right: 12px;
+        }
+
+        .modal-footer {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 8px 16px;
+          background: rgba(14, 14, 18, 0.95);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-top: none;
+        }
+
+        .modal-counter {
+          font-family: 'Roboto Mono', monospace;
+          font-size: 11px;
+          color: var(--primary);
+          font-weight: 700;
+          letter-spacing: 2px;
+        }
+
+        .modal-hint {
+          font-family: 'Roboto Mono', monospace;
+          font-size: 9px;
+          color: #71717a;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+        }
+
+        /* ==========================================================================
+       RESPONSIVE COLLAPSE & LAYOUT
+       ========================================================================== */
+        @media (max-width: 1023px) {
+          body {
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            height: auto !important;
+            min-height: 100vh;
+          }
+
+          .split-layout {
+            height: auto !important;
+            min-height: 100vh;
+            padding-bottom: 70px;
+          }
+
+          .info-panel {
+            height: auto !important;
+            width: 100% !important;
+            padding: 1.5rem 1rem !important;
+          }
+
+          .glass-box {
+            height: auto !important;
+            min-height: auto !important;
+            max-height: none !important;
+            padding: 24px 20px !important;
+          }
+
+          .carousel-panel {
+            height: 380px !important;
+            min-height: 340px !important;
+            width: 100% !important;
+          }
+        }
+
+        @media (max-width: 900px) {
+          .header-6 {
+            padding: 0 25px;
+          }
+
+          .nav-menu {
+            gap: 25px;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .mobile-toggle {
+            display: block;
+          }
+
+          .nav-menu {
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            width: 100%;
+            background: rgba(6, 6, 8, 0.98);
+            flex-direction: column;
+            gap: 0;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--primary);
+            display: none;
+          }
+
+          .nav-menu.active,
+          .nav-menu.open {
+            display: flex !important;
+          }
+
+          .nav-menu li {
+            width: 100%;
+            text-align: center;
+          }
+
+          .nav-menu li a {
+            display: block;
+            padding: 14px 0;
+          }
+
+          .scroll-hint {
+            display: none;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .carousel-panel {
+            height: 300px !important;
+            min-height: 270px !important;
+          }
+
+          .glass-box {
+            padding: 18px 14px !important;
+          }
+
+          .view-indicator {
+            bottom: 14px;
+          }
+        }
+  </style>
+</head>
+
+<body>
+
+  <!-- ========================================================================
+       FIXED HEADER
+       ======================================================================== -->
+  <header class="header-6" id="main-header">
+    <div class="logo" onclick="window.location.href='index.html'">
+      <svg class="logo-svg" width="22" height="22" viewBox="0 0 32 32" fill="none">
+        <defs>
+          <linearGradient id="kGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#a5f3fc" />
+            <stop offset="45%" stop-color="#00f0ff" />
+            <stop offset="85%" stop-color="#0369a1" />
+            <stop offset="100%" stop-color="#082f49" />
+          </linearGradient>
+          <linearGradient id="kGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#38bdf8" />
+            <stop offset="50%" stop-color="#0284c7" />
+            <stop offset="100%" stop-color="#0c4a6e" />
+          </linearGradient>
+          <filter id="kGlow" x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow dx="0" dy="0" stdDeviation="1.5" flood-color="#00f0ff" flood-opacity="0.85" />
+          </filter>
+        </defs>
+        <g filter="url(#kGlow)">
+          <g id="petal">
+            <path d="M16 2.5 C10.8 2.5 7.2 6.5 8.2 11.2 C8.9 14.5 12.2 16.5 15.5 15.2 C13.5 13.2 12.8 8.8 16 2.5 Z"
+              fill="url(#kGrad1)" />
+            <path d="M16 2.5 C12.5 6 12.5 11 15.5 15.2 C14 14.5 10 12 9.5 9 C9 6 12 3 16 2.5 Z" fill="url(#kGrad2)"
+              opacity="0.85" />
+          </g>
+          <use href="#petal" transform="rotate(60 16 16)" />
+          <use href="#petal" transform="rotate(120 16 16)" />
+          <use href="#petal" transform="rotate(180 16 16)" />
+          <use href="#petal" transform="rotate(240 16 16)" />
+          <use href="#petal" transform="rotate(300 16 16)" />
+          <polygon points="16,13.2 18.4,14.6 18.4,17.4 16,18.8 13.6,17.4 13.6,14.6" fill="#060608" />
+        </g>
+      </svg>
+      <span class="logo-name">RASHMIKA</span>
+      <span class="logo-badge">ONLINE</span>
+    </div>
+
+    <button class="mobile-toggle" onclick="toggleNav()" aria-label="Toggle navigation">
+      [ MENU ]
+    </button>
+
+    <nav>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="index.html" id="nav-home">Home</a></li>
+        <li><a href="index.html#about" id="nav-about">About</a></li>
+        <li><a href="projects_section.html" id="nav-projects">Projects</a></li>
+        <li><a href="learnings.html" id="nav-courses">Learnings</a></li>
+        <li><a href="events.html" id="nav-events" class="active">Events</a></li>
+        <li><a href="contact.html" id="nav-contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ========================================================================
+       MAIN SPLIT VIEW
+       ======================================================================== -->
+  <div class="split-layout">
+
+    <!-- LEFT: RADIAL CIRCULAR CAROUSEL -->
+    <main class="carousel-panel">
+      <div id="gallery-container">
+        <div class="hub-ring"></div>
+        <div class="wheel-container" id="wheelContainer"></div>
+        <div class="radial-scroll-hint"><span>⟳</span> SCROLL TO SPIN</div>
+      </div>
+    </main>
+
+    <!-- RIGHT PANEL: MATTE GLASS INFO BOX -->
+    <aside class="info-panel">
+      <div class="glass-box">
+
+        <!-- Header / Year / Status Tag -->
+        <div class="flex items-center justify-between pb-1.5 border-b border-white/10 shrink-0">
+          <span id="dyn-year"
+            class="dynamic-text text-neon font-mono text-xs tracking-[0.2em] uppercase font-bold flex items-center gap-2">
+            <span class="pulsing-dot"></span>
+            2024
+          </span>
+          <span id="dyn-status"
+            class="dynamic-text text-[10px] font-mono text-gray-400 uppercase tracking-widest bg-black/60 px-2 py-0.5 rounded border border-white/10">
+            ORGANIZING COMMITTEE
+          </span>
+        </div>
+
+        <!-- Course Title Slot (Fixed Height & Scaled Typography) -->
+        <div class="title-slot shrink-0">
+          <h2 id="dyn-title"
+            class="dynamic-text font-heading text-xl md:text-2xl text-white leading-tight font-extrabold uppercase">
+            CryptX 2.0 Designathon
+          </h2>
+        </div>
+
+        <!-- Course Objective & Description Slot (Fixed Height) -->
+        <div class="desc-slot shrink-0">
+          <p id="dyn-desc" class="dynamic-text text-gray-300 text-xs leading-relaxed font-sans">
+            Organizing Committee member for CryptX 2.0 Designathon by ICTS, Faculty of Technology, USJ. Coordinated
+            event operations, teamwork, and innovation-driven design thinking.
+          </p>
+        </div>
+
+        <!-- Competency & Skill Tags Slot (Fixed Height Single Strip) -->
+        <div id="dyn-tags" class="tags-slot dynamic-text shrink-0">
+          <!-- Tags injected dynamically -->
+        </div>
+
+        <!-- Navigation Controls: Prev / Next Buttons + Counter (Pinned at bottom) -->
+        <div class="mt-auto shrink-0 pt-2.5 border-t border-white/10">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <button id="btn-prev"
+                class="w-8 h-8 rounded bg-black/60 border border-gray-700 text-gray-300 hover:text-neon hover:border-neon transition-all flex items-center justify-center font-bold text-xs shadow-md active:scale-95"
+                aria-label="Previous event">
+                ◀
+              </button>
+              <button id="btn-next"
+                class="w-8 h-8 rounded bg-black/60 border border-gray-700 text-gray-300 hover:text-neon hover:border-neon transition-all flex items-center justify-center font-bold text-xs shadow-md active:scale-95"
+                aria-label="Next event">
+                ▶
+              </button>
+              <button id="btn-view-large"
+                class="w-8 h-8 rounded bg-black/60 border border-gray-700 text-gray-300 hover:text-neon hover:border-neon transition-all flex items-center justify-center font-bold text-sm shadow-md active:scale-95"
+                title="View Full Size Image (Click card or button)" aria-label="View Full Image">
+                ⤢
+              </button>
+            </div>
+            <span id="carousel-counter" class="text-xs font-mono text-neon font-bold tracking-widest">
+              01 / 08
+            </span>
+          </div>
+
+          <div
+            class="text-[9px] text-gray-500 font-mono tracking-widest uppercase flex items-center gap-1.5 opacity-70 mt-1.5">
+            <span class="text-gray-400">+</span>
+            CLICK CARD OR ⤢ TO ENLARGE · SCROLL TO SPIN
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- Bottom Dots Navigation -->
+  <div class="view-indicator">
+    <button class="dot-btn" onclick="window.location.href='index.html'" title="Home"></button>
+    <button class="dot-btn" onclick="window.location.href='index.html#about'" title="About"></button>
+    <button class="dot-btn" onclick="window.location.href='projects_section.html'" title="Projects"></button>
+    <button class="dot-btn" onclick="window.location.href='learnings.html'" title="Learnings"></button>
+    <button class="dot-btn active" title="Events"></button>
+    <button class="dot-btn" onclick="window.location.href='contact.html'" title="Contact"></button>
+  </div>
+
+  <!-- Scroll Hint -->
+  <div class="scroll-hint"><span>▼</span> SCROLL DOWN FOR CONTACT</div>
+
+  <!-- ========================================================================
+       FULLSCREEN IMAGE LIGHTBOX MODAL
+       ======================================================================== -->
+  <div id="imageModal" class="image-modal" aria-hidden="true">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+
+    <div class="modal-content">
+      <!-- Top Bar: Title & Close -->
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-badge" id="modalBadge">EVENT</span>
+          <h3 id="modalTitle" class="modal-title">Event Title</h3>
+          <span id="modalYear" class="modal-year">2024</span>
+        </div>
+        <button id="modalCloseBtn" class="modal-close" aria-label="Close image viewer">[ ✕ CLOSE ]</button>
+      </div>
+
+      <!-- Main Image Container -->
+      <div class="modal-img-wrapper">
+        <img id="modalImg" src="" alt="Full view" class="modal-img" />
+        <button id="modalPrevBtn" class="modal-nav-btn prev-btn" aria-label="Previous image">◀</button>
+        <button id="modalNextBtn" class="modal-nav-btn next-btn" aria-label="Next image">▶</button>
+      </div>
+
+      <!-- Footer Bar: Counter & Instruction -->
+      <div class="modal-footer">
+        <span id="modalCounter" class="modal-counter">01 / 08</span>
+        <span class="modal-hint">ESC OR CLICK OUTSIDE TO CLOSE · USE ◀ ▶ TO FLIP IMAGES</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       EVENTS DATA + RADIAL CAROUSEL SCRIPT
+       ======================================================================== -->
+  <script>
+    function toggleNav() {
+      document.getElementById('nav-menu').classList.toggle('active');
+    }
+
+    // ── REAL EVENT DATASET ──────────────────────────────────────────────────
+    const events = [
+      {
+        title: "CryptX 2.0 Designathon",
+        cardLabel: "CRYPTX 2.0",
+        year: "2024",
+        type: "organizing",
+        role: "Designathon Crew",
+        desc: "Organizing Committee member for CryptX 2.0 Designathon by ICTS, Faculty of Technology, USJ. Contributed to event operations, teamwork, and innovation-driven design thinking.",
+        tags: ["Designathon", "Event Management", "ICTS USJ", "Teamwork"],
+        result: "Organizing Committee",
+        image: "../Events/1-CryptX/cryptX.jpeg"
+      },
+      {
+        title: "IX 25 Designathon",
+        cardLabel: "IX 25 DESIGNATHON",
+        year: "2026",
+        type: "competition",
+        role: "Team Member - Binary Bots",
+        desc: "Member of team 'Binary Bots', achieving Top 10 finalists at IX 25 Designathon organized by IEEE IIT Student Branch. Explored XR technologies and conceptualized immersive user experiences.",
+        tags: ["XR Technologies", "UI/UX", "IEEE IIT", "Binary Bots"],
+        result: "Top 10 Finalist",
+        image: "../Events/2-IX/IX.jpeg"
+      },
+      {
+        title: "AlgoArena Programming",
+        cardLabel: "ALGOARENA",
+        year: "2024",
+        type: "competition",
+        role: "Competitor",
+        desc: "University algorithmic problem-solving competition organized by Leo Club of USJ and IEEE Computer Society. Competed in the qualifier round solving data structure and logic challenges.",
+        tags: ["Algorithms", "Problem Solving", "IEEE CS", "USJ"],
+        result: "Qualifier Round",
+        image: "../Events/3-AlgoArena/AlgoArena.jpeg"
+      },
+      {
+        title: "Smart Energy & IoT Module",
+        cardLabel: "SMART IOT MODULE",
+        year: "2024",
+        type: "exhibition",
+        role: "IoT & Systems Developer",
+        desc: "Smart IoT energy management module built for Digital Control Systems. Features real-time power monitoring, AWS IoT Core integration, React Native control app, and ML-based fault detection.",
+        tags: ["ESP32-S3", "AWS IoT Core", "React Native", "Machine Learning"],
+        result: "Project Exhibition",
+        image: "../Events/4-IOT Exhibition/iot.jpeg"
+      },
+      {
+        title: "Code with WIE 2025",
+        cardLabel: "CODE WITH WIE",
+        year: "2025",
+        type: "competition",
+        role: "Participant",
+        desc: "National competitive coding sprint organized by IEEE Women in Engineering Sri Lanka. Successfully qualified and completed Stage 1 Qualifier Round.",
+        tags: ["Coding Competition", "IEEE WIE", "Online Hackathon"],
+        result: "Qualifier Round",
+        image: "../Events/5-IEEE Competition/banner.jpeg"
+      },
+      {
+        title: "ICIET 2024 Pre-Conference",
+        cardLabel: "ICIET WORKSHOP",
+        year: "2024",
+        type: "workshop",
+        role: "Participant",
+        desc: "Participated in the pre-conference workshop 'Becoming an Influencer in Your Field' at the International Conference on Innovation & Emerging Technologies 2024, Faculty of Technology, USJ.",
+        tags: ["Emerging Tech", "Professional Branding", "ICIET 2024"],
+        result: "Certificate of Participation",
+        image: "../Events/6,7-WorkShops/ICTS_Workshop.png"
+      },
+      {
+        title: "Personal Finance Hustle",
+        cardLabel: "FINANCE HUSTLE",
+        year: "2025",
+        type: "workshop",
+        role: "Participant",
+        desc: "Participated in the student empowerment session 'Personal Finance Hustle for Students' by Project Glow-up, organized by the WIE Student Branch Affinity Group of IEEE, USJ.",
+        tags: ["Financial Literacy", "Project Glow-up", "IEEE WIE USJ"],
+        result: "Certificate of Participation",
+        image: "../Events/6,7-WorkShops/IEEE_workshop.png"
+      },
+      {
+        title: "Modern UI/UX Philosophies",
+        cardLabel: "UI/UX WORKSHOP",
+        year: "2025",
+        type: "workshop",
+        role: "Participant",
+        desc: "Attended hands-on design workshop by Mr. Mino Gallawatta (Associate Lead, UX Design at ATMOZ) at IIT Premises, exploring design thinking and modern UI/UX principles organized by IEEE IIT.",
+        tags: ["UI/UX Design", "Design Thinking", "IEEE IIT"],
+        result: "Workshop Session",
+        image: "../Events/6,7-WorkShops/IX workshop.jpeg"
+      }
+    ];
+
+    // ── RADIAL CAROUSEL ENGINE ────────────────────────────────────────────────
+    const wheelContainer = document.getElementById('wheelContainer');
+    const numCards = events.length;
+    const degInc = 360 / numCards;
+
+    let currentIndex = 0;
+    let isAnimating = false;
+    let cards = [];
+
+    const dynYear = document.getElementById('dyn-year');
+    const dynStatus = document.getElementById('dyn-status');
+    const dynTitle = document.getElementById('dyn-title');
+    const dynDesc = document.getElementById('dyn-desc');
+    const dynTags = document.getElementById('dyn-tags');
+    const counterEl = document.getElementById('carousel-counter');
+    const btnPrev = document.getElementById('btn-prev');
+    const btnNext = document.getElementById('btn-next');
+
+    // Build cards
+    events.forEach((ev, i) => {
+      const angle = i * degInc;
+      const card = document.createElement('div');
+      card.className = 'radial-card';
+      card.style.setProperty('--rot', `${angle}deg`);
+
+      const img = document.createElement('img');
+      img.src = ev.image;
+      img.alt = ev.title;
+      card.appendChild(img);
+
+      const label = document.createElement('div');
+      label.className = 'card-label';
+      label.textContent = ev.cardLabel || (ev.title.length > 20 ? ev.title.slice(0, 18) + '…' : ev.title);
+      card.appendChild(label);
+
+      const zoomBtn = document.createElement('button');
+      zoomBtn.className = 'card-zoom-btn';
+      zoomBtn.type = 'button';
+      zoomBtn.textContent = '⤢ ENLARGE';
+      zoomBtn.title = 'Enlarge Image';
+      zoomBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openModal(i);
+      });
+      card.appendChild(zoomBtn);
+
+      card.addEventListener('click', () => {
+        if (isAnimating) return;
+        const active = ((currentIndex % numCards) + numCards) % numCards;
+        let diff = i - active;
+        if (diff > numCards / 2) diff -= numCards;
+        if (diff < -numCards / 2) diff += numCards;
+        if (diff !== 0) {
+          currentIndex += diff;
+          triggerLock();
+        }
+        // Normal click on active card does nothing (enlarge only via enlarge button)
+      });
+
+      wheelContainer.appendChild(card);
+      cards.push(card);
+    });
+
+    function updateGallery() {
+      wheelContainer.style.transform = `rotate(${-currentIndex * degInc}deg)`;
+      const active = ((currentIndex % numCards) + numCards) % numCards;
+
+      cards.forEach((c, i) => {
+        i === active ? c.classList.add('active') : c.classList.remove('active');
+      });
+
+      const textElements = [dynTitle, dynYear, dynStatus, dynDesc, dynTags];
+      textElements.forEach(el => el.classList.add('fade-out'));
+
+      setTimeout(() => {
+        const ev = events[active];
+
+        dynTitle.innerText = ev.title;
+        dynYear.innerHTML = `<span class="pulsing-dot"></span>${ev.year}`;
+        dynStatus.innerText = ev.result ? ev.result.toUpperCase() : ev.type.toUpperCase();
+        dynDesc.innerText = ev.desc;
+
+        const roleTag = `<span class="event-tag-pill role-accent">${ev.role}</span>`;
+        const otherTags = ev.tags.map(t =>
+          `<span class="event-tag-pill">${t}</span>`
+        ).join('');
+        dynTags.innerHTML = roleTag + otherTags;
+
+        const pad = n => String(n + 1).padStart(2, '0');
+        counterEl.innerText = `${pad(active)} / ${pad(numCards)}`;
+
+        textElements.forEach(el => el.classList.remove('fade-out'));
+      }, 150);
+    }
+
+    function triggerLock() {
+      updateGallery();
+      isAnimating = true;
+      setTimeout(() => { isAnimating = false; }, 560);
+    }
+
+    btnPrev.addEventListener('click', () => { if (!isAnimating) { currentIndex--; triggerLock(); } });
+    btnNext.addEventListener('click', () => { if (!isAnimating) { currentIndex++; triggerLock(); } });
+
+    // ── LIGHTBOX MODAL LOGIC ────────────────────────────────────────────────
+    let modalIndex = 0;
+    let isModalOpen = false;
+
+    const imageModal = document.getElementById('imageModal');
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBadge = document.getElementById('modalBadge');
+    const modalYear = document.getElementById('modalYear');
+    const modalCounter = document.getElementById('modalCounter');
+    const modalPrevBtn = document.getElementById('modalPrevBtn');
+    const modalNextBtn = document.getElementById('modalNextBtn');
+    const btnViewLarge = document.getElementById('btn-view-large');
+
+    function openModal(index) {
+      modalIndex = ((index % numCards) + numCards) % numCards;
+      const ev = events[modalIndex];
+
+      modalImg.src = ev.image;
+      modalImg.alt = ev.title;
+      modalTitle.textContent = ev.title;
+      modalBadge.textContent = ev.result ? ev.result.toUpperCase() : ev.type.toUpperCase();
+      modalYear.textContent = ev.year;
+
+      const pad = n => String(n + 1).padStart(2, '0');
+      modalCounter.textContent = `${pad(modalIndex)} / ${String(numCards).padStart(2, '0')}`;
+
+      imageModal.classList.add('open');
+      imageModal.setAttribute('aria-hidden', 'false');
+      isModalOpen = true;
+    }
+
+    function closeModal() {
+      imageModal.classList.remove('open');
+      imageModal.setAttribute('aria-hidden', 'true');
+      isModalOpen = false;
+    }
+
+    function modalNext() {
+      modalIndex = (modalIndex + 1) % numCards;
+      openModal(modalIndex);
+      currentIndex = modalIndex;
+      triggerLock();
+    }
+
+    function modalPrev() {
+      modalIndex = ((modalIndex - 1) % numCards + numCards) % numCards;
+      openModal(modalIndex);
+      currentIndex = modalIndex;
+      triggerLock();
+    }
+
+    if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+    if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
+    if (modalNextBtn) modalNextBtn.addEventListener('click', (e) => { e.stopPropagation(); modalNext(); });
+    if (modalPrevBtn) modalPrevBtn.addEventListener('click', (e) => { e.stopPropagation(); modalPrev(); });
+    if (btnViewLarge) {
+      btnViewLarge.addEventListener('click', () => {
+        const active = ((currentIndex % numCards) + numCards) % numCards;
+        openModal(active);
+      });
+    }
+
+    // Helper for smooth, glitch-free section transition
+    let isNavigatingSection = false;
+    function transitionTo(url) {
+      if (isNavigatingSection) return;
+      isNavigatingSection = true;
+      const layout = document.querySelector('.split-layout') || document.body;
+      layout.style.transition = 'opacity 0.22s ease';
+      layout.style.opacity = '0';
+      setTimeout(() => {
+        window.location.href = url;
+      }, 200);
+    }
+
+    // Mouse wheel
+    let wheelAcc = 0;
+    window.addEventListener('wheel', (e) => {
+      if (isModalOpen || isAnimating || isNavigatingSection) return;
+
+      const isOverCarousel = e.target.closest('#gallery-container') || e.target.closest('#wheelContainer') || e.target.closest('.carousel-panel');
+
+      if (isOverCarousel) {
+        wheelAcc += e.deltaY;
+        if (wheelAcc > 35) {
+          wheelAcc = 0;
+          const active = ((currentIndex % numCards) + numCards) % numCards;
+          if (active === numCards - 1) { transitionTo('contact.html'); }
+          else { currentIndex++; triggerLock(); }
+        } else if (wheelAcc < -35) {
+          wheelAcc = 0;
+          const active = ((currentIndex % numCards) + numCards) % numCards;
+          if (active === 0) { transitionTo('learnings.html'); }
+          else { currentIndex--; triggerLock(); }
+        }
+      } else {
+        // Outside radial carousel (header, background, info panel): move sections directly!
+        if (e.deltaY > 20) {
+          transitionTo('contact.html');
+        } else if (e.deltaY < -20) {
+          transitionTo('learnings.html');
+        }
+      }
+    }, { passive: true });
+
+    // Keyboard
+    window.addEventListener('keydown', (e) => {
+      if (isModalOpen) {
+        if (e.key === 'Escape') closeModal();
+        else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') modalNext();
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') modalPrev();
+        return;
+      }
+      if (isAnimating) return;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { currentIndex++; triggerLock(); }
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { currentIndex--; triggerLock(); }
+    });
+
+    // Touch / swipe
+    let touchStartX = 0;
+    window.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    window.addEventListener('touchend', e => {
+      if (isAnimating || isModalOpen) return;
+      const diff = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(diff) > 40) { diff < 0 ? currentIndex++ : currentIndex--; triggerLock(); }
+    }, { passive: true });
+
+    // Init
+    updateGallery();
+  </script>
+
+  <!-- Global Header Component & Interactive Splash Cursor Background -->
+  <script src="splash_cursor.js"></script>
+  <script src="header.js"></script>
+</body>
+
+</html>

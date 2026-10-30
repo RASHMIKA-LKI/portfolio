@@ -1,0 +1,1852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Ishan Rashmika | Portfolio</title>
+  <meta name="description" content="Connect with Ishan Rashmika — Game Developer & 3D Artist.">
+
+  <!-- Google Fonts: Orbitron & Roboto Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       BASE RESET & VARIABLES
+       ========================================================================== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #00f0ff;
+      --primary-glow: rgba(0, 240, 255, 0.4);
+      --bg: #050505;
+      --header-height: 80px;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100vh;
+      background-color: var(--bg);
+      color: #ffffff;
+      font-family: 'Orbitron', sans-serif;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    /* Ambient Cyber Grid */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 240, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ==========================================================================
+       FIXED HEADER
+       ========================================================================== */
+    .header-6 {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: var(--header-height);
+      padding: 0 60px;
+      background: linear-gradient(180deg, rgba(10, 10, 12, 0.95) 0%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0) 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .header-6::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 5%;
+      width: 90%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(0, 240, 255, 0.25), transparent);
+      pointer-events: none;
+    }
+
+    .logo {
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .logo .logo-svg {
+      flex-shrink: 0;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease;
+    }
+
+    .logo:hover .logo-svg {
+      transform: rotate(60deg) scale(1.08);
+      filter: drop-shadow(0 0 8px #00f0ff);
+    }
+
+    .logo .logo-name {
+      color: #ffffff;
+      text-shadow: 0 0 8px rgba(0, 240, 255, 0.85), 0 0 18px rgba(0, 240, 255, 0.5);
+      transition: text-shadow 0.3s ease;
+    }
+
+    .logo:hover .logo-name {
+      text-shadow: 0 0 12px rgba(0, 240, 255, 1), 0 0 24px rgba(0, 240, 255, 0.8);
+    }
+
+    .logo .logo-badge {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 9px;
+      padding: 1px 5px;
+      border: 1px solid #22c55e;
+      color: #4ade80;
+      border-radius: 2px;
+      margin-left: 4px;
+      letter-spacing: 1px;
+      line-height: 1.2;
+      text-shadow: 0 0 6px rgba(34, 197, 94, 0.7);
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.25);
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 45px;
+      align-items: center;
+    }
+
+    .nav-menu li a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 10px 5px;
+      position: relative;
+      cursor: pointer;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .nav-menu li a::before {
+      content: '[';
+      position: absolute;
+      left: -15px;
+      color: var(--primary);
+      opacity: 0;
+      transform: translateX(10px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-menu li a::after {
+      content: ']';
+      position: absolute;
+      right: -15px;
+      color: var(--primary);
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes headerBlinkText {
+      0% {
+        color: #ffffff;
+        text-shadow: none;
+      }
+      20% {
+        color: #ffffff;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      }
+      42% {
+        color: rgba(255, 255, 255, 0.35);
+        text-shadow: none;
+      }
+      65% {
+        color: #ffffff;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      }
+      82% {
+        color: rgba(255, 255, 255, 0.35);
+        text-shadow: none;
+      }
+      92%, 100% {
+        color: var(--primary);
+        text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+      }
+    }
+    @keyframes headerBlinkBracket {
+      0% {
+        opacity: 0;
+        color: #ffffff;
+        text-shadow: none;
+      }
+      20% {
+        opacity: 1;
+        color: #ffffff;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      }
+      42% {
+        opacity: 0.3;
+        color: rgba(255, 255, 255, 0.35);
+        text-shadow: none;
+      }
+      65% {
+        opacity: 1;
+        color: #ffffff;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      }
+      82% {
+        opacity: 0.3;
+        color: rgba(255, 255, 255, 0.35);
+        text-shadow: none;
+      }
+      92%, 100% {
+        opacity: 1;
+        color: var(--primary);
+        text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+      }
+    }
+    .nav-menu li a.active {
+      color: var(--primary);
+      text-shadow: 0 0 12px rgba(0, 240, 255, 0.7);
+    }
+    .nav-menu li a.active::before,
+    .nav-menu li a.active::after {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .nav-menu li a:hover {
+      animation: headerBlinkText 0.22s ease-out forwards;
+    }
+    .nav-menu li a:hover::before,
+    .nav-menu li a:hover::after {
+      opacity: 1;
+      transform: translateX(0);
+      animation: headerBlinkBracket 0.22s ease-out forwards;
+    }
+
+    .mobile-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      padding: 8px 12px;
+      cursor: pointer;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ==========================================================================
+       SECTION LABEL (floating top-left tag, matches other pages)
+       ========================================================================== */
+    .section-label {
+      position: fixed;
+      top: calc(var(--header-height) + 16px);
+      left: 40px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 4px;
+      color: var(--primary);
+      text-transform: uppercase;
+      opacity: 0.6;
+      z-index: 50;
+    }
+
+    /* ==========================================================================
+       SPLIT LAYOUT (CONTACT SECTION)
+       ========================================================================== */
+    .split-container {
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+      padding-top: var(--header-height);
+      padding-bottom: 40px;
+      align-items: center;
+      justify-content: space-evenly;
+      position: relative;
+      z-index: 1;
+      box-sizing: border-box;
+    }
+
+    /* LEFT SIDE: PARTICLE ZONE */
+    .left-panel {
+      flex: 0 0 42%;
+      max-width: 580px;
+      height: 100%;
+      position: relative;
+      left: -40px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Floating left-panel HUD badges */
+    .panel-hud-tl {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      color: rgba(0, 240, 255, 0.55);
+      text-transform: uppercase;
+      z-index: 5;
+      pointer-events: none;
+      line-height: 1.8;
+    }
+
+    .panel-hud-br {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.2);
+      text-transform: uppercase;
+      z-index: 5;
+      pointer-events: none;
+      text-align: right;
+      line-height: 1.8;
+    }
+
+    /* Corner accent marks (matches cyber-frame in index.html) */
+    .corner-tl, .corner-br {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .corner-tl {
+      top: 16px; left: 16px;
+      border-top: 2px solid var(--primary);
+      border-left: 2px solid var(--primary);
+    }
+    .corner-br {
+      bottom: 16px; right: 16px;
+      border-bottom: 2px solid var(--primary);
+      border-right: 2px solid var(--primary);
+    }
+
+    #canvas-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    /* RIGHT SIDE: CONTACT MENU */
+    .right-panel {
+      flex: 0 0 46%;
+      max-width: 620px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      padding: 0;
+    }
+
+    /* Corner accents on right panel */
+    .right-panel .corner-tr {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 18px; height: 18px;
+      border-top: 2px solid rgba(0, 240, 255,0.4);
+      border-right: 2px solid rgba(0, 240, 255,0.4);
+      pointer-events: none;
+    }
+    .right-panel .corner-bl {
+      position: absolute;
+      bottom: 16px; left: 16px;
+      width: 18px; height: 18px;
+      border-bottom: 2px solid rgba(0, 240, 255,0.4);
+      border-left: 2px solid rgba(0, 240, 255,0.4);
+      pointer-events: none;
+    }
+
+    /* ==========================================================================
+       HUD GLASS BOX (wraps contact menu - modeled after learnings.html glass panel)
+       ========================================================================== */
+    .hud-glass-box {
+      position: relative;
+      width: 100%;
+      background: rgba(18, 18, 23, 0.78);
+      backdrop-filter: blur(24px) saturate(130%);
+      -webkit-backdrop-filter: blur(24px) saturate(130%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-left: 4px solid rgba(0, 240, 255, 0.4);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 240, 255, 0.06);
+      padding: 24px 28px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    /* Top-right corner accent */
+    .hud-glass-box::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 14px; height: 14px;
+      border-top: 2px solid var(--primary);
+      border-right: 2px solid var(--primary);
+      pointer-events: none;
+    }
+
+    /* Bottom scanline stripe */
+    .hud-glass-box::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), transparent);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    /* Top Header Bar */
+    .hud-header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 12px;
+    }
+
+    /* System label */
+    .hud-sys-label {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--primary);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hud-sys-label .status-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--primary);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--primary);
+      animation: dotBlink 1.2s infinite alternate ease-in-out;
+      flex-shrink: 0;
+    }
+
+    @keyframes dotBlink {
+      0%   { opacity: 0.3; transform: scale(0.8); }
+      100% { opacity: 1;   transform: scale(1.2); }
+    }
+
+    .hud-badge {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 10px;
+      padding: 3px 8px;
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      border-radius: 4px;
+      letter-spacing: 1.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      white-space: nowrap;
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+    }
+
+    .hud-contact-heading {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #ffffff;
+      line-height: 1.15;
+      margin-bottom: 30px;
+    }
+
+    .hud-contact-heading span {
+      color: var(--primary);
+      text-shadow: 0 0 18px rgba(0, 240, 255, 0.5);
+    }
+
+    /* Sub info line */
+    .hud-info-row {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 11px;
+      color: #71717a;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    /* Short blurb text */
+    .hud-blurb {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 12.5px;
+      color: #d1d5db;
+      line-height: 1.65;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .hud-blurb strong {
+      color: #ffffff;
+    }
+
+    /* HUD stat data blocks grid */
+    .hud-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 34px;
+    }
+
+    .hud-data-block {
+      background: #0e0e12;
+      border-left: 3px solid rgba(0, 240, 255, 0.4);
+      padding: 8px 12px;
+      border-radius: 2px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.25s ease;
+    }
+
+    .hud-data-block:hover {
+      background: #14141a;
+      border-left-color: rgba(0, 240, 255, 0.7);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 240, 255, 0.1);
+    }
+
+    .hud-data-label {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 9.5px;
+      color: #71717a;
+      letter-spacing: 1px;
+      margin-bottom: 3px;
+      text-transform: uppercase;
+    }
+
+    .hud-data-value {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .hud-data-value.accent { color: var(--primary); }
+    .hud-data-value.white  { color: #ffffff; }
+
+    /* Contact links divider line */
+    .contact-section-label {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 11px;
+      color: #71717a;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .menu-container {
+      width: 100%;
+      margin-bottom: 16px;
+    }
+
+    .contact-menu {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 12px 14px;
+      background: rgba(14, 14, 18, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 4px;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      color: #ffffff;
+      text-transform: uppercase;
+      text-decoration: none;
+      box-sizing: border-box;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      text-align: center;
+      user-select: none;
+      overflow: hidden;
+    }
+
+    .contact-item svg {
+      width: 19px;
+      height: 19px;
+      fill: #ffffff;
+      flex-shrink: 0;
+      transition: fill 0.25s ease, filter 0.25s ease;
+    }
+
+    /* Unavailable button state */
+    .contact-item.unavailable {
+      opacity: 0.38;
+      cursor: not-allowed;
+      border-color: rgba(255, 255, 255, 0.08);
+      background: rgba(14, 14, 18, 0.4);
+      color: rgba(255, 255, 255, 0.38);
+    }
+
+    .contact-item.unavailable svg {
+      fill: rgba(255, 255, 255, 0.35);
+      filter: none;
+    }
+
+    .contact-item.unavailable:hover {
+      animation: none !important;
+      border-color: rgba(255, 255, 255, 0.1);
+      box-shadow: none !important;
+      color: rgba(255, 255, 255, 0.38);
+      background: rgba(14, 14, 18, 0.4);
+    }
+
+    .contact-item.unavailable:hover svg {
+      animation: none !important;
+      fill: rgba(255, 255, 255, 0.35);
+      filter: none;
+    }
+
+    .contact-item.unavailable:hover::before,
+    .contact-item.unavailable:hover::after {
+      display: none !important;
+    }
+
+    /* Brackets sliding in on hover (matches header nav hover style) */
+    .contact-item::before {
+      content: '[';
+      position: absolute;
+      left: 8px;
+      color: var(--primary);
+      opacity: 0;
+      font-size: 14px;
+      font-weight: 900;
+      transform: translateX(-8px);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .contact-item::after {
+      content: ']';
+      position: absolute;
+      right: 8px;
+      color: var(--primary);
+      opacity: 0;
+      font-size: 14px;
+      font-weight: 900;
+      transform: translateX(8px);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ARCADE 3-STROBE BLINK HOVER ANIMATION FOR CONTACT & CV BUTTONS */
+    @keyframes btnBlinkBox {
+      0% {
+        border-color: rgba(255, 255, 255, 0.12);
+        box-shadow: none;
+        background: rgba(14, 14, 18, 0.7);
+      }
+      10% {
+        border-color: #ffffff;
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.12);
+      }
+      22% {
+        border-color: rgba(255, 255, 255, 0.12);
+        box-shadow: none;
+        background: rgba(14, 14, 18, 0.7);
+      }
+      36% {
+        border-color: #ffffff;
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.12);
+      }
+      50% {
+        border-color: rgba(255, 255, 255, 0.12);
+        box-shadow: none;
+        background: rgba(14, 14, 18, 0.7);
+      }
+      64% {
+        border-color: #ffffff;
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.12);
+      }
+      78% {
+        border-color: rgba(255, 255, 255, 0.12);
+        box-shadow: none;
+        background: rgba(14, 14, 18, 0.7);
+      }
+      90%, 100% {
+        border-color: var(--primary);
+        box-shadow: 0 0 16px rgba(0, 240, 255, 0.25);
+        background: rgba(0, 240, 255, 0.08);
+      }
+    }
+
+    @keyframes btnBlinkText {
+      0% {
+        color: #ffffff;
+        text-shadow: none;
+      }
+      10% {
+        color: #ffffff;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      }
+      22% {
+        color: rgba(255, 255, 255, 0.35);
+        text-shadow: none;
+      }
+      36% {
+        color: #ffffff;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      }
+      50% {
+        color: rgba(255, 255, 255, 0.35);
+        text-shadow: none;
+      }
+      64% {
+        color: #ffffff;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      }
+      78% {
+        color: rgba(255, 255, 255, 0.35);
+        text-shadow: none;
+      }
+      90%, 100% {
+        color: var(--primary);
+        text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+      }
+    }
+
+    @keyframes btnBlinkSvg {
+      0% {
+        fill: #ffffff;
+        filter: none;
+      }
+      10% {
+        fill: #ffffff;
+        filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+      }
+      22% {
+        fill: rgba(255, 255, 255, 0.35);
+        filter: none;
+      }
+      36% {
+        fill: #ffffff;
+        filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+      }
+      50% {
+        fill: rgba(255, 255, 255, 0.35);
+        filter: none;
+      }
+      64% {
+        fill: #ffffff;
+        filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+      }
+      78% {
+        fill: rgba(255, 255, 255, 0.35);
+        filter: none;
+      }
+      90%, 100% {
+        fill: var(--primary);
+        filter: drop-shadow(0 0 6px var(--primary));
+      }
+    }
+
+    @keyframes btnBlinkBracket {
+      0% {
+        opacity: 0;
+        color: #ffffff;
+        text-shadow: none;
+      }
+      10% {
+        opacity: 1;
+        color: #ffffff;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      }
+      22% {
+        opacity: 0.3;
+        color: rgba(255, 255, 255, 0.35);
+        text-shadow: none;
+      }
+      36% {
+        opacity: 1;
+        color: #ffffff;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      }
+      50% {
+        opacity: 0.3;
+        color: rgba(255, 255, 255, 0.35);
+        text-shadow: none;
+      }
+      64% {
+        opacity: 1;
+        color: #ffffff;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      }
+      78% {
+        opacity: 0.3;
+        color: rgba(255, 255, 255, 0.35);
+        text-shadow: none;
+      }
+      90%, 100% {
+        opacity: 1;
+        color: var(--primary);
+        text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+      }
+    }
+
+    .contact-item.active {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: rgba(0, 240, 255, 0.08);
+      box-shadow: 0 0 16px rgba(0, 240, 255, 0.25);
+      text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+    }
+
+    .contact-item.active svg {
+      fill: var(--primary);
+      filter: drop-shadow(0 0 6px var(--primary));
+    }
+
+    .contact-item.active::before,
+    .contact-item.active::after {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .contact-item:hover {
+      animation: btnBlinkBox 0.28s ease-out forwards, btnBlinkText 0.28s ease-out forwards;
+    }
+
+    .contact-item:hover svg {
+      animation: btnBlinkSvg 0.28s ease-out forwards;
+    }
+
+    .contact-item:hover::before,
+    .contact-item:hover::after {
+      opacity: 1;
+      transform: translateX(0);
+      animation: btnBlinkBracket 0.28s ease-out forwards;
+    }
+
+    /* Download CV Button (single-line, matching hover effect) */
+    .cv-download-container {
+      width: 100%;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .cv-download-btn {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 16px;
+      background: rgba(14, 14, 18, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 4px;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      color: #ffffff;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      text-align: center;
+      user-select: none;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .cv-download-btn svg {
+      width: 19px;
+      height: 19px;
+      fill: #ffffff;
+      flex-shrink: 0;
+      transition: fill 0.25s ease, filter 0.25s ease;
+    }
+
+    .cv-download-btn::before {
+      content: '[';
+      position: absolute;
+      left: 14px;
+      color: var(--primary);
+      opacity: 0;
+      font-size: 14px;
+      font-weight: 900;
+      transform: translateX(-8px);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .cv-download-btn::after {
+      content: ']';
+      position: absolute;
+      right: 14px;
+      color: var(--primary);
+      opacity: 0;
+      font-size: 14px;
+      font-weight: 900;
+      transform: translateX(8px);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .cv-download-btn:hover {
+      animation: btnBlinkBox 0.28s ease-out forwards, btnBlinkText 0.28s ease-out forwards;
+    }
+
+    .cv-download-btn:hover svg {
+      animation: btnBlinkSvg 0.28s ease-out forwards;
+    }
+
+    .cv-download-btn:hover::before,
+    .cv-download-btn:hover::after {
+      opacity: 1;
+      transform: translateX(0);
+      animation: btnBlinkBracket 0.28s ease-out forwards;
+    }
+
+    /* ==========================================================================
+       BOTTOM STATUS BAR (matches HUD readout style from other pages)
+       ========================================================================== */
+    .status-bar {
+      position: fixed;
+      bottom: 60px;
+      left: 40px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.2);
+      text-transform: uppercase;
+      z-index: 50;
+      line-height: 1.9;
+      pointer-events: none;
+    }
+
+    .status-bar .status-val {
+      color: rgba(0, 240, 255, 0.45);
+    }
+
+    /* ==========================================================================
+       VERTICAL BARRIER LINE (ALIGNED EXACTLY WHERE LEFT INDICATOR LINE STARTS)
+       ========================================================================== */
+    #cursor-barrier {
+      position: fixed;
+      top: 15%;
+      height: 70%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(0, 240, 255, 0.25), transparent);
+      z-index: 30;
+      pointer-events: none;
+    }
+
+    @media (max-width: 900px) {
+      #cursor-barrier {
+        display: none !important;
+      }
+    }
+
+    /* ==========================================================================
+       BOTTOM NAVIGATION DOTS
+       ========================================================================== */
+    .view-indicator {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      z-index: 50;
+      align-items: center;
+    }
+
+    .dot-btn {
+      width: 28px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .dot-btn.active {
+      background: var(--primary);
+      box-shadow: 0 0 10px var(--primary);
+      width: 44px;
+    }
+
+    /* Scroll hint */
+    .scroll-hint {
+      position: fixed;
+      bottom: 24px;
+      right: 40px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 50;
+    }
+
+    .scroll-hint span {
+      color: var(--primary);
+      animation: hintPulse 1.5s infinite;
+    }
+
+    @keyframes hintPulse {
+      0%, 100% { opacity: 0.4; transform: translateY(0); }
+      50%       { opacity: 1;   transform: translateY(-3px); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      body {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        height: auto !important;
+        min-height: 100vh;
+      }
+      .split-container {
+        flex-direction: column !important;
+        height: auto !important;
+        min-height: 100vh;
+        padding-top: var(--header-height);
+        padding-bottom: 50px;
+      }
+      .left-panel {
+        left: 0 !important;
+        flex: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 320px !important;
+        min-height: 280px !important;
+        border-bottom: 1px dotted rgba(255, 255, 255, 0.25);
+        position: relative;
+      }
+      .right-panel {
+        flex: none !important;
+        width: 100% !important;
+        max-width: 560px !important;
+        margin: 0 auto;
+        border-left: none;
+        padding: 30px 16px 60px 16px !important;
+      }
+      .hud-glass-box {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 24px 18px !important;
+      }
+      .hud-stat-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+      }
+      .contact-menu {
+        gap: 8px;
+      }
+      .contact-item,
+      .cv-download-btn {
+        padding: 10px 8px;
+        font-size: 10.5px;
+        gap: 7px;
+        letter-spacing: 1.2px;
+      }
+      .contact-item svg,
+      .cv-download-btn svg {
+        width: 16px;
+        height: 16px;
+      }
+      .contact-item::before,
+      .contact-item::after {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-6 { padding: 0 20px; }
+      .mobile-toggle { display: block; }
+      .nav-menu {
+        position: fixed;
+        top: var(--header-height);
+        left: 0; right: 0;
+        background: rgba(6, 6, 8, 0.98);
+        border-bottom: 2px solid var(--primary);
+        flex-direction: column;
+        gap: 20px;
+        padding: 25px 20px;
+        transform: translateY(-150%);
+        transition: transform 0.35s ease;
+        z-index: 99;
+      }
+      .nav-menu.open,
+      .nav-menu.active {
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .left-panel {
+        height: 260px !important;
+      }
+      .hud-contact-heading {
+        font-size: 1.6rem !important;
+      }
+      .hud-blurb {
+        font-size: 0.78rem !important;
+      }
+      .contact-item,
+      .cv-download-btn {
+        font-size: 9.5px !important;
+        padding: 8px 6px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       FIXED HEADER
+       ======================================================================== -->
+  <header class="header-6" id="main-header">
+    <div class="logo" onclick="window.location.href='index.html'">
+      <svg class="logo-svg" width="22" height="22" viewBox="0 0 32 32" fill="none">
+        <defs>
+          <linearGradient id="kGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#a5f3fc"/>
+            <stop offset="45%" stop-color="#00f0ff"/>
+            <stop offset="85%" stop-color="#0369a1"/>
+            <stop offset="100%" stop-color="#082f49"/>
+          </linearGradient>
+          <linearGradient id="kGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#38bdf8"/>
+            <stop offset="50%" stop-color="#0284c7"/>
+            <stop offset="100%" stop-color="#0c4a6e"/>
+          </linearGradient>
+          <filter id="kGlow" x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow dx="0" dy="0" stdDeviation="1.5" flood-color="#00f0ff" flood-opacity="0.85"/>
+          </filter>
+        </defs>
+        <g filter="url(#kGlow)">
+          <g id="petal">
+            <path d="M16 2.5 C10.8 2.5 7.2 6.5 8.2 11.2 C8.9 14.5 12.2 16.5 15.5 15.2 C13.5 13.2 12.8 8.8 16 2.5 Z" fill="url(#kGrad1)"/>
+            <path d="M16 2.5 C12.5 6 12.5 11 15.5 15.2 C14 14.5 10 12 9.5 9 C9 6 12 3 16 2.5 Z" fill="url(#kGrad2)" opacity="0.85"/>
+          </g>
+          <use href="#petal" transform="rotate(60 16 16)"/>
+          <use href="#petal" transform="rotate(120 16 16)"/>
+          <use href="#petal" transform="rotate(180 16 16)"/>
+          <use href="#petal" transform="rotate(240 16 16)"/>
+          <use href="#petal" transform="rotate(300 16 16)"/>
+          <polygon points="16,13.2 18.4,14.6 18.4,17.4 16,18.8 13.6,17.4 13.6,14.6" fill="#060608"/>
+        </g>
+      </svg>
+      <span class="logo-name">RASHMIKA</span>
+      <span class="logo-badge">ONLINE</span>
+    </div>
+
+    <button class="mobile-toggle" onclick="toggleNav()" aria-label="Toggle navigation">
+      [ MENU ]
+    </button>
+
+    <nav>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="index.html"            id="nav-home">Home</a></li>
+        <li><a href="index.html#about"      id="nav-about">About</a></li>
+        <li><a href="projects_section.html" id="nav-projects">Projects</a></li>
+        <li><a href="learnings.html"        id="nav-courses">Learnings</a></li>
+        <li><a href="events.html"           id="nav-events">Events</a></li>
+        <li><a href="contact.html"          id="nav-contact" class="active">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+
+  <!-- ========================================================================
+       SPLIT CONTAINER
+       ======================================================================== -->
+  <div class="split-container">
+    
+    <!-- LEFT SIDE: Particle Zone -->
+    <div class="left-panel" id="particles-zone">
+      <div id="canvas-container"></div>
+    </div>
+
+    <!-- RIGHT SIDE: Contact Menu -->
+    <div class="right-panel">
+
+      <!-- HUD glass box wrapping the contact menu -->
+      <div class="hud-glass-box">
+
+        <!-- Top Header Status Bar (modeled after learnings.html header row) -->
+        <div class="hud-header-bar">
+          <div class="hud-sys-label">
+            <div class="status-dot"></div>
+            UPLINK // ONLINE
+          </div>
+          <span class="hud-badge">GAME DEVELOPER</span>
+        </div>
+
+        <!-- Big heading -->
+        <div class="hud-contact-heading">CONNECT<span>.</span>INIT</div>
+
+        <!-- Short blurb -->
+        <p class="hud-blurb">
+          Open to <strong>freelance projects</strong>, collaborations, and full-time opportunities.
+          Whether it's a Unity game, a 3D scene, or a complete interactive experience —
+          let's build something <strong>extraordinary</strong> together.
+        </p>
+
+        <!-- HUD stat data blocks -->
+        <div class="hud-stat-grid">
+          <div class="hud-data-block">
+            <div class="hud-data-label">STATUS</div>
+            <div class="hud-data-value accent">ONLINE</div>
+          </div>
+          <div class="hud-data-block">
+            <div class="hud-data-label">LOCATION</div>
+            <div class="hud-data-value white">SRI LANKA</div>
+          </div>
+          <div class="hud-data-block">
+            <div class="hud-data-label">RESPONSE</div>
+            <div class="hud-data-value accent">&lt; 24H</div>
+          </div>
+          <div class="hud-data-block">
+            <div class="hud-data-label">ROLE</div>
+            <div class="hud-data-value white">GAME DEV</div>
+          </div>
+        </div>
+
+        <!-- Contact links -->
+        <div class="menu-container">
+          <div class="contact-menu">
+            
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/ishan-rashmika-b65932298" target="_blank" rel="noopener noreferrer" class="contact-item" title="LinkedIn: ishan-rashmika">
+              <svg viewBox="0 0 24 24">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
+              <span>LINKEDIN</span>
+            </a>
+            
+            <!-- GitHub (Unavailable) -->
+            <div class="contact-item unavailable" title="GitHub: Currently Unavailable" aria-disabled="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+              <span>GITHUB</span>
+            </div>
+            
+            <!-- Email -->
+            <a href="mailto:ishanrashmika61@gmail.com" class="contact-item" title="Email: ishanrashmika61@gmail.com">
+              <svg viewBox="0 0 24 24">
+                <path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.866l5.6-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/>
+              </svg>
+              <span>EMAIL</span>
+            </a>
+
+          </div>
+        </div>
+
+        <!-- Download CV action (styled like contact buttons) -->
+        <div class="cv-download-container">
+          <a href="Ishan_Rashmika_CV.pdf" download="Ishan_Rashmika_CV.pdf" class="cv-download-btn" title="Download CV">
+            <svg viewBox="0 0 24 24">
+              <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+            </svg>
+            <span>DOWNLOAD CV</span>
+          </a>
+        </div>
+
+      </div>
+      <!-- END hud-glass-box -->
+    </div>
+    
+  </div>
+
+  <!-- Bottom HUD status readout -->
+  <div class="status-bar">
+    NODE // <span class="status-val">CONTACT</span> &nbsp;|&nbsp;
+    PING // <span class="status-val">12MS</span> &nbsp;|&nbsp;
+    STATUS // <span class="status-val">ONLINE</span>
+  </div>
+
+  <!-- Vertical Barrier Line for Cursor Interaction -->
+  <div id="cursor-barrier" class="cursor-barrier" aria-hidden="true"></div>
+
+  <!-- Bottom Page Dots Indicator -->
+  <div class="view-indicator">
+    <button class="dot-btn" onclick="window.location.href='index.html'" title="Home"></button>
+    <button class="dot-btn" onclick="window.location.href='index.html#about'" title="About"></button>
+    <button class="dot-btn" onclick="window.location.href='projects_section.html'" title="Projects"></button>
+    <button class="dot-btn" onclick="window.location.href='learnings.html'" title="Learnings"></button>
+    <button class="dot-btn active" title="Contact"></button>
+  </div>
+
+  <!-- Scroll hint -->
+  <div class="scroll-hint">
+    <span>▲</span> SCROLL UP TO RETURN TO LEARNINGS
+  </div>
+
+  <!-- ========================================================================
+       LOAD THREE.JS & EXACT PARTICLE ANIMATION FROM FINAL_LEVEL.HTML
+       ======================================================================== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <script>
+    // Mobile navigation toggle
+    function toggleNav() {
+      document.getElementById('nav-menu').classList.toggle('open');
+    }
+
+    // Contact Menu Active Toggle
+    const contactItems = document.querySelectorAll('.contact-item');
+    contactItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        if (item.classList.contains('unavailable')) {
+          e.preventDefault();
+          return;
+        }
+        const wasActive = item.classList.contains('active');
+        contactItems.forEach(i => i.classList.remove('active'));
+        if (!wasActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+
+    // Scroll up wheel -> back to events
+    let isReturning = false;
+    function transitionTo(url) {
+      if (isReturning) return;
+      isReturning = true;
+      const splitEl = document.querySelector('.split-container') || document.body;
+      splitEl.style.transition = 'opacity 0.22s ease';
+      splitEl.style.opacity = '0';
+      setTimeout(() => {
+        window.location.href = url;
+      }, 200);
+    }
+
+    window.addEventListener('wheel', (e) => {
+      if (e.deltaY < -15 && !isReturning) {
+        transitionTo('events.html');
+      }
+    }, { passive: true });
+
+    // Keyboard Up Arrow -> Back to Events
+    window.addEventListener('keydown', (e) => {
+      if ((e.key === 'ArrowUp' || e.key === 'PageUp') && !isReturning) {
+        e.preventDefault();
+        transitionTo('events.html');
+      }
+    });
+
+    /* ==========================================================================
+       EXACT PARTICLE MOVE ANIMATION CODE (from final_level.html)
+       ========================================================================== */
+    const container = document.getElementById('canvas-container');
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x050505);
+    scene.fog = new THREE.FogExp2(0x050505, 0.02);
+
+    const getWidth = () => container.clientWidth || window.innerWidth / 2;
+    const getHeight = () => container.clientHeight || window.innerHeight;
+
+    const camera = new THREE.PerspectiveCamera(45, getWidth() / getHeight(), 1, 1000);
+    const lookAtTarget = new THREE.Vector3(0, -0.6, 0);
+    camera.position.set(0, 1.2, 22);
+    camera.lookAt(lookAtTarget);
+
+    let targetCameraX = 0;
+    let targetCameraY = 1.2;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: false, powerPreference: "high-performance" });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(getWidth(), getHeight());
+    renderer.toneMapping = THREE.ReinhardToneMapping;
+    container.appendChild(renderer.domElement);
+
+    // --- Procedural Geometry Generation ---
+    const positions = [];
+    const colors = [];
+    const randoms = []; 
+    const normals = []; 
+
+    function addClippedEllipsoidVolume(rx, ry, rz, cx, cy, cz, density, clipYBottom) {
+        let count = 0;
+        for(let i = 0; count < density && i < density * 4; i++) {
+            let u = Math.random();
+            let v = Math.random();
+            let theta = 2 * Math.PI * u;
+            let phi = Math.acos(2 * v - 1);
+            
+            let r = Math.cbrt(Math.random()); 
+            
+            let x = r * rx * Math.sin(phi) * Math.cos(theta);
+            let y = r * ry * Math.sin(phi) * Math.sin(theta);
+            let z = r * rz * Math.cos(phi);
+            
+            if (y < clipYBottom) continue;
+            
+            x += cx;
+            y += cy;
+            z += cz;
+            
+            positions.push(x, y, z);
+            
+            let nx = (x - cx) / rx;
+            let ny = (y - cy) / ry;
+            let nz = (z - cz) / rz;
+            let len = Math.sqrt(nx*nx + ny*ny + nz*nz);
+            normals.push(nx/len, ny/len, nz/len);
+
+            colors.push(1.0, 1.0, 1.0);
+            randoms.push(Math.random());
+            
+            count++;
+        }
+    }
+
+    // Geometric Hologram Icon (Pill shape)
+    addClippedEllipsoidVolume(2.2, 2.2, 1.5,   0, 3.2, 0,   200000, -99.0); 
+    addClippedEllipsoidVolume(4.2, 4.2, 1.6,   0, -3.5, 0,  300000, 0.0);
+
+    const particleGeometry = new THREE.BufferGeometry();
+    particleGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    particleGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+    particleGeometry.setAttribute('aRandom', new THREE.Float32BufferAttribute(randoms, 1));
+    particleGeometry.setAttribute('aNormal', new THREE.Float32BufferAttribute(normals, 3));
+
+    // --- Custom Shader with Hardcoded Values ---
+    const TRAIL_COUNT = 15;
+    const mousePosTrail = [];
+    const mouseForceTrail = [];
+    const mouseVelTrail = []; 
+    for (let i = 0; i < TRAIL_COUNT; i++) {
+        mousePosTrail.push(new THREE.Vector3(0, 9999, 0));
+        mouseForceTrail.push(0.0);
+        mouseVelTrail.push(new THREE.Vector3(0, 0, 0));
+    }
+
+    const uniforms = {
+        time: { value: 0.0 },
+        waveSpeed: { value: 2.25 }, 
+        scanLineY: { value: 0.0 },
+        scanThickness: { value: 0.8 },
+        scanColor: { value: new THREE.Color(0xdce4f0) },
+        uMousePos: { value: mousePosTrail }, 
+        uMouseForce: { value: mouseForceTrail }, 
+        uMouseVelocity: { value: mouseVelTrail }, 
+        mouseRadius: { value: 3.5 }, 
+        baseSize: { value: 7.0 },    
+        particleDistance: { value: 0.285 }, 
+        userColor: { value: new THREE.Color(0xdce4ff) },
+        sunDirection: { value: new THREE.Vector3(1.0, 1.0, 0.8).normalize() }, 
+        uInteractionStyle: { value: 0 }, 
+        uShatterBrightness: { value: 2.4 }
+    };
+
+    const shaderMaterial = new THREE.ShaderMaterial({
+        uniforms: uniforms,
+        vertexColors: true,
+        transparent: true,
+        depthWrite: true,
+        vertexShader: `
+            uniform float time;
+            uniform float waveSpeed;
+            uniform float scanLineY;
+            uniform float scanThickness;
+            uniform vec3 uMousePos[15];
+            uniform float uMouseForce[15];
+            uniform vec3 uMouseVelocity[15]; 
+            uniform float mouseRadius;
+            uniform float baseSize;
+            uniform float particleDistance;
+            uniform vec3 userColor;
+            uniform vec3 sunDirection;
+            uniform int uInteractionStyle; 
+            
+            attribute float aRandom;
+            attribute vec3 aNormal; 
+            
+            varying vec3 vColor;
+            varying float vDist;
+            varying float vLightIntensity; 
+            varying float vShatterForce;
+            
+            vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+            vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+            vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
+            vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
+            float snoise(vec3 v) {
+              const vec2  C = vec2(1.0/6.0, 1.0/3.0) ;
+              const vec4  D = vec4(0.0, 0.5, 1.0, 2.0);
+              vec3 i  = floor(v + dot(v, C.yyy) );
+              vec3 x0 = v - i + dot(i, C.xxx) ;
+              vec3 g = step(x0.yzx, x0.xyz);
+              vec3 l = 1.0 - g;
+              vec3 i1 = min( g.xyz, l.zxy );
+              vec3 i2 = max( g.xyz, l.zxy );
+              vec3 x1 = x0 - i1 + C.xxx;
+              vec3 x2 = x0 - i2 + C.yyy;
+              vec3 x3 = x0 - D.yyy;
+              i = mod289(i);
+              vec4 p = permute( permute( permute(
+                         i.z + vec4(0.0, i1.z, i2.z, 1.0 ))
+                       + i.y + vec4(0.0, i1.y, i2.y, 1.0 ))
+                       + i.x + vec4(0.0, i1.x, i2.x, 1.0 ));
+              float n_ = 0.142857142857;
+              vec3  ns = n_ * D.wyz - D.xzx;
+              vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
+              vec4 x_ = floor(j * ns.z);
+              vec4 y_ = floor(j - 7.0 * x_ );
+              vec4 x = x_ *ns.x + ns.yyyy;
+              vec4 y = y_ *ns.x + ns.yyyy;
+              vec4 h = 1.0 - abs(x) - abs(y);
+              vec4 b0 = vec4( x.xy, y.xy );
+              vec4 b1 = vec4( x.zw, y.zw );
+              vec4 s0 = floor(b0)*2.0 + 1.0;
+              vec4 s1 = floor(b1)*2.0 + 1.0;
+              vec4 sh = -step(h, vec4(0.0));
+              vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy ;
+              vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww ;
+              vec3 p0 = vec3(a0.xy,h.x);
+              vec3 p1 = vec3(a0.zw,h.y);
+              vec3 p2 = vec3(a1.xy,h.z);
+              vec3 p3 = vec3(a1.zw,h.w);
+              vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
+              p0 *= norm.x;
+              p1 *= norm.y;
+              p2 *= norm.z;
+              p3 *= norm.w;
+              vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+              m = m * m;
+              return 42.0 * dot( m*m, vec4( dot(p0,x0), dot(p1,x1),
+                                            dot(p2,x2), dot(p3,x3) ) );
+            }
+            
+            void main() {
+                if (aRandom < particleDistance) {
+                    gl_Position = vec4(9999.0, 9999.0, 9999.0, 1.0);
+                    return;
+                }
+
+                vec3 worldNormal = normalize(mat3(modelMatrix) * aNormal);
+                float directionalLight = max(dot(worldNormal, sunDirection), 0.0);
+                vLightIntensity = 0.3 + (directionalLight * 0.7);
+
+                vColor = color * userColor;
+                
+                vec3 pos = position;
+                float t = time * waveSpeed;
+                
+                float noiseFreq = 1.2;
+                float nx = snoise(vec3(pos.x * noiseFreq, pos.y * noiseFreq - t * 0.8, pos.z * noiseFreq));
+                float ny = snoise(vec3(pos.x * noiseFreq + 43.0, pos.y * noiseFreq - t * 1.2, pos.z * noiseFreq - 17.0));
+                float nz = snoise(vec3(pos.x * noiseFreq - 12.0, pos.y * noiseFreq - t * 0.8, pos.z * noiseFreq + 23.0));
+                
+                vec3 noiseVec = vec3(nx, ny, nz);
+                float isDust = smoothstep(0.85, 1.0, aRandom); 
+                float amplitude = 0.12 + (isDust * 0.25);
+                
+                pos += noiseVec * amplitude;
+                
+                vec4 worldPosition = modelMatrix * vec4(pos, 1.0);
+                
+                vec3 cumulativeDir = vec3(0.0);
+                float totalForce = 0.0;
+                
+                for (int i = 0; i < 15; i++) {
+                    float mDist = distance(worldPosition.xyz, uMousePos[i]);
+                    if (mDist < mouseRadius && uMouseForce[i] > 0.001) {
+                        
+                        float force = (1.0 - (mDist / mouseRadius)) * uMouseForce[i];
+                        vec3 moveVel = uMouseVelocity[i];
+                        float speed = length(moveVel);
+                        vec3 moveDir = speed > 0.001 ? normalize(moveVel) : normalize(worldPosition.xyz - uMousePos[i]);
+                        
+                        vec3 randomSpray = vec3(sin(aRandom * 342.0 + t), cos(aRandom * 124.0 - t), sin(aRandom * 453.0 + t));
+                        float cluster = snoise(pos * 4.0); 
+                        vec3 scatterDir = normalize(moveDir * 1.0 + randomSpray * 1.2 + (aNormal * cluster * 0.5));
+                        float uniqueForce = force * (0.4 + aRandom * 1.2); 
+                        cumulativeDir += scatterDir * uniqueForce * (1.0 + speed * 0.8);
+                        totalForce += force;
+                    }
+                }
+                
+                if (totalForce > 0.0) {
+                    worldPosition.xyz += cumulativeDir * 2.5;
+                }
+                
+                vShatterForce = totalForce;
+                
+                vec4 mvPosition = viewMatrix * worldPosition;
+                
+                vDist = abs(worldPosition.y - scanLineY);
+                
+                float pSize = baseSize; 
+                if (vDist < scanThickness) {
+                    pSize += (1.0 - (vDist / scanThickness)) * (baseSize * 0.5);
+                }
+                
+                gl_PointSize = pSize * (15.0 / -mvPosition.z);
+                gl_Position = projectionMatrix * mvPosition;
+            }
+        `,
+        fragmentShader: `
+            uniform float scanThickness;
+            uniform vec3 scanColor;
+            uniform float uShatterBrightness;
+            
+            varying vec3 vColor;
+            varying float vDist;
+            varying float vLightIntensity;
+            varying float vShatterForce;
+            
+            void main() {
+                vec2 coord = gl_PointCoord - vec2(0.5);
+                float r = length(coord);
+                
+                if (r > 0.5) discard;
+                
+                float z = sqrt(max(0.25 - r * r, 0.0));
+                vec3 localNormal = normalize(vec3(coord.x, -coord.y, z));
+                vec3 localLightDir = normalize(vec3(1.0, 1.0, 1.5));
+                
+                float sphereShade = dot(localNormal, localLightDir) * 0.5 + 0.5;
+                
+                vec3 baseParticleColor = vColor * vLightIntensity;
+                vec3 finalColor = baseParticleColor * sphereShade + (vColor * vShatterForce * uShatterBrightness);
+                
+                if (vDist < scanThickness) {
+                    float intensity = 1.0 - (vDist / scanThickness);
+                    finalColor = mix(finalColor, scanColor, intensity * 0.6);
+                }
+                
+                gl_FragColor = vec4(finalColor, 1.0);
+            }
+        `
+    });
+
+    const particleSystem = new THREE.Points(particleGeometry, shaderMaterial);
+    particleSystem.scale.set(1.0, 1.0, 1.0);
+    particleSystem.position.y = -1.5;
+    scene.add(particleSystem);
+
+    let maxShatterForce = 0.04; 
+    let targetMouseForce = 0.0;
+    let mouseStopTimer = null;
+    let currentMousePos = new THREE.Vector3(0, 9999, 0);
+    let currentMouseVel = new THREE.Vector3(0, 0, 0); 
+    let isMouseActive = false;
+
+    // --- Animation Loop ---
+    const clock = new THREE.Clock();
+
+    function animate() {
+        requestAnimationFrame(animate);
+        
+        const time = clock.getElapsedTime();
+        
+        uniforms.time.value = time;
+        
+        for (let i = TRAIL_COUNT - 1; i > 0; i--) {
+            uniforms.uMousePos.value[i].copy(uniforms.uMousePos.value[i - 1]);
+            uniforms.uMouseVelocity.value[i].copy(uniforms.uMouseVelocity.value[i - 1]); 
+            uniforms.uMouseForce.value[i] = uniforms.uMouseForce.value[i - 1] * 0.98; 
+        }
+        
+        if (isMouseActive) {
+            uniforms.uMousePos.value[0].copy(currentMousePos);
+            uniforms.uMouseVelocity.value[0].copy(currentMouseVel); 
+        }
+        
+        uniforms.uMouseForce.value[0] += (targetMouseForce - uniforms.uMouseForce.value[0]) * 0.015;
+        uniforms.scanLineY.value = Math.sin(time * 1.2) * 5.0 - 1.5;
+        particleSystem.rotation.y = time * 0.65;
+
+        // Smooth camera drift matching mouse tracking
+        camera.position.x += (targetCameraX - camera.position.x) * 0.05;
+        camera.position.y += (targetCameraY - camera.position.y) * 0.05;
+        camera.lookAt(lookAtTarget);
+
+        renderer.render(scene, camera);
+    }
+
+    animate();
+
+    // --- Resize & Interaction Tracking ---
+    window.addEventListener('resize', () => {
+        const width = getWidth();
+        const height = getHeight();
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height);
+    });
+    
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+    const interactionPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0); 
+    const intersectPoint = new THREE.Vector3();
+
+    document.addEventListener('mousemove', (e) => {
+        const rect = container.getBoundingClientRect();
+        const mouseX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        const mouseY = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+        
+        targetCameraX = mouseX * 2;
+        targetCameraY = mouseY * 2 + 1.2;
+
+        mouse.set(mouseX, mouseY);
+        raycaster.setFromCamera(mouse, camera);
+        raycaster.ray.intersectPlane(interactionPlane, intersectPoint);
+        
+        if (intersectPoint) {
+            if (currentMousePos.y > 9000) currentMousePos.copy(intersectPoint);
+            currentMouseVel.subVectors(intersectPoint, currentMousePos);
+            
+            currentMousePos.copy(intersectPoint);
+            isMouseActive = true;
+            targetMouseForce = maxShatterForce; 
+            
+            clearTimeout(mouseStopTimer);
+            mouseStopTimer = setTimeout(() => {
+                targetMouseForce = 0.0;
+            }, 50);
+        }
+    });
+    
+    document.addEventListener('mouseleave', () => {
+        isMouseActive = false;
+        targetMouseForce = 0.0;
+        targetCameraX = 0;
+        targetCameraY = 1.2;
+    });
+
+    // Touch interaction for mobile devices
+    container.addEventListener('touchmove', (e) => {
+        if (!e.touches || !e.touches[0]) return;
+        const rect = container.getBoundingClientRect();
+        const touchX = ((e.touches[0].clientX - rect.left) / rect.width) * 2 - 1;
+        const touchY = -((e.touches[0].clientY - rect.top) / rect.height) * 2 + 1;
+        targetCameraX = touchX * 2;
+        targetCameraY = touchY * 2 + 1.2;
+        isMouseActive = true;
+        targetMouseForce = maxShatterForce * 0.7;
+        clearTimeout(mouseStopTimer);
+        mouseStopTimer = setTimeout(() => {
+            targetMouseForce = 0.0;
+        }, 80);
+    }, { passive: true });
+
+    /* ============================================================
+       CURSOR BARRIER POSITIONING & FLUID WALL ALIGNMENT
+       Aligns vertical barrier line exactly to start of left horizontal indicator
+       and anchors SplashCursor canvas so vertical line acts as a solid physical simulation wall
+    ============================================================ */
+    function updateCursorBarrier() {
+      const barrier = document.getElementById('cursor-barrier');
+      if (!barrier) return;
+      if (window.innerWidth <= 900) {
+        barrier.style.display = 'none';
+        const splash = document.querySelector('.splash-cursor');
+        if (splash) {
+          splash.style.left = '0';
+          splash.style.right = '0';
+          splash.style.width = '100vw';
+          splash.style.clipPath = 'none';
+        }
+        if (typeof window.__splashCursorResize === 'function') {
+          window.__splashCursorResize();
+        }
+        return;
+      }
+      barrier.style.display = 'block';
+      const firstDot = document.querySelector('.view-indicator .dot-btn');
+      if (firstDot) {
+        const startX = Math.round(firstDot.getBoundingClientRect().left);
+        barrier.style.left = startX + 'px';
+        const splash = document.querySelector('.splash-cursor');
+        if (splash) {
+          splash.style.clipPath = 'none';
+          splash.style.left = startX + 'px';
+          splash.style.right = '0';
+          splash.style.width = (window.innerWidth - startX) + 'px';
+          if (typeof window.__splashCursorResize === 'function') {
+            window.__splashCursorResize();
+          }
+        }
+      }
+    }
+
+    window.__updateCursorBarrier = updateCursorBarrier;
+    window.addEventListener('resize', updateCursorBarrier);
+    window.addEventListener('DOMContentLoaded', updateCursorBarrier);
+    window.addEventListener('load', updateCursorBarrier);
+    [50, 150, 300, 600, 1000].forEach(t => setTimeout(updateCursorBarrier, t));
+  </script>
+
+  <!-- Fluid Splash Background Effect -->
+  <script src="splash_cursor.js"></script>
+
+  <!-- Global Header Component -->
+  <script src="header.js"></script>
+</body>
+</html>

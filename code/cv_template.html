@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ishan Rashmika - Game Developer CV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 8mm 10mm 8mm 10mm;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', Roboto, Arial, sans-serif;
+      font-size: 7.6pt;
+      line-height: 1.35;
+      color: #1e293b;
+      background: #ffffff;
+    }
+
+    .cv { width: 100%; max-width: 190mm; margin: 0 auto; }
+
+    /* ── HEADER ── */
+    .hd {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 2.5px solid #0284c7;
+      padding-bottom: 6px;
+      margin-bottom: 7px;
+    }
+    .hd-left h1 {
+      font-family: 'Orbitron', monospace;
+      font-size: 17pt;
+      font-weight: 800;
+      color: #0c1a2e;
+      letter-spacing: 1px;
+      line-height: 1;
+    }
+    .hd-left .title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 8pt;
+      font-weight: 600;
+      color: #0284c7;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+    .hd-right {
+      text-align: right;
+      font-size: 7pt;
+      color: #475569;
+      line-height: 1.6;
+    }
+    .hd-right a { color: #0284c7; text-decoration: none; }
+
+    /* ── SECTION LABEL ── */
+    .sec {
+      margin-top: 6px;
+      margin-bottom: 3px;
+    }
+    .sec-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 7.5pt;
+      font-weight: 700;
+      color: #0284c7;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-bottom: 1px solid #bae6fd;
+      padding-bottom: 1px;
+    }
+
+    /* ── SUMMARY ── */
+    .summary {
+      font-size: 7.4pt;
+      color: #334155;
+      line-height: 1.4;
+    }
+
+    /* ── TWO COLUMN LAYOUT ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 14px;
+    }
+
+    /* ── SKILLS ── */
+    .skill-group {
+      margin-bottom: 2.5px;
+    }
+    .skill-group .sk-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 7pt;
+      color: #0c1a2e;
+      letter-spacing: 0.5px;
+    }
+    .skill-group .sk-val {
+      font-size: 7pt;
+      color: #475569;
+    }
+
+    /* ── PROJECTS ── */
+    .proj-category {
+      margin-bottom: 3px;
+    }
+    .proj-cat-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 7pt;
+      color: #0c1a2e;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      background: #f0f9ff;
+      border-left: 2px solid #0284c7;
+      padding: 0 4px;
+      display: inline-block;
+      margin-bottom: 1.5px;
+    }
+    .proj-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px 6px;
+    }
+    .proj-item {
+      font-size: 7pt;
+      color: #334155;
+    }
+    .proj-item .pn {
+      font-weight: 600;
+      color: #0c1a2e;
+    }
+    .proj-item .pt {
+      color: #64748b;
+      font-style: italic;
+    }
+    .proj-sep {
+      color: #94a3b8;
+      margin: 0 2px;
+    }
+
+    /* ── EVENTS TABLE ── */
+    .ev-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .ev-table td {
+      font-size: 6.9pt;
+      color: #334155;
+      padding: 1px 4px 1px 0;
+      vertical-align: top;
+    }
+    .ev-table .ev-name { font-weight: 600; color: #0c1a2e; width: 38%; }
+    .ev-table .ev-role { color: #475569; width: 30%; }
+    .ev-table .ev-org  { color: #64748b; width: 22%; }
+    .ev-table .ev-yr   { color: #0284c7; font-weight: 600; width: 10%; text-align: right; }
+
+    /* ── EDUCATION ── */
+    .edu-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .edu-deg {
+      font-weight: 700;
+      font-size: 7.5pt;
+      color: #0c1a2e;
+    }
+    .edu-sub {
+      font-size: 7pt;
+      color: #475569;
+    }
+    .edu-yr {
+      font-size: 7pt;
+      color: #0284c7;
+      font-weight: 600;
+    }
+
+    /* ── CERTS ── */
+    .cert-list {
+      font-size: 6.9pt;
+      color: #475569;
+    }
+    .cert-list span { color: #0c1a2e; font-weight: 600; }
+
+    /* ── FOOTER ── */
+    .cv-footer {
+      margin-top: 5px;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 3px;
+      font-family: 'Orbitron', monospace;
+      font-size: 5.5pt;
+      color: #94a3b8;
+      letter-spacing: 1.5px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div class="cv">
+
+  <!-- ═══════════════════ HEADER ═══════════════════ -->
+  <div class="hd">
+    <div class="hd-left">
+      <h1>ISHAN RASHMIKA</h1>
+      <div class="title">Game Developer &amp; 3D Artist &nbsp;//&nbsp; Sri Lanka</div>
+    </div>
+    <div class="hd-right">
+      ishanrashmika.dev@gmail.com<br>
+      <a href="https://linkedin.com/in/ishan-rashmika">linkedin.com/in/ishan-rashmika</a><br>
+      <a href="https://github.com/IshanRashmika">github.com/IshanRashmika</a><br>
+      <a href="https://ishanrashmika.vercel.app">ishanrashmika.vercel.app</a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ SUMMARY ═══════════════════ -->
+  <div class="sec"><div class="sec-label">Profile</div></div>
+  <div class="summary">
+    Passionate Game Developer and 3D Artist with hands-on experience building 15+ cross-platform projects spanning Unity 3D/2D games, Blender 3D art, desktop &amp; mobile applications, web platforms, and UI/UX design. Specializes in Unity C# gameplay systems, WheelCollider physics, AI pathfinding (NavMesh/FSM), and object pooling architectures. Bachelor of ICT (Hons.) student at University of Sri Jayewardenepura, actively contributing to tech events and competitions.
+  </div>
+
+  <!-- ═══════════════════ SKILLS + EDUCATION (2-col) ═══════════════════ -->
+  <div class="two-col">
+    <div>
+      <div class="sec"><div class="sec-label">Technical Skills</div></div>
+      <div class="skill-group"><span class="sk-label">Game Engines: </span><span class="sk-val">Unity 3D/2D (URP), Unity 6</span></div>
+      <div class="skill-group"><span class="sk-label">Languages: </span><span class="sk-val">C#, Python, Kotlin, JavaScript, SQL, HTML/CSS</span></div>
+      <div class="skill-group"><span class="sk-label">Game Systems: </span><span class="sk-val">Object Pooling, WheelCollider Physics, NavMesh, FSM AI, Spawner Systems, Procedural Logic</span></div>
+      <div class="skill-group"><span class="sk-label">3D &amp; Art: </span><span class="sk-val">Blender (Hard-Surface, Low-Poly, PBR Texturing), Figma (UI/UX Prototyping)</span></div>
+      <div class="skill-group"><span class="sk-label">App Dev: </span><span class="sk-val">Android Studio, Kotlin, Python (LLM/Agents), WordPress</span></div>
+      <div class="skill-group"><span class="sk-label">Tools: </span><span class="sk-val">Git, GitHub, VS Code, Unity Editor, Blender, Figma, Android Studio</span></div>
+    </div>
+    <div>
+      <div class="sec"><div class="sec-label">Education</div></div>
+      <div class="edu-row">
+        <span class="edu-deg">Bachelor of ICT (Honours)</span>
+        <span class="edu-yr">2022 – Present</span>
+      </div>
+      <div class="edu-sub">University of Sri Jayewardenepura (USJ) &nbsp;|&nbsp; Faculty of Technology</div>
+      <div class="edu-sub" style="margin-top:1px;">Specialty: Gameplay Systems &nbsp;|&nbsp; Core Engine: Unity 3D</div>
+
+      <div class="sec" style="margin-top:5px;"><div class="sec-label">Certifications</div></div>
+      <div class="cert-list">
+        <span>University of Michigan</span> — XR &amp; Extended Reality Specialization<br>
+        <span>Google</span> — UX Design Professional Certificate<br>
+        <span>AlgoArena 2024</span> — Qualifier Certificate (IEEE CS &amp; USJ Leo Club)<br>
+        <span>IEEE WIE</span> — Coding Sprint Stage 1 Qualifier Certificate
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ PROJECTS ═══════════════════ -->
+  <div class="sec"><div class="sec-label">Projects</div></div>
+
+  <!-- Unity Games -->
+  <div class="proj-category">
+    <div class="proj-cat-label">🎮 Unity Games</div>
+    <div class="proj-list">
+      <div class="proj-item"><span class="pn">Farm Shoot</span> <span class="pt">(Unity 2D)</span><span class="proj-sep">·</span>Tower defense wave shooter with object pooling &amp; spawner systems</div>
+      <div class="proj-item"><span class="pn">2D Space Shooter</span> <span class="pt">(Unity 2D)</span><span class="proj-sep">·</span>Retro arcade with bullet pooling, enemy FSM &amp; parallax scrolling</div>
+      <div class="proj-item"><span class="pn">Mini City</span> <span class="pt">(Unity 3D)</span><span class="proj-sep">·</span>Open city explorer with WheelCollider vehicle physics &amp; procedural traffic AI</div>
+      <div class="proj-item"><span class="pn">Sky Fighter</span> <span class="pt">(Unity 2D)</span><span class="proj-sep">·</span>Flight arcade game with dynamic enemy wave patterns &amp; power-up pickups</div>
+      <div class="proj-item"><span class="pn">Solar System</span> <span class="pt">(Unity 6 URP)</span><span class="proj-sep">·</span>Astronomy simulation with orbital mechanics, URP shaders &amp; real-scale data</div>
+      <div class="proj-item"><span class="pn">Store Simulation 3D</span> <span class="pt">(Unity 3D)</span><span class="proj-sep">·</span>Retail sim with NPC customer AI, NavMesh pathfinding &amp; inventory systems</div>
+    </div>
+  </div>
+
+  <!-- Blender 3D -->
+  <div class="proj-category">
+    <div class="proj-cat-label">🖥️ Blender 3D Art</div>
+    <div class="proj-list">
+      <div class="proj-item"><span class="pn">Sci-Fi Corridor</span> <span class="pt">(Blender)</span><span class="proj-sep">·</span>Modular hard-surface environment with PBR materials &amp; HDRI lighting</div>
+      <div class="proj-item"><span class="pn">Fantasy Village</span> <span class="pt">(Blender)</span><span class="proj-sep">·</span>Low-poly environment art pack; optimized for real-time game engines</div>
+      <div class="proj-item"><span class="pn">Fighter Ship</span> <span class="pt">(Blender)</span><span class="proj-sep">·</span>Sci-fi hard-surface spacecraft with full UV unwrap &amp; PBR texture baking</div>
+    </div>
+  </div>
+
+  <!-- Apps -->
+  <div class="proj-category">
+    <div class="proj-cat-label">📱 Applications</div>
+    <div class="proj-list">
+      <div class="proj-item"><span class="pn">Focus Desktop / D-Task Tracker</span> <span class="pt">(Desktop)</span><span class="proj-sep">·</span>Productivity task tracker with Pomodoro timer &amp; session analytics</div>
+      <div class="proj-item"><span class="pn">Xian Desktop AI</span> <span class="pt">(Python/LLM)</span><span class="proj-sep">·</span>Autonomous AI desktop agent leveraging local LLM for task automation</div>
+      <div class="proj-item"><span class="pn">Gym Pulse</span> <span class="pt">(Android/Kotlin)</span><span class="proj-sep">·</span>Fitness tracker mobile app with workout logging &amp; progress charts</div>
+      <div class="proj-item"><span class="pn">Travel Track</span> <span class="pt">(Android/Kotlin)</span><span class="proj-sep">·</span>Off-grid mesh-network travel companion for location sharing without internet</div>
+    </div>
+  </div>
+
+  <!-- Websites -->
+  <div class="proj-category">
+    <div class="proj-cat-label">🌐 Websites</div>
+    <div class="proj-list">
+      <div class="proj-item"><span class="pn">ICT GPA Calculator</span> <span class="pt">(Web App)</span><span class="proj-sep">·</span>University result &amp; GPA calculation system for ICT undergraduates</div>
+      <div class="proj-item"><span class="pn">Play_Chat</span> <span class="pt">(In Dev)</span><span class="proj-sep">·</span>Gamified real-time chat platform with XP system &amp; leaderboard mechanics</div>
+      <div class="proj-item"><span class="pn">WordPress Portfolio</span> <span class="pt">(WordPress)</span><span class="proj-sep">·</span>Professional UI/UX design showcase built on WordPress with custom theme</div>
+    </div>
+  </div>
+
+  <!-- UI/UX -->
+  <div class="proj-category">
+    <div class="proj-cat-label">🎨 UI / UX Design</div>
+    <div class="proj-list">
+      <div class="proj-item"><span class="pn">CeylonTour</span> <span class="pt">(Figma)</span><span class="proj-sep">·</span>Travel app UI — full user flow, component library &amp; interactive prototype</div>
+      <div class="proj-item"><span class="pn">DCS PowerMonitor</span> <span class="pt">(Figma)</span><span class="proj-sep">·</span>Power SCADA dashboard UI with real-time data visualization panels</div>
+      <div class="proj-item"><span class="pn">EasyReserve</span> <span class="pt">(Figma)</span><span class="proj-sep">·</span>Restaurant reservation app with table selection map &amp; booking flow</div>
+      <div class="proj-item"><span class="pn">EventVision</span> <span class="pt">(Figma)</span><span class="proj-sep">·</span>Event ticketing platform UI with QR ticket system &amp; organizer dashboard</div>
+      <div class="proj-item"><span class="pn">FitPulse</span> <span class="pt">(Figma)</span><span class="proj-sep">·</span>Fitness app with gamified challenge system, streak tracking &amp; social feed</div>
+    </div>
+  </div>
+
+  <!-- Others -->
+  <div class="proj-category">
+    <div class="proj-cat-label">📁 Others</div>
+    <div class="proj-list">
+      <div class="proj-item"><span class="pn">Crypt X — Headshot Gaming Proposal</span> <span class="pt">(Proposal)</span><span class="proj-sep">·</span>Full event concept &amp; design proposal for university gaming designathon</div>
+      <div class="proj-item"><span class="pn">University Sports Match Logo</span> <span class="pt">(Brand Design)</span><span class="proj-sep">·</span>Official logo design for inter-faculty sports event at USJ</div>
+      <div class="proj-item"><span class="pn">IoT Cybersecurity Research</span> <span class="pt">(Research)</span><span class="proj-sep">·</span>Technical documentation on IoT vulnerabilities &amp; mitigation strategies</div>
+      <div class="proj-item"><span class="pn">Digital Objects NFT Concept</span> <span class="pt">(Concept)</span><span class="proj-sep">·</span>Digital asset concept design exploring blockchain-based 3D object ownership</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ EVENTS / ACTIVITIES ═══════════════════ -->
+  <div class="sec"><div class="sec-label">Events &amp; Activities</div></div>
+  <table class="ev-table">
+    <tr>
+      <td class="ev-name">CryptX 2.0 Designathon</td>
+      <td class="ev-role">Organizing Committee Member</td>
+      <td class="ev-org">ICTS, Faculty of Technology, USJ</td>
+      <td class="ev-yr">2024</td>
+    </tr>
+    <tr>
+      <td class="ev-name">IX 25 Designathon (XR Tech)</td>
+      <td class="ev-role">Team Member — Top 10 Finalist</td>
+      <td class="ev-org">IEEE IIT Student Branch</td>
+      <td class="ev-yr">2026</td>
+    </tr>
+    <tr>
+      <td class="ev-name">AlgoArena Programming Competition</td>
+      <td class="ev-role">Qualifier Contender</td>
+      <td class="ev-org">IEEE CS &amp; USJ Leo Club</td>
+      <td class="ev-yr">2024</td>
+    </tr>
+    <tr>
+      <td class="ev-name">IEEE WIE Coding Sprint</td>
+      <td class="ev-role">Stage 1 Qualifier</td>
+      <td class="ev-org">IEEE WIE Sri Lanka (National)</td>
+      <td class="ev-yr">2025</td>
+    </tr>
+    <tr>
+      <td class="ev-name">ICIET 2024 Pre-Conference Workshop</td>
+      <td class="ev-role">Participant — Emerging Tech &amp; Branding</td>
+      <td class="ev-org">Faculty of Technology, USJ</td>
+      <td class="ev-yr">2024</td>
+    </tr>
+    <tr>
+      <td class="ev-name">Personal Finance Hustle Workshop</td>
+      <td class="ev-role">Certificate of Participation</td>
+      <td class="ev-org">Project Glow-up, IEEE WIE USJ</td>
+      <td class="ev-yr">2024</td>
+    </tr>
+    <tr>
+      <td class="ev-name">UX Design Thinking Workshop</td>
+      <td class="ev-role">Participant (Mr. Mino Gallawatta, ATMOZ)</td>
+      <td class="ev-org">IEEE IIT Student Branch</td>
+      <td class="ev-yr">2025</td>
+    </tr>
+  </table>
+
+  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <div class="cv-footer">// ISHAN RASHMIKA &nbsp;·&nbsp; GAME DEVELOPER &nbsp;·&nbsp; SRI LANKA &nbsp;·&nbsp; ishanrashmika.dev@gmail.com //</div>
+
+</div>
+  <script src="splash_cursor.js"></script>
+</body>
+</html>

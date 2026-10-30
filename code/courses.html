@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learnings — Ishan Rashmika | Portfolio</title>
+  <meta name="description"
+    content="Interactive 3D Carousel of completed training, certifications, and technical proficiencies by Game Developer Ishan Rashmika.">
+
+  <!-- Google Fonts: Inter, Orbitron, Roboto Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;700;800;900&family=Roboto+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            neon: '#00f0ff',
+            bgdark: '#000000',
+            panelDark: '#121215',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Orbitron', 'sans-serif'],
+            mono: ['"Roboto Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ==========================================================================
+       BASE RESET & VARIABLES
+       ========================================================================== */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #00f0ff;
+      --primary-glow: rgba(0, 240, 255, 0.4);
+      --bg: #000000;
+      --header-height: 80px;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background-color: var(--bg);
+      font-family: 'Inter', sans-serif;
+      color: #ffffff;
+      user-select: none;
+    }
+
+    /* Ambient Cyber Grid Background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 240, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ==========================================================================
+       FIXED PORTFOLIO HEADER
+       ========================================================================== */
+    .header-6 {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: var(--header-height);
+      padding: 0 60px;
+      background: linear-gradient(180deg, rgba(10, 10, 12, 0.95) 0%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0) 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .header-6::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 5%;
+      width: 90%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(0, 240, 255, 0.25), transparent);
+      pointer-events: none;
+    }
+
+    .logo {
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .logo .logo-svg {
+      flex-shrink: 0;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease;
+    }
+
+    .logo:hover .logo-svg {
+      transform: rotate(60deg) scale(1.08);
+      filter: drop-shadow(0 0 8px #00f0ff);
+    }
+
+    .logo .logo-name {
+      color: #ffffff;
+      text-shadow: 0 0 8px rgba(0, 240, 255, 0.85), 0 0 18px rgba(0, 240, 255, 0.5);
+      transition: text-shadow 0.3s ease;
+    }
+
+    .logo:hover .logo-name {
+      text-shadow: 0 0 12px rgba(0, 240, 255, 1), 0 0 24px rgba(0, 240, 255, 0.8);
+    }
+
+    .logo .logo-badge {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 9px;
+      padding: 1px 5px;
+      border: 1px solid #22c55e;
+      color: #4ade80;
+      border-radius: 2px;
+      margin-left: 4px;
+      letter-spacing: 1px;
+      line-height: 1.2;
+      text-shadow: 0 0 6px rgba(34, 197, 94, 0.7);
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.25);
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 45px;
+      align-items: center;
+    }
+
+    .nav-menu li a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 10px 5px;
+      position: relative;
+      cursor: pointer;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .nav-menu li a::before {
+      content: '[';
+      position: absolute;
+      left: -15px;
+      color: var(--primary);
+      opacity: 0;
+      transform: translateX(10px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-menu li a::after {
+      content: ']';
+      position: absolute;
+      right: -15px;
+      color: var(--primary);
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes headerBlinkText {
+      0% {
+        color: #ffffff;
+        text-shadow: none;
+      }
+      10% {
+        color: #ffffff;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      }
+      22% {
+        color: rgba(255, 255, 255, 0.35);
+        text-shadow: none;
+      }
+      36% {
+        color: #ffffff;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      }
+      50% {
+        color: rgba(255, 255, 255, 0.35);
+        text-shadow: none;
+      }
+      64% {
+        color: #ffffff;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      }
+      78% {
+        color: rgba(255, 255, 255, 0.35);
+        text-shadow: none;
+      }
+      90%, 100% {
+        color: var(--primary);
+        text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+      }
+    }
+    @keyframes headerBlinkBracket {
+      0% {
+        opacity: 0;
+        color: #ffffff;
+        text-shadow: none;
+      }
+      10% {
+        opacity: 1;
+        color: #ffffff;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      }
+      22% {
+        opacity: 0.3;
+        color: rgba(255, 255, 255, 0.35);
+        text-shadow: none;
+      }
+      36% {
+        opacity: 1;
+        color: #ffffff;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      }
+      50% {
+        opacity: 0.3;
+        color: rgba(255, 255, 255, 0.35);
+        text-shadow: none;
+      }
+      64% {
+        opacity: 1;
+        color: #ffffff;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      }
+      78% {
+        opacity: 0.3;
+        color: rgba(255, 255, 255, 0.35);
+        text-shadow: none;
+      }
+      90%, 100% {
+        opacity: 1;
+        color: var(--primary);
+        text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+      }
+    }
+    .nav-menu li a.active {
+      color: var(--primary);
+      text-shadow: 0 0 12px rgba(0, 240, 255, 0.7);
+    }
+    .nav-menu li a.active::before,
+    .nav-menu li a.active::after {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .nav-menu li a:hover {
+      animation: headerBlinkText 0.28s ease-out forwards;
+    }
+    .nav-menu li a:hover::before,
+    .nav-menu li a:hover::after {
+      opacity: 1;
+      transform: translateX(0);
+      animation: headerBlinkBracket 0.28s ease-out forwards;
+    }
+
+    .mobile-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      padding: 8px 12px;
+      cursor: pointer;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ==========================================================================
+       SPLIT LAYOUT (1/3 INFO PANEL, 2/3 CAROUSEL PANEL)
+       ========================================================================== */
+    .split-layout {
+      height: 100vh;
+      width: 100vw;
+      padding-top: var(--header-height);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 10;
+    }
+
+    @media (min-width: 1024px) {
+      .split-layout {
+        flex-direction: row;
+      }
+    }
+
+    /* ----- LEFT INFO PANEL (1/3) ----- */
+    .info-panel {
+      width: 100%;
+      height: 44%;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 20;
+      position: relative;
+    }
+
+    @media (min-width: 1024px) {
+      .info-panel {
+        width: 38%;
+        height: 100%;
+        padding: 3rem;
+      }
+    }
+
+    /* ----- MATTE GLASS CYBERPUNK BOX (COMPACT FIXED SIZE) ----- */
+    .glass-box {
+      width: 100%;
+      max-width: 440px;
+      height: 380px;
+      min-height: 380px;
+      max-height: 380px;
+      background: rgba(18, 18, 23, 0.72);
+      backdrop-filter: blur(24px) saturate(130%);
+      -webkit-backdrop-filter: blur(24px) saturate(130%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-left: 4px solid rgba(0, 240, 255, 0.4);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 240, 255, 0.06);
+      padding: 24px 28px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Fixed Content Slots to Prevent Layout Shifting */
+    .title-slot {
+      height: 60px;
+      min-height: 60px;
+      max-height: 60px;
+      display: flex;
+      align-items: flex-start;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+
+    .desc-slot {
+      height: 54px;
+      min-height: 54px;
+      max-height: 54px;
+      margin-top: 16px;
+      overflow: hidden;
+    }
+
+    .tags-slot {
+      height: 30px;
+      min-height: 30px;
+      max-height: 30px;
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+
+    .tags-slot::-webkit-scrollbar {
+      display: none;
+    }
+
+    .learning-tag-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      background: rgba(10, 10, 14, 0.85);
+      border: 1px solid #374151;
+      color: #d1d5db;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .learning-tag-pill:first-child {
+      border-color: rgba(0, 240, 255, 0.45);
+      color: #00f0ff;
+    }
+
+    @media (max-width: 640px) {
+      .glass-box {
+        height: auto;
+        min-height: 380px;
+        max-height: none;
+        padding: 20px;
+      }
+    }
+
+    /* Status Dot Animation */
+    .pulsing-dot {
+      width: 7px;
+      height: 7px;
+      background-color: #00f0ff;
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.7);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.7);
+      }
+
+      70% {
+        box-shadow: 0 0 0 8px rgba(0, 240, 255, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(0, 240, 255, 0);
+      }
+    }
+
+    /* Dynamic Text Fade */
+    .dynamic-text {
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .fade-out {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    /* ----- RIGHT CAROUSEL PANEL (2/3) ----- */
+    .carousel-panel {
+      width: 100%;
+      height: 56%;
+      position: relative;
+      z-index: 10;
+      overflow: hidden;
+    }
+
+    @media (min-width: 1024px) {
+      .carousel-panel {
+        width: 62%;
+        height: 100%;
+      }
+    }
+
+    #carousel-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      background: transparent;
+    }
+
+    /* ----- 3D CAROUSEL CARDS ----- */
+    .card {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 440px;
+      height: 338px;
+      margin-left: -220px;
+      margin-top: -169px;
+      background-color: #0b0b0e;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+        opacity 0.5s ease,
+        filter 0.5s ease,
+        border 0.3s ease,
+        box-shadow 0.5s ease;
+      cursor: pointer;
+      user-select: none;
+      will-change: transform, opacity, filter;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
+      border: 2px solid rgba(255, 255, 255, 0.08);
+      filter: brightness(0.62) contrast(1.05);
+    }
+
+    /* Gradient overlay for cards */
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.1) 35%, transparent 100%);
+      pointer-events: none;
+      z-index: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 3;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 9px;
+      background: rgba(10, 10, 14, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #e2e8f0;
+      padding: 3px 7px;
+      border-radius: 2px;
+      letter-spacing: 1px;
+      pointer-events: none;
+    }
+
+    .card-title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      padding: 8px 12px;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 0.78rem;
+      color: #fff;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      line-height: 1.25;
+      background: linear-gradient(to top, rgba(8, 8, 11, 0.95) 0%, rgba(8, 8, 11, 0.7) 70%, transparent 100%);
+      transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease;
+      pointer-events: none;
+    }
+
+    /* --- STATE CLASSES --- */
+    .card.active {
+      transform: translateX(0) scale(1.08);
+      opacity: 1;
+      z-index: 10;
+      filter: brightness(0.68) contrast(1.05);
+      border: 2px solid #00f0ff;
+      box-shadow: 0 0 8px rgba(0, 240, 255, 0.2), 0 25px 55px rgba(0, 0, 0, 0.95);
+    }
+
+    .card.active::before {
+      opacity: 0.15;
+    }
+
+    .card.active:hover::before {
+      opacity: 0;
+    }
+
+    .card.active .card-title {
+      color: #00f0ff;
+      text-shadow: none;
+      background: rgba(10, 10, 14, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-top: 1px solid rgba(0, 240, 255, 0.25);
+    }
+
+    .card.active:hover .card-title {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+
+    .card.active .card-badge {
+      border-color: #00f0ff;
+      color: #00f0ff;
+    }
+
+    /* Sub cards: significantly smaller with ample space beside the deck */
+    .card.prev {
+      transform: translateX(-270px) scale(0.62);
+      filter: brightness(0.32);
+      z-index: 5;
+      opacity: 0.75;
+      border: 1px solid #333338;
+    }
+
+    .card.next {
+      transform: translateX(270px) scale(0.62);
+      filter: brightness(0.32);
+      z-index: 5;
+      opacity: 0.75;
+      border: 1px solid #333338;
+    }
+
+    .card.far-prev {
+      transform: translateX(-460px) scale(0.45);
+      opacity: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .card.far-next {
+      transform: translateX(460px) scale(0.45);
+      opacity: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    @media (max-width: 1279px) {
+      .card {
+        width: 380px;
+        height: 292px;
+        margin-left: -190px;
+        margin-top: -146px;
+      }
+
+      .card.active {
+        transform: translateX(0) scale(1.05);
+      }
+
+      .card.prev {
+        transform: translateX(-230px) scale(0.62);
+      }
+
+      .card.next {
+        transform: translateX(230px) scale(0.62);
+      }
+
+      .card.far-prev {
+        transform: translateX(-390px) scale(0.45);
+      }
+
+      .card.far-next {
+        transform: translateX(390px) scale(0.45);
+      }
+    }
+
+    @media (max-width: 1023px) {
+      .card {
+        width: 320px;
+        height: 246px;
+        margin-left: -160px;
+        margin-top: -123px;
+      }
+
+      .card.active {
+        transform: translateX(0) scale(1.03);
+      }
+
+      .card.prev {
+        transform: translateX(-180px) scale(0.62);
+      }
+
+      .card.next {
+        transform: translateX(180px) scale(0.62);
+      }
+
+      .card.far-prev {
+        transform: translateX(-300px) scale(0.42);
+      }
+
+      .card.far-next {
+        transform: translateX(300px) scale(0.42);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .card {
+        width: 260px;
+        height: 200px;
+        margin-left: -130px;
+        margin-top: -100px;
+      }
+
+      .card-title {
+        font-size: 0.65rem;
+        padding: 5px 6px;
+      }
+
+      .card.active {
+        transform: translateX(0) scale(1.02);
+      }
+
+      .card.prev {
+        transform: translateX(-130px) scale(0.60);
+      }
+
+      .card.next {
+        transform: translateX(130px) scale(0.60);
+      }
+
+      .card.far-prev {
+        transform: translateX(-220px) scale(0.40);
+      }
+
+      .card.far-next {
+        transform: translateX(220px) scale(0.40);
+      }
+    }
+
+    /* Navigation indicator dots at bottom */
+    .view-indicator {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      z-index: 50;
+      align-items: center;
+    }
+
+    .dot-btn {
+      width: 28px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .dot-btn:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    .dot-btn.active {
+      background: var(--primary);
+      box-shadow: 0 0 10px var(--primary);
+      width: 44px;
+    }
+
+    /* Scroll hint floating tag */
+    .scroll-hint {
+      position: fixed;
+      bottom: 24px;
+      right: 40px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 50;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .scroll-hint span {
+      color: var(--primary);
+      animation: bounce 1.8s infinite;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-4px);
+      }
+    }
+
+    /* ==========================================================================
+       RESPONSIVE COLLAPSE & LAYOUT
+       ========================================================================== */
+    @media (max-width: 1023px) {
+      body {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        height: auto !important;
+        min-height: 100vh;
+      }
+
+      .split-layout {
+        height: auto !important;
+        min-height: 100vh;
+        padding-bottom: 70px;
+      }
+
+      .info-panel {
+        height: auto !important;
+        width: 100% !important;
+        padding: 1.5rem 1rem !important;
+      }
+
+      .glass-box {
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        padding: 24px 20px !important;
+      }
+
+      .carousel-panel {
+        height: 380px !important;
+        min-height: 340px !important;
+        width: 100% !important;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .header-6 {
+        padding: 0 25px;
+      }
+
+      .mobile-toggle {
+        display: block;
+      }
+
+      .nav-menu {
+        position: fixed;
+        top: var(--header-height);
+        left: 0;
+        width: 100%;
+        background: rgba(6, 6, 8, 0.98);
+        flex-direction: column;
+        gap: 0;
+        padding: 20px 0;
+        border-bottom: 2px solid var(--primary);
+        display: none;
+      }
+
+      .nav-menu.active,
+      .nav-menu.open {
+        display: flex !important;
+      }
+
+      .nav-menu li {
+        width: 100%;
+        text-align: center;
+      }
+
+      .nav-menu li a {
+        display: block;
+        padding: 14px 0;
+      }
+
+      .scroll-hint {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .carousel-panel {
+        height: 290px !important;
+        min-height: 260px !important;
+      }
+
+      .card {
+        width: 250px !important;
+        height: 192px !important;
+        margin-left: -125px !important;
+        margin-top: -96px !important;
+      }
+
+      .card.prev {
+        transform: translateX(-110px) scale(0.60) !important;
+      }
+
+      .card.next {
+        transform: translateX(110px) scale(0.60) !important;
+      }
+
+      .card.far-prev {
+        transform: translateX(-180px) scale(0.40) !important;
+      }
+
+      .card.far-next {
+        transform: translateX(180px) scale(0.40) !important;
+      }
+
+      .glass-box {
+        padding: 18px 14px !important;
+      }
+
+      .view-indicator {
+        bottom: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ========================================================================
+       PERMANENTLY FIXED HEADER
+       ======================================================================== -->
+  <header class="header-6" id="main-header">
+    <div class="logo" onclick="window.location.href='index.html'">
+      <svg class="logo-svg" width="22" height="22" viewBox="0 0 32 32" fill="none">
+        <defs>
+          <linearGradient id="kGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#a5f3fc"/>
+            <stop offset="45%" stop-color="#00f0ff"/>
+            <stop offset="85%" stop-color="#0369a1"/>
+            <stop offset="100%" stop-color="#082f49"/>
+          </linearGradient>
+          <linearGradient id="kGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#38bdf8"/>
+            <stop offset="50%" stop-color="#0284c7"/>
+            <stop offset="100%" stop-color="#0c4a6e"/>
+          </linearGradient>
+          <filter id="kGlow" x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow dx="0" dy="0" stdDeviation="1.5" flood-color="#00f0ff" flood-opacity="0.85"/>
+          </filter>
+        </defs>
+        <g filter="url(#kGlow)">
+          <g id="petal">
+            <path d="M16 2.5 C10.8 2.5 7.2 6.5 8.2 11.2 C8.9 14.5 12.2 16.5 15.5 15.2 C13.5 13.2 12.8 8.8 16 2.5 Z" fill="url(#kGrad1)"/>
+            <path d="M16 2.5 C12.5 6 12.5 11 15.5 15.2 C14 14.5 10 12 9.5 9 C9 6 12 3 16 2.5 Z" fill="url(#kGrad2)" opacity="0.85"/>
+          </g>
+          <use href="#petal" transform="rotate(60 16 16)"/>
+          <use href="#petal" transform="rotate(120 16 16)"/>
+          <use href="#petal" transform="rotate(180 16 16)"/>
+          <use href="#petal" transform="rotate(240 16 16)"/>
+          <use href="#petal" transform="rotate(300 16 16)"/>
+          <polygon points="16,13.2 18.4,14.6 18.4,17.4 16,18.8 13.6,17.4 13.6,14.6" fill="#060608"/>
+        </g>
+      </svg>
+      <span class="logo-name">RASHMIKA</span>
+      <span class="logo-badge">ONLINE</span>
+    </div>
+
+    <!-- Mobile Hamburger Toggle -->
+    <button class="mobile-toggle" onclick="toggleNav()" aria-label="Toggle navigation">
+      [ MENU ]
+    </button>
+
+    <nav>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="index.html" id="nav-home">Home</a></li>
+        <li><a href="index.html#about" id="nav-about">About</a></li>
+        <li><a href="projects_section.html" id="nav-projects">Projects</a></li>
+        <li><a href="learnings.html" id="nav-courses" class="active">Learnings</a></li>
+        <li><a href="events.html" id="nav-events">Events</a></li>
+        <li><a href="contact.html" id="nav-contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ========================================================================
+       MAIN SPLIT VIEW: MATTE GLASS INFO (1/3) + 3D CAROUSEL (2/3)
+       ======================================================================== -->
+  <div class="split-layout">
+
+    <!-- LEFT PANEL (1/3): MATTE GLASS INFO BOX -->
+    <aside class="info-panel">
+      <div class="glass-box">
+
+        <!-- Header / Year / Status Tag -->
+        <div class="flex items-center justify-between pb-1.5 border-b border-white/10 shrink-0">
+          <span id="dyn-year"
+            class="dynamic-text text-neon font-mono text-xs tracking-[0.2em] uppercase font-bold flex items-center gap-2">
+            <span class="pulsing-dot"></span>
+            2023 - 2024
+          </span>
+          <span id="dyn-status"
+            class="dynamic-text text-[10px] font-mono text-gray-400 uppercase tracking-widest bg-black/60 px-2 py-0.5 rounded border border-white/10">
+            COMPLETED
+          </span>
+        </div>
+
+        <!-- Course Title Slot (Fixed Height & Scaled Typography) -->
+        <div class="title-slot shrink-0">
+          <h2 id="dyn-title"
+            class="dynamic-text font-heading text-xl md:text-2xl text-white leading-tight font-extrabold uppercase">
+            Game Development
+          </h2>
+        </div>
+
+        <!-- Course Objective & Description Slot (Fixed Height) -->
+        <div class="desc-slot shrink-0">
+          <p id="dyn-desc" class="dynamic-text text-gray-300 text-xs leading-relaxed font-sans">
+            Advanced game loops, memory management, authoritative multiplayer physics, and C# / C++ engine architecture.
+          </p>
+        </div>
+
+        <!-- Competency & Skill Tags Slot (Fixed Height Single Strip) -->
+        <div id="dyn-tags" class="tags-slot dynamic-text shrink-0">
+          <!-- Tags injected dynamically -->
+        </div>
+
+        <!-- Navigation Controls: Prev / Next Buttons + Counter (Pinned at bottom) -->
+        <div class="mt-auto shrink-0 pt-2.5 border-t border-white/10">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <button id="btn-prev"
+                class="w-8 h-8 rounded bg-black/60 border border-gray-700 text-gray-300 hover:text-neon hover:border-neon transition-all flex items-center justify-center font-bold text-xs shadow-md active:scale-95"
+                aria-label="Previous learning">
+                ◀
+              </button>
+              <button id="btn-next"
+                class="w-8 h-8 rounded bg-black/60 border border-gray-700 text-gray-300 hover:text-neon hover:border-neon transition-all flex items-center justify-center font-bold text-xs shadow-md active:scale-95"
+                aria-label="Next learning">
+                ▶
+              </button>
+            </div>
+            <span id="carousel-counter" class="text-xs font-mono text-neon font-bold tracking-widest">
+              01 / 05
+            </span>
+          </div>
+
+          <div
+            class="text-[9px] text-gray-500 font-mono tracking-widest uppercase flex items-center gap-1.5 opacity-70 mt-1.5">
+            <span class="text-gray-400">+</span>
+            SCROLL OR CLICK CARD TO EXPLORE
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- RIGHT PANEL (2/3): 3D CYBER CAROUSEL DECK -->
+    <main class="carousel-panel">
+      <div id="carousel-container">
+        <!-- Cards dynamically injected via JavaScript -->
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Bottom Page Dots Indicator -->
+  <div class="view-indicator">
+    <button class="dot-btn" id="dot-home" onclick="window.location.href='index.html'" title="Home View"></button>
+    <button class="dot-btn" id="dot-about" onclick="window.location.href='index.html#about'"
+      title="About View"></button>
+    <button class="dot-btn" id="dot-projects" onclick="window.location.href='projects_section.html'"
+      title="Projects View"></button>
+    <button class="dot-btn active" id="dot-courses" title="Learnings View"></button>
+    <button class="dot-btn" id="dot-events" onclick="window.location.href='events.html'" title="Events View"></button>
+    <button class="dot-btn" id="dot-contact" onclick="window.location.href='contact.html'"
+      title="Contact View"></button>
+  </div>
+
+  <!-- Scroll Hint Badge -->
+  <div class="scroll-hint">
+    <span>▼</span> SCROLL DOWN FOR CONTACT
+  </div>
+
+  <!-- ========================================================================
+       CAROUSEL SCRIPT: 3D CYBER DECK + MATTE GLASS FADE + WHEEL / SWIPE / KEYS
+       ======================================================================== -->
+  <script>
+    // Mobile navigation toggle
+    function toggleNav() {
+      const menu = document.getElementById('nav-menu');
+      menu.classList.toggle('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Learnings & Courses Dataset
+      const learnings = [
+        {
+          title: "Advanced Game Development",
+          badge: "GD-04",
+          year: "2023 - 2024",
+          status: "COMPLETED",
+          desc: "Engineered authoritative server models, client-side motion prediction, and high-tickrate competitive gameplay loops for fast-paced action titles.",
+          tags: ["C# Scripting", "Kinematics", "Network Sync", "State Machines"],
+          image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800"
+        },
+        {
+          title: "UI / UX Masterclass",
+          badge: "UX-99",
+          year: "2022 - 2023",
+          status: "COMPLETED",
+          desc: "Designed diegetic game HUDs, inventory matrices with reduced cognitive load, and responsive real-time player telemetry overlays using Unity UGUI.",
+          tags: ["Diegetic HUD", "Design Systems", "Interaction Design", "Figma"],
+          image: "https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?q=80&w=800"
+        },
+        {
+          title: "Unity 3D Pro Architecture",
+          badge: "UN-72",
+          year: "2023",
+          status: "COMPLETED",
+          desc: "Optimized mobile and desktop builds to lock smooth 60fps frame rates with multi-entity simulations, profiling, raycasting, and universal render pipeline (URP).",
+          tags: ["Unity 3D", "URP Shaders", "Profiler", "Physics 3D"],
+          image: "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800"
+        },
+        {
+          title: "Blender Environment Modeling",
+          badge: "BL-11",
+          year: "2021 - 2022",
+          status: "COMPLETED",
+          desc: "Modeled, UV-unwrapped, and textured modular sci-fi corridor sets and low-poly city props optimized for real-time lighting and game engine performance.",
+          tags: ["Blender 3D", "Hard Surface", "PBR Materials", "UV Mapping"],
+          image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800"
+        },
+        {
+          title: "Sound Engineering & Spatial Audio",
+          badge: "SE-19",
+          year: "2020 - 2021",
+          status: "COMPLETED",
+          desc: "Crafted interactive audio landscapes, 3D spatial attenuation setups, and dynamic tension sound mixing tailored for game environments.",
+          tags: ["Spatial Audio", "Synthesizers", "Dynamic Mixing", "Foley FX"],
+          image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=800"
+        }
+      ];
+
+      const container = document.getElementById('carousel-container');
+      const totalCards = learnings.length;
+      let activeIndex = 0;
+      let isAnimating = false;
+
+      // DOM Elements for Left Panel
+      const dynTitle = document.getElementById('dyn-title');
+      const dynYear = document.getElementById('dyn-year');
+      const dynStatus = document.getElementById('dyn-status');
+      const dynDesc = document.getElementById('dyn-desc');
+      const dynTags = document.getElementById('dyn-tags');
+      const counterEl = document.getElementById('carousel-counter');
+      const btnPrev = document.getElementById('btn-prev');
+      const btnNext = document.getElementById('btn-next');
+
+      // 1. Initialize Cards in Deck
+      learnings.forEach((item, i) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.style.backgroundImage = `url('${item.image}')`;
+
+        // Card Badge
+        const badgeEl = document.createElement('div');
+        badgeEl.className = 'card-badge';
+        badgeEl.innerText = item.badge;
+        card.appendChild(badgeEl);
+
+        // Card Title
+        const titleEl = document.createElement('div');
+        titleEl.className = 'card-title';
+        titleEl.innerText = item.title;
+        card.appendChild(titleEl);
+
+        // Click on any card to bring it front & center
+        card.addEventListener('click', () => {
+          if (activeIndex !== i && !isAnimating) {
+            activeIndex = i;
+            triggerAnimationLock();
+          }
+        });
+
+        container.appendChild(card);
+      });
+
+      const cardElements = document.querySelectorAll('.card');
+
+      // 2. Update Carousel States & Matte Glass Info Box
+      function updateCarousel() {
+        // Update 3D Deck Classes
+        cardElements.forEach((card, index) => {
+          card.className = 'card';
+          const diff = index - activeIndex;
+
+          if (diff === 0) {
+            card.classList.add('active');
+          } else if (diff === -1) {
+            card.classList.add('prev');
+          } else if (diff === 1) {
+            card.classList.add('next');
+          } else if (diff < -1) {
+            card.classList.add('far-prev');
+          } else if (diff > 1) {
+            card.classList.add('far-next');
+          }
+        });
+
+        // Animate Matte Glass Content with subtle fade-out
+        const textElements = [dynTitle, dynYear, dynStatus, dynDesc, dynTags];
+        textElements.forEach(el => el.classList.add('fade-out'));
+
+        setTimeout(() => {
+          const activeItem = learnings[activeIndex];
+          dynTitle.innerText = activeItem.title;
+          dynYear.innerHTML = `<span class="pulsing-dot"></span>${activeItem.year}`;
+          dynStatus.innerText = activeItem.status;
+          dynDesc.innerText = activeItem.desc;
+
+          // Render Tags (styled like top-of-card project carousel badges)
+          dynTags.innerHTML = activeItem.tags.map(t =>
+            `<span class="learning-tag-pill">${t}</span>`
+          ).join('');
+
+          // Update Counter
+          counterEl.innerText = `0${activeIndex + 1} / 0${totalCards}`;
+
+          textElements.forEach(el => el.classList.remove('fade-out'));
+        }, 150);
+      }
+
+      function triggerAnimationLock() {
+        updateCarousel();
+        isAnimating = true;
+        setTimeout(() => {
+          isAnimating = false;
+        }, 450);
+      }
+
+      // Next / Prev button event listeners
+      btnPrev.addEventListener('click', () => {
+        if (isAnimating) return;
+        if (activeIndex > 0) {
+          activeIndex--;
+          triggerAnimationLock();
+        } else {
+          // Wrap around or return to projects
+          activeIndex = totalCards - 1;
+          triggerAnimationLock();
+        }
+      });
+
+      btnNext.addEventListener('click', () => {
+        if (isAnimating) return;
+        if (activeIndex < totalCards - 1) {
+          activeIndex++;
+          triggerAnimationLock();
+        } else {
+          // Wrap around
+          activeIndex = 0;
+          triggerAnimationLock();
+        }
+      });
+
+      // 3. Mouse Wheel Handler
+      let wheelAccumulator = 0;
+      window.addEventListener('wheel', (e) => {
+        if (isAnimating) return;
+
+        wheelAccumulator += e.deltaY;
+
+        // Navigate within carousel
+        if (wheelAccumulator > 40) {
+          wheelAccumulator = 0;
+          if (activeIndex < totalCards - 1) {
+            activeIndex++;
+            triggerAnimationLock();
+          } else {
+            // At last card, scroll down moves to Contact
+            window.location.href = 'contact.html';
+          }
+        } else if (wheelAccumulator < -40) {
+          wheelAccumulator = 0;
+          if (activeIndex > 0) {
+            activeIndex--;
+            triggerAnimationLock();
+          } else {
+            // At first card, scroll up moves to Projects
+            window.location.href = 'projects_section.html';
+          }
+        }
+      }, { passive: true });
+
+      // 4. Keyboard Arrow Listeners
+      window.addEventListener('keydown', (e) => {
+        if (isAnimating) return;
+
+        if (e.key === 'ArrowRight') {
+          if (activeIndex < totalCards - 1) {
+            activeIndex++;
+            triggerAnimationLock();
+          }
+        } else if (e.key === 'ArrowLeft') {
+          if (activeIndex > 0) {
+            activeIndex--;
+            triggerAnimationLock();
+          }
+        } else if (e.key === 'ArrowDown') {
+          window.location.href = 'contact.html';
+        } else if (e.key === 'ArrowUp') {
+          window.location.href = 'projects_section.html';
+        }
+      });
+
+      // 5. Touch / Swipe Navigation
+      let touchStartX = 0;
+      let touchStartY = 0;
+
+      window.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      window.addEventListener('touchend', (e) => {
+        if (isAnimating) return;
+        const diffX = e.changedTouches[0].clientX - touchStartX;
+        const diffY = e.changedTouches[0].clientY - touchStartY;
+
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+          if (diffX < 0 && activeIndex < totalCards - 1) {
+            activeIndex++;
+            triggerAnimationLock();
+          } else if (diffX > 0 && activeIndex > 0) {
+            activeIndex--;
+            triggerAnimationLock();
+          }
+        }
+      }, { passive: true });
+
+      // Initial render
+      updateCarousel();
+    });
+  </script>
+
+  <!-- Interactive Splash Cursor Background -->
+  <script src="splash_cursor.js"></script>
+</body>
+
+</html>
