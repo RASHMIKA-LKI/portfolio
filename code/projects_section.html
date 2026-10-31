@@ -1782,29 +1782,348 @@
       50% { opacity: 1; transform: translateY(-3px); }
     }
 
+    .mobile-card-controls {
+      display: none;
+    }
+
     /* ==========================================================================
-       RESPONSIVE BREAKPOINTS
+       RESPONSIVE BREAKPOINTS (OPTION 1: TOP CATEGORY BAR + FULL-SIZE CARD VIEW)
        ========================================================================== */
     @media (max-width: 1024px) {
-      #projects-section { flex-direction: column; overflow: auto; }
-      body { overflow: auto; }
-      .carousel-zone { width: 100%; height: 60vh; padding: 20px 20px 20px 20px; }
-      .carousel-panel { inset: 20px 20px 20px 20px; }
-      .sidebar { width: 100%; height: 40vh; padding: 0; border-left: none; border-top: 1px solid rgba(255,255,255,0.05); }
-      .filter-item { transform-origin: center center; text-align: center; left: 50%; padding: 0 25px; }
-      .filter-item::before { left: -5px; }
-      .filter-item::after  { right: -5px; }
-      .style-4 .acc-card.active,
-      .style-5 .acc-card.active { width: 280px; }
+      body {
+        overflow: hidden !important;
+        height: 100vh;
+      }
+
+      #projects-section {
+        flex-direction: column !important;
+        height: calc(100vh - var(--header-height)) !important;
+        overflow: hidden !important;
+        padding-top: var(--header-height) !important;
+      }
+
+      /* 1. Category Bar at TOP (Order 1) */
+      .sidebar {
+        order: 1 !important;
+        width: 100% !important;
+        height: 52px !important;
+        min-height: 52px !important;
+        max-height: 52px !important;
+        padding: 0 12px !important;
+        border-left: none !important;
+        border-bottom: 1px solid rgba(0, 240, 255, 0.25) !important;
+        background: rgba(8, 10, 14, 0.95) !important;
+        backdrop-filter: blur(14px) !important;
+        -webkit-backdrop-filter: blur(14px) !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        z-index: 30 !important;
+      }
+
+      .sidebar::-webkit-scrollbar {
+        display: none !important;
+      }
+
+      .sidebar::before {
+        display: none !important;
+      }
+
+      .filter-menu {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 8px !important;
+        position: static !important;
+        transform: none !important;
+        margin: 0 auto !important;
+        width: max-content !important;
+        padding: 0 4px !important;
+      }
+
+      .filter-item {
+        position: static !important;
+        transform: none !important;
+        opacity: 1 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 6px 14px !important;
+        font-size: 11px !important;
+        font-family: 'Roboto Mono', monospace !important;
+        font-weight: 700 !important;
+        letter-spacing: 1px !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        border-radius: 4px !important;
+        background: rgba(18, 20, 26, 0.8) !important;
+        color: #cbd5e1 !important;
+        white-space: nowrap !important;
+        cursor: pointer !important;
+        pointer-events: auto !important;
+        transition: all 0.2s ease !important;
+      }
+
+      .filter-item.active {
+        border-color: var(--primary) !important;
+        color: var(--primary) !important;
+        background: rgba(0, 240, 255, 0.18) !important;
+        box-shadow: 0 0 10px rgba(0, 240, 255, 0.35) !important;
+      }
+
+      .filter-item::before,
+      .filter-item::after {
+        display: none !important;
+      }
+
+      /* 2. Main Projects Carousel Zone below category bar (Order 2) */
+      .carousel-zone {
+        order: 2 !important;
+        width: 100% !important;
+        flex: 1 !important;
+        height: calc(100vh - var(--header-height) - 52px) !important;
+        padding: 8px 12px 16px 12px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        position: relative !important;
+        overflow: hidden !important;
+      }
+
+      .carousel-panel {
+        inset: 8px 12px 16px 12px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+
+      /* 3. Full-Sized Active Card Display */
+      .accordion-container {
+        display: block !important;
+        width: 100% !important;
+        max-width: 480px !important;
+        height: 100% !important;
+        max-height: calc(100vh - var(--header-height) - 86px) !important;
+        position: relative !important;
+        margin: 0 auto !important;
+      }
+
+      .acc-card {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        clip-path: none !important;
+        border-radius: 8px !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8), 0 0 20px var(--card-glow, rgba(0, 240, 255, 0.2)) !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        visibility: hidden !important;
+        transition: opacity 0.3s ease, transform 0.3s ease !important;
+      }
+
+      .acc-card::before {
+        display: none !important;
+      }
+
+      .acc-card.active {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        visibility: visible !important;
+        border: 2px solid var(--card-accent, var(--primary)) !important;
+        z-index: 10 !important;
+      }
+
+      .acc-card img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        filter: brightness(0.65) contrast(1.1) !important;
+      }
+
+      .acc-card.active img {
+        filter: brightness(0.85) contrast(1.15) !important;
+      }
+
+      /* Inactive vertical elements hidden on mobile */
+      .vertical-title,
+      .icon-btn,
+      .s4-collapsed,
+      .s5-collapsed,
+      .s1-collapsed,
+      .s2-collapsed,
+      .s3-collapsed {
+        display: none !important;
+      }
+
+      /* Expanded content glass panel */
+      .expanded-content {
+        position: absolute !important;
+        bottom: 52px !important;
+        left: 12px !important;
+        right: 12px !important;
+        padding: 12px 14px !important;
+        background: rgba(8, 10, 14, 0.88) !important;
+        backdrop-filter: blur(16px) saturate(140%) !important;
+        -webkit-backdrop-filter: blur(16px) saturate(140%) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-left: 3px solid var(--card-accent, var(--primary)) !important;
+        border-radius: 6px !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        pointer-events: auto !important;
+        z-index: 12 !important;
+      }
+
+      .expanded-content h3 {
+        font-size: 1.1rem !important;
+        margin-bottom: 4px !important;
+      }
+
+      .expanded-content p {
+        font-size: 0.74rem !important;
+        line-height: 1.4 !important;
+        max-width: 100% !important;
+        -webkit-line-clamp: 2 !important;
+      }
+
+      .card-top-badges {
+        top: 12px !important;
+        right: 12px !important;
+        opacity: 1 !important;
+        transform: none !important;
+        z-index: 15 !important;
+      }
+
+      .badge-pill {
+        font-size: 9px !important;
+        padding: 3px 8px !important;
+      }
+
+      /* 4. Mobile Navigation Controls (< PREV · DOTS · NEXT >) */
+      .mobile-card-controls {
+        display: flex !important;
+        position: absolute !important;
+        bottom: 10px !important;
+        left: 12px !important;
+        right: 12px !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        z-index: 20 !important;
+        pointer-events: auto !important;
+      }
+
+      .mobile-card-btn {
+        background: rgba(10, 12, 16, 0.9) !important;
+        border: 1px solid var(--primary) !important;
+        color: var(--primary) !important;
+        font-family: 'Roboto Mono', monospace !important;
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        padding: 5px 12px !important;
+        border-radius: 3px !important;
+        cursor: pointer !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 4px !important;
+        letter-spacing: 1px !important;
+        box-shadow: 0 0 8px rgba(0, 240, 255, 0.2) !important;
+        transition: all 0.2s ease !important;
+      }
+
+      .mobile-card-btn:active {
+        transform: scale(0.96) !important;
+      }
+
+      .mobile-card-dots {
+        display: flex !important;
+        gap: 6px !important;
+        align-items: center !important;
+      }
+
+      .mobile-card-dot {
+        width: 8px !important;
+        height: 8px !important;
+        border-radius: 50% !important;
+        background: rgba(255, 255, 255, 0.25) !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+      }
+
+      .mobile-card-dot.active {
+        background: var(--primary) !important;
+        box-shadow: 0 0 6px var(--primary) !important;
+        transform: scale(1.25) !important;
+      }
+
+      /* 5. Others Panel (Deck) on Mobile */
+      .deck-3d-stage {
+        width: 100% !important;
+        max-width: 460px !important;
+        height: 100% !important;
+        max-height: calc(100vh - var(--header-height) - 86px) !important;
+      }
+
+      .deck-card {
+        width: 86% !important;
+        max-width: 360px !important;
+        height: 72% !important;
+        max-height: 420px !important;
+        margin-left: -43% !important;
+        margin-top: -36% !important;
+      }
+
+      .deck-card.active {
+        transform: translateX(0) scale(1) !important;
+      }
+
+      .deck-card.prev {
+        transform: translateX(-110px) scale(0.72) !important;
+        opacity: 0.25 !important;
+      }
+
+      .deck-card.next {
+        transform: translateX(110px) scale(0.72) !important;
+        opacity: 0.25 !important;
+      }
+
+      .deck-card.far-prev,
+      .deck-card.far-next {
+        opacity: 0 !important;
+        display: none !important;
+      }
+
+      .deck-card-content {
+        padding: 12px 14px !important;
+        bottom: 12px !important;
+        left: 10px !important;
+        right: 10px !important;
+      }
+
+      .deck-nav-bar {
+        bottom: 8px !important;
+      }
+
+      .scroll-hint {
+        display: none !important;
+      }
     }
 
     @media (max-width: 768px) {
       .header-6 {
         padding: 0 20px;
       }
+
       .mobile-toggle {
         display: block;
       }
+
       .nav-menu {
         position: fixed;
         top: var(--header-height);
@@ -1819,23 +2138,10 @@
         transition: transform 0.35s ease;
         z-index: 99;
       }
+
       .nav-menu.open,
       .nav-menu.active {
         transform: translateY(0);
-      }
-    }
-
-    @media (max-width: 640px) {
-      .carousel-zone {
-        height: 52vh;
-        padding: 10px;
-      }
-      .sidebar {
-        height: 48vh;
-      }
-      .style-4 .acc-card.active,
-      .style-5 .acc-card.active {
-        width: 240px;
       }
     }
 
@@ -2710,6 +3016,9 @@
             targetOffset = targetIdx;
             scrollOffset = targetIdx; // Instant snap so wheel doesn't fly from 0
             switchPanel(state.panelId);
+            if (window.innerWidth <= 1024) {
+              targetItem.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            }
           }
 
           // 2. Activate matching card in that panel
@@ -2720,6 +3029,8 @@
               const cardIdx = (typeof state.cardIndex === 'number' && state.cardIndex < cards.length) ? state.cardIndex : 0;
               cards.forEach(c => c.classList.remove('active'));
               cards[cardIdx].classList.add('active');
+              const dots = targetPanel.querySelectorAll('.mobile-card-dot');
+              dots.forEach((dot, idx) => dot.classList.toggle('active', idx === cardIdx));
             }
           }
         } catch (e) {}
@@ -2733,11 +3044,15 @@
           const panelId = item.getAttribute('data-panel');
           switchPanel(panelId);
           saveProjectState(panelId);
+          if (window.innerWidth <= 1024) {
+            item.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+          }
         });
       });
 
       if (sidebarArea) {
         sidebarArea.addEventListener('wheel', (e) => {
+          if (window.innerWidth <= 1024) return;
           e.preventDefault();
           targetOffset += e.deltaY * 0.005;
           targetOffset = Math.max(0, Math.min(maxScroll, targetOffset));
@@ -2746,6 +3061,17 @@
 
       function renderMenu() {
         const isMobile = window.innerWidth <= 1024;
+        if (isMobile) {
+          menuItems.forEach((item) => {
+            item.style.transform = '';
+            item.style.opacity = '';
+            item.style.zIndex = '';
+            item.style.pointerEvents = 'auto';
+          });
+          requestAnimationFrame(renderMenu);
+          return;
+        }
+
         scrollOffset += (targetOffset - scrollOffset) * 0.1;
 
         menuItems.forEach((item, index) => {
@@ -2755,9 +3081,8 @@
           const scale       = Math.max(0.5, 1 - absDistance * 0.15);
           const isHovered   = item.matches(':hover');
           const opacity     = isHovered ? 1 : Math.max(0, 1 - absDistance * 0.35);
-          const translateX  = isMobile ? '-50%' : '0%';
 
-          item.style.transform     = `translate(${translateX}, calc(-50% + ${translateY}px)) scale(${scale})`;
+          item.style.transform     = `translate(0%, calc(-50% + ${translateY}px)) scale(${scale})`;
           item.style.opacity       = opacity.toFixed(3);
           item.style.zIndex        = isHovered ? 110 : Math.round(100 - absDistance * 10);
           item.style.pointerEvents = opacity < 0.1 ? 'none' : 'auto';
@@ -2798,12 +3123,67 @@
       function setupProjectAccordion(containerId) {
         const container = document.getElementById(containerId);
         if (!container) return;
-        const cards = container.querySelectorAll('.acc-card');
+        const cards = Array.from(container.querySelectorAll('.acc-card'));
+        if (cards.length === 0) return;
+        const panelId = containerId.replace('acc-', 'panel-');
+
+        // Create mobile navigation bar (Prev, Dots, Next) if not already created
+        let controls = container.querySelector('.mobile-card-controls');
+        if (!controls) {
+          controls = document.createElement('div');
+          controls.className = 'mobile-card-controls';
+          controls.innerHTML = `
+            <button class="mobile-card-btn btn-prev" aria-label="Previous project">&lt; PREV</button>
+            <div class="mobile-card-dots"></div>
+            <button class="mobile-card-btn btn-next" aria-label="Next project">NEXT &gt;</button>
+          `;
+          container.appendChild(controls);
+
+          const dotsContainer = controls.querySelector('.mobile-card-dots');
+          cards.forEach((card, idx) => {
+            const dot = document.createElement('span');
+            dot.className = `mobile-card-dot ${card.classList.contains('active') ? 'active' : ''}`;
+            dot.addEventListener('click', (e) => {
+              e.stopPropagation();
+              activateCard(idx);
+            });
+            dotsContainer.appendChild(dot);
+          });
+
+          controls.querySelector('.btn-prev').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const curr = cards.findIndex(c => c.classList.contains('active'));
+            const prev = (curr - 1 + cards.length) % cards.length;
+            activateCard(prev);
+          });
+
+          controls.querySelector('.btn-next').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const curr = cards.findIndex(c => c.classList.contains('active'));
+            const next = (curr + 1) % cards.length;
+            activateCard(next);
+          });
+        }
+
+        function updateDots(activeIdx) {
+          if (!controls) return;
+          const dots = controls.querySelectorAll('.mobile-card-dot');
+          dots.forEach((dot, idx) => {
+            dot.classList.toggle('active', idx === activeIdx);
+          });
+        }
+
+        function activateCard(idx) {
+          cards.forEach((c, i) => c.classList.toggle('active', i === idx));
+          updateDots(idx);
+          saveProjectState(panelId, idx);
+        }
+
         cards.forEach((card, idx) => {
           card.addEventListener('click', (e) => {
+            if (e.target.closest('.mobile-card-controls')) return;
             const previewBtn = card.querySelector('.preview-btn');
             const url = card.getAttribute('data-url') || previewBtn?.getAttribute('data-url');
-            const panelId = containerId.replace('acc-', 'panel-');
 
             // If card is already selected (active), redirect smoothly to its project HTML
             if (card.classList.contains('active')) {
@@ -2815,11 +3195,34 @@
             }
 
             // Inactive card clicked: select and expand it
-            cards.forEach(c => c.classList.remove('active'));
-            card.classList.add('active');
-            saveProjectState(panelId, idx);
+            activateCard(idx);
           });
         });
+
+        // Touch Swipe gestures for mobile card cycling
+        let touchStartX = 0;
+        let touchStartY = 0;
+        container.addEventListener('touchstart', (e) => {
+          if (window.innerWidth > 1024) return;
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        container.addEventListener('touchend', (e) => {
+          if (window.innerWidth > 1024) return;
+          const diffX = e.changedTouches[0].clientX - touchStartX;
+          const diffY = e.changedTouches[0].clientY - touchStartY;
+          if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+            const curr = cards.findIndex(c => c.classList.contains('active'));
+            if (diffX < 0) {
+              const next = (curr + 1) % cards.length;
+              activateCard(next);
+            } else {
+              const prev = (curr - 1 + cards.length) % cards.length;
+              activateCard(prev);
+            }
+          }
+        }, { passive: true });
       }
 
       setupProjectAccordion('acc-unity');
