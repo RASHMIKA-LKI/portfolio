@@ -1052,6 +1052,25 @@
     }
 
     /* ==========================================================================
+       MOBILE HUD SEGMENTED TABS (OPTION 1)
+       ========================================================================== */
+    .hud-mobile-tabs {
+      display: none;
+    }
+
+    .hud-tab-pane {
+      display: block;
+    }
+
+    .hud-mobile-actions {
+      display: none;
+    }
+
+    .hud-meter-wrap {
+      display: none;
+    }
+
+    /* ==========================================================================
        RESPONSIVE BREAKPOINTS
        ========================================================================== */
     @media (max-width: 1100px) {
@@ -1188,6 +1207,150 @@
 
       .cyber-frame {
         max-width: 260px;
+      }
+
+      /* Option 1: Mobile HUD Segmented Tabs */
+      .hud-mobile-tabs {
+        display: flex;
+        gap: 6px;
+        width: 100%;
+        margin-top: 4px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding-bottom: 8px;
+      }
+
+      .hud-tab-btn {
+        flex: 1;
+        background: rgba(10, 10, 14, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #9ca3af;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        padding: 8px 6px;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: all 0.25s ease;
+        text-transform: uppercase;
+      }
+
+      .hud-tab-btn.active {
+        background: rgba(0, 240, 255, 0.14);
+        border-color: var(--primary);
+        color: var(--primary);
+        box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+      }
+
+      .hud-tab-led {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #4b5563;
+        transition: all 0.25s ease;
+      }
+
+      .hud-tab-btn.active .hud-tab-led {
+        background: var(--primary);
+        box-shadow: 0 0 8px var(--primary);
+      }
+
+      .hud-tab-pane {
+        display: none;
+        animation: hudTabFade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      .hud-tab-pane.active {
+        display: block !important;
+      }
+
+      @keyframes hudTabFade {
+        from {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .hud-mobile-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 14px;
+        width: 100%;
+      }
+
+      .hud-action-btn {
+        flex: 1;
+        padding: 9px 12px;
+        border-radius: 4px;
+        font-family: 'Roboto Mono', monospace;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-align: center;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        background: rgba(10, 10, 14, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #e2e8f0;
+        transition: all 0.2s ease;
+      }
+
+      .hud-action-btn.primary {
+        background: rgba(0, 240, 255, 0.15);
+        border-color: var(--primary);
+        color: var(--primary);
+        box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+      }
+
+      .hud-meter-wrap {
+        margin-top: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: 12px;
+      }
+
+      .hud-meter-row {
+        display: flex;
+        justify-content: space-between;
+        font-family: 'Roboto Mono', monospace;
+        font-size: 9px;
+        color: #9ca3af;
+        letter-spacing: 1px;
+        margin-bottom: 2px;
+      }
+
+      .hud-meter-val {
+        color: var(--primary);
+        font-weight: 700;
+      }
+
+      .hud-meter-bar {
+        width: 100%;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+
+      .hud-meter-fill {
+        height: 100%;
+        background: linear-gradient(90deg, rgba(0, 240, 255, 0.6), var(--primary));
+        box-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+        border-radius: 2px;
       }
 
       .scroll-hint {
@@ -1417,48 +1580,95 @@
               // ISHAN RASHMIKA &bull; SPECIALIZED IN IMMERSIVE GAMEPLAY SYSTEMS
             </p>
 
-            <!-- Bio Narrative -->
-            <div class="hud-bio-text">
-              <p>
-                I’m <strong style="color:#e4e4e7;">Ishan Rashmika</strong>, a <strong style="color:#e4e4e7;">Unity Developer</strong> and <strong style="color:#e4e4e7;">3D Artist</strong> studying for a Bachelor of ICT (Honours) at the <strong style="color:#e4e4e7;">University of Sri Jayewardenepura</strong>. I build 2D and 3D games, interactive simulations, and models using <strong style="color:#e4e4e7;">Unity</strong>, <strong style="color:#e4e4e7;">C#</strong>, and <strong style="color:#e4e4e7;">Blender</strong>. My projects include vehicle controls in <strong style="color:#e4e4e7;">Mini City</strong>, shopping interactions in <strong style="color:#e4e4e7;">Store Simulation</strong>, and planets moving around the Sun in <strong style="color:#e4e4e7;">Solar System</strong>.
-              </p>
-              <p>
-                My work also includes shooting games such as <strong style="color:#e4e4e7;">Farm Shoot</strong> and <strong style="color:#e4e4e7;">2D Space Shooter</strong>, along with spacecraft and environment modeling in <strong style="color:#e4e4e7;">Blender</strong>. Through university assignments, personal projects, and online courses, I continue to improve my programming and design skills. I enjoy solving problems, exploring ideas, and creating experiences that people can play and interact with.
-              </p>
+            <!-- Mobile HUD Segmented Tabs (Visible only on mobile) -->
+            <div class="hud-mobile-tabs" id="aboutMobileTabs">
+              <button class="hud-tab-btn active" data-tab="story" onclick="switchAboutTab('story')">
+                <span class="hud-tab-led"></span>STORY
+              </button>
+              <button class="hud-tab-btn" data-tab="metrics" onclick="switchAboutTab('metrics')">
+                <span class="hud-tab-led"></span>METRICS
+              </button>
+              <button class="hud-tab-btn" data-tab="arsenal" onclick="switchAboutTab('arsenal')">
+                <span class="hud-tab-led"></span>ARSENAL
+              </button>
             </div>
 
-            <!-- Small Data HUDs Grid -->
-            <div class="hud-stats-grid">
-              <div class="hud-data-block">
-                <div class="hud-block-label">STATUS</div>
-                <div class="hud-block-value">AVAILABLE</div>
+            <!-- Tab 1: Bio Narrative & Action Buttons -->
+            <div class="hud-tab-pane active" id="about-pane-story">
+              <div class="hud-bio-text">
+                <p>
+                  I’m <strong style="color:#e4e4e7;">Ishan Rashmika</strong>, a <strong style="color:#e4e4e7;">Unity Developer</strong> and <strong style="color:#e4e4e7;">3D Artist</strong> studying for a Bachelor of ICT (Honours) at the <strong style="color:#e4e4e7;">University of Sri Jayewardenepura</strong>. I build 2D and 3D games, interactive simulations, and models using <strong style="color:#e4e4e7;">Unity</strong>, <strong style="color:#e4e4e7;">C#</strong>, and <strong style="color:#e4e4e7;">Blender</strong>. My projects include vehicle controls in <strong style="color:#e4e4e7;">Mini City</strong>, shopping interactions in <strong style="color:#e4e4e7;">Store Simulation</strong>, and planets moving around the Sun in <strong style="color:#e4e4e7;">Solar System</strong>.
+                </p>
+                <p>
+                  My work also includes shooting games such as <strong style="color:#e4e4e7;">Farm Shoot</strong> and <strong style="color:#e4e4e7;">2D Space Shooter</strong>, along with spacecraft and environment modeling in <strong style="color:#e4e4e7;">Blender</strong>. Through university assignments, personal projects, and online courses, I continue to improve my programming and design skills.
+                </p>
               </div>
-              <div class="hud-data-block">
-                <div class="hud-block-label">DEGREE</div>
-                <div class="hud-block-value white">BICT (Hons)</div>
-              </div>
-              <div class="hud-data-block">
-                <div class="hud-block-label">CURRENT GPA</div>
-                <div class="hud-block-value">3.81</div>
-              </div>
-              <div class="hud-data-block">
-                <div class="hud-block-label">FOCUS</div>
-                <div class="hud-block-value white">UNITY &amp; 3D</div>
+              <div class="hud-mobile-actions">
+                <a href="contact.html" class="hud-action-btn primary">
+                  <span>GET IN TOUCH</span> ↗
+                </a>
+                <a href="cv_template.html" target="_blank" class="hud-action-btn">
+                  <span>VIEW CV</span> ⤓
+                </a>
               </div>
             </div>
 
-            <!-- Core Competencies / Skill Chips -->
-            <div class="hud-arsenal-wrap">
-              <div class="hud-arsenal-label">// CORE ARSENAL &amp; CAPABILITIES:</div>
-              <div class="hud-chips-wrap">
-                <span class="tech-chip">▸ Unity 3D &amp; 2D</span>
-                <span class="tech-chip">▸ C# Scripting</span>
-                <span class="tech-chip">▸ WheelCollider Physics</span>
-                <span class="tech-chip">▸ Object Pooling &amp; Spawners</span>
-                <span class="tech-chip">▸ Blender 3D Modeling</span>
-                <span class="tech-chip">▸ Hard-Surface Art</span>
-                <span class="tech-chip">▸ AI Waypoints &amp; Pathing</span>
-                <span class="tech-chip">▸ Procedural Systems</span>
+            <!-- Tab 2: Small Data HUDs Grid & Visual Meters -->
+            <div class="hud-tab-pane" id="about-pane-metrics">
+              <div class="hud-stats-grid">
+                <div class="hud-data-block">
+                  <div class="hud-block-label">STATUS</div>
+                  <div class="hud-block-value">AVAILABLE</div>
+                </div>
+                <div class="hud-data-block">
+                  <div class="hud-block-label">DEGREE</div>
+                  <div class="hud-block-value white">BICT (Hons)</div>
+                </div>
+                <div class="hud-data-block">
+                  <div class="hud-block-label">CURRENT GPA</div>
+                  <div class="hud-block-value">3.81</div>
+                </div>
+                <div class="hud-data-block">
+                  <div class="hud-block-label">FOCUS</div>
+                  <div class="hud-block-value white">UNITY &amp; 3D</div>
+                </div>
+              </div>
+              <!-- Cyber Progress Bars for Mobile Metrics -->
+              <div class="hud-meter-wrap">
+                <div class="hud-meter-row">
+                  <span class="hud-meter-name">GAME SYSTEMS (C# / UNITY)</span>
+                  <span class="hud-meter-val">92%</span>
+                </div>
+                <div class="hud-meter-bar"><div class="hud-meter-fill" style="width: 92%"></div></div>
+
+                <div class="hud-meter-row">
+                  <span class="hud-meter-name">3D MODELING &amp; ASSETS (BLENDER)</span>
+                  <span class="hud-meter-val">86%</span>
+                </div>
+                <div class="hud-meter-bar"><div class="hud-meter-fill" style="width: 86%"></div></div>
+
+                <div class="hud-meter-row">
+                  <span class="hud-meter-name">PHYSICS &amp; SIMULATION LOGIC</span>
+                  <span class="hud-meter-val">88%</span>
+                </div>
+                <div class="hud-meter-bar"><div class="hud-meter-fill" style="width: 88%"></div></div>
+              </div>
+            </div>
+
+            <!-- Tab 3: Core Competencies / Skill Chips -->
+            <div class="hud-tab-pane" id="about-pane-arsenal">
+              <div class="hud-arsenal-wrap">
+                <div class="hud-arsenal-label">// CORE ARSENAL &amp; CAPABILITIES:</div>
+                <div class="hud-chips-wrap">
+                  <span class="tech-chip">▸ Unity 3D &amp; 2D</span>
+                  <span class="tech-chip">▸ C# Scripting</span>
+                  <span class="tech-chip">▸ WheelCollider Physics</span>
+                  <span class="tech-chip">▸ Object Pooling &amp; Spawners</span>
+                  <span class="tech-chip">▸ Blender 3D Modeling</span>
+                  <span class="tech-chip">▸ Hard-Surface Art</span>
+                  <span class="tech-chip">▸ AI Waypoints &amp; Pathing</span>
+                  <span class="tech-chip">▸ Procedural Systems</span>
+                </div>
               </div>
             </div>
 
@@ -1580,6 +1790,47 @@
     function toggleNav() {
       const menu = document.getElementById('nav-menu');
       menu.classList.toggle('open');
+    }
+
+    // Option 1: Mobile HUD Segmented Tabs Logic
+    const aboutTabs = ['story', 'metrics', 'arsenal'];
+    function switchAboutTab(tabName) {
+      const tabs = document.querySelectorAll('#aboutMobileTabs .hud-tab-btn');
+      tabs.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === tabName);
+      });
+
+      const panes = document.querySelectorAll('#view-about .hud-tab-pane');
+      panes.forEach(pane => {
+        pane.classList.toggle('active', pane.id === `about-pane-${tabName}`);
+      });
+    }
+
+    // Swipe left/right over About HUD card to switch tabs on mobile
+    const aboutCard = document.querySelector('#view-about .about-hud-card');
+    if (aboutCard) {
+      let touchStartX = 0;
+      let touchStartY = 0;
+      aboutCard.addEventListener('touchstart', e => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      aboutCard.addEventListener('touchend', e => {
+        if (window.innerWidth > 768) return;
+        const diffX = e.changedTouches[0].clientX - touchStartX;
+        const diffY = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+          const currentTabBtn = document.querySelector('#aboutMobileTabs .hud-tab-btn.active');
+          const currentTab = currentTabBtn ? currentTabBtn.dataset.tab : 'story';
+          const currentIndex = aboutTabs.indexOf(currentTab);
+          if (diffX < 0 && currentIndex < aboutTabs.length - 1) {
+            switchAboutTab(aboutTabs[currentIndex + 1]);
+          } else if (diffX > 0 && currentIndex > 0) {
+            switchAboutTab(aboutTabs[currentIndex - 1]);
+          }
+        }
+      }, { passive: true });
     }
   </script>
 
