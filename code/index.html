@@ -1502,31 +1502,8 @@
       switchPage('about');
     }
 
-    // MOUSE SCROLL WHEEL EVENT DISABLED TO PREVENT SWITCHING BETWEEN HOME AND ABOUT
+    // MOUSE SCROLL & TOUCH SWIPE GESTURES DISABLED TO PREVENT UNWANTED SECTION SHIFTING
 
-    // TOUCH SWIPE GESTURES
-    let touchStartY = 0;
-    window.addEventListener('touchstart', (e) => {
-      touchStartY = e.touches[0].clientY;
-    }, { passive: true });
-
-    window.addEventListener('touchend', (e) => {
-      if (isTransitioning) return;
-      const touchEndY = e.changedTouches[0].clientY;
-      const diffY = touchStartY - touchEndY;
-
-      if (diffY > 40) {
-        // Swipe Up -> Next
-        if (currentPage === 'home') {
-          switchPage('about');
-        }
-      } else if (diffY < -40) {
-        // Swipe Down -> Prev
-        if (currentPage === 'about') {
-          switchPage('home');
-        }
-      }
-    }, { passive: true });
 
     // KEYBOARD NAVIGATION
     window.addEventListener('keydown', (e) => {

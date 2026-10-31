@@ -628,26 +628,7 @@
 
         // SCROLL UP TO RETURN TO HOME (Mouse Wheel)
         let isNavigating = false;
-        window.addEventListener('wheel', (e) => {
-            if (e.deltaY < -25 && !isNavigating) {
-                isNavigating = true;
-                window.location.href = 'index.html';
-            }
-        }, { passive: true });
 
-        // Touch Swipe Down (Mobile)
-        let touchStartY = 0;
-        window.addEventListener('touchstart', (e) => {
-            touchStartY = e.touches[0].clientY;
-        }, { passive: true });
-
-        window.addEventListener('touchend', (e) => {
-            const touchEndY = e.changedTouches[0].clientY;
-            if (touchEndY - touchStartY > 50 && !isNavigating) {
-                isNavigating = true;
-                window.location.href = 'index.html';
-            }
-        }, { passive: true });
 
         // Keyboard Arrow Up or Page Up
         window.addEventListener('keydown', (e) => {

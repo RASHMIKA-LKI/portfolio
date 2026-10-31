@@ -386,7 +386,7 @@
 
     // Close mobile nav when clicking outside header
     document.addEventListener('click', (e) => {
-      const header = document.getElementById('main-header');
+      const header = document.getElementById('global-header') || document.getElementById('main-header');
       const menu = document.getElementById('nav-menu');
       if (menu && (menu.classList.contains('open') || menu.classList.contains('active'))) {
         if (header && !header.contains(e.target)) {
