@@ -1059,7 +1059,7 @@
       50%       { opacity: 1;   transform: translateY(-3px); }
     }
 
-    /* Responsive adjustments - Option 1: Mobile-First Action HUD with 3D Sphere Underneath */
+    /* Responsive adjustments - Mobile View: 3D Particle Animation on top, Contact HUD Panel below */
     @media (max-width: 900px) {
       body {
         overflow-y: auto !important;
@@ -1071,33 +1071,33 @@
         flex-direction: column !important;
         height: auto !important;
         min-height: 100vh;
-        padding-top: calc(var(--header-height, 80px) + 20px) !important;
+        padding-top: calc(var(--header-height, 80px) + 24px) !important;
         padding-bottom: 70px !important;
         justify-content: flex-start !important;
       }
-      .right-panel {
-        order: 1 !important;
-        flex: none !important;
-        width: 100% !important;
-        max-width: 580px !important;
-        margin: 0 auto !important;
-        border-left: none !important;
-        padding: 10px 16px 20px 16px !important;
-        box-sizing: border-box !important;
-      }
       .left-panel {
-        order: 2 !important;
+        order: 1 !important;
         left: 0 !important;
         flex: none !important;
         width: 100% !important;
         max-width: 100% !important;
         height: 280px !important;
-        min-height: 260px !important;
-        border-top: 1px dotted rgba(255, 255, 255, 0.2) !important;
-        border-bottom: none !important;
+        min-height: 250px !important;
+        border-bottom: 1px dotted rgba(255, 255, 255, 0.2) !important;
+        border-top: none !important;
         position: relative !important;
-        margin-top: 10px !important;
+        margin-top: 0 !important;
         margin-bottom: 24px !important;
+      }
+      .right-panel {
+        order: 2 !important;
+        flex: none !important;
+        width: 100% !important;
+        max-width: 580px !important;
+        margin: 0 auto !important;
+        border-left: none !important;
+        padding: 0 16px 40px 16px !important;
+        box-sizing: border-box !important;
       }
       .hud-glass-box {
         width: 100% !important;
@@ -1186,8 +1186,15 @@
         padding-top: calc(var(--header-height, 80px) + 16px) !important;
         padding-bottom: 60px !important;
       }
+      .left-panel {
+        order: 1 !important;
+        height: 240px !important;
+        min-height: 210px !important;
+        margin-bottom: 18px !important;
+      }
       .right-panel {
-        padding: 6px 12px 16px 12px !important;
+        order: 2 !important;
+        padding: 0 12px 30px 12px !important;
       }
       .hud-glass-box {
         padding: 20px 15px !important;
@@ -1222,11 +1229,6 @@
         padding: 10px 8px !important;
         letter-spacing: 1px !important;
         min-height: 42px !important;
-      }
-      .left-panel {
-        height: 240px !important;
-        min-height: 220px !important;
-        margin-bottom: 10px !important;
       }
       .view-indicator .dot-btn {
         width: 22px !important;
