@@ -7,12 +7,18 @@
       --primary: #00f0ff;
       --header-height: 80px;
     }
+    html, body {
+      overflow-x: hidden;
+      max-width: 100%;
+    }
     .header-6 {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       width: 100%;
+      max-width: 100vw;
+      box-sizing: border-box;
       height: var(--header-height);
       padding: 0 60px;
       background: linear-gradient(180deg, rgba(10, 10, 12, 0.95) 0%, rgba(0, 0, 0, 0.8) 85%, rgba(0, 0, 0, 0) 100%);

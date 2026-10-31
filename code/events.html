@@ -97,6 +97,8 @@
       left: 0;
       right: 0;
       width: 100%;
+      max-width: 100vw;
+      box-sizing: border-box;
       height: var(--header-height);
       padding: 0 60px;
       background: linear-gradient(180deg, rgba(10, 10, 12, 0.95) 0%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0) 100%);
@@ -1248,7 +1250,7 @@
   </div>
 
   <!-- Scroll Hint -->
-  <div class="scroll-hint"><span>▼</span> SCROLL DOWN FOR CONTACT</div>
+  <div class="scroll-hint"><span>⟳</span> SCROLL TO SPIN</div>
 
   <!-- ========================================================================
        FULLSCREEN IMAGE LIGHTBOX MODAL
@@ -1564,33 +1566,20 @@
       }, 200);
     }
 
-    // Mouse wheel
+    // Mouse wheel (Spins radial carousel, stays on page)
     let wheelAcc = 0;
     window.addEventListener('wheel', (e) => {
-      if (isModalOpen || isAnimating || isNavigatingSection) return;
+      if (isModalOpen || isAnimating) return;
 
-      const isOverCarousel = e.target.closest('#gallery-container') || e.target.closest('#wheelContainer') || e.target.closest('.carousel-panel');
-
-      if (isOverCarousel) {
-        wheelAcc += e.deltaY;
-        if (wheelAcc > 35) {
-          wheelAcc = 0;
-          const active = ((currentIndex % numCards) + numCards) % numCards;
-          if (active === numCards - 1) { transitionTo('contact.html'); }
-          else { currentIndex++; triggerLock(); }
-        } else if (wheelAcc < -35) {
-          wheelAcc = 0;
-          const active = ((currentIndex % numCards) + numCards) % numCards;
-          if (active === 0) { transitionTo('learnings.html'); }
-          else { currentIndex--; triggerLock(); }
-        }
-      } else {
-        // Outside radial carousel (header, background, info panel): move sections directly!
-        if (e.deltaY > 20) {
-          transitionTo('contact.html');
-        } else if (e.deltaY < -20) {
-          transitionTo('learnings.html');
-        }
+      wheelAcc += e.deltaY;
+      if (wheelAcc > 35) {
+        wheelAcc = 0;
+        currentIndex++;
+        triggerLock();
+      } else if (wheelAcc < -35) {
+        wheelAcc = 0;
+        currentIndex--;
+        triggerLock();
       }
     }, { passive: true });
 

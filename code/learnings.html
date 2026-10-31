@@ -89,6 +89,8 @@
       left: 0;
       right: 0;
       width: 100%;
+      max-width: 100vw;
+      box-sizing: border-box;
       height: var(--header-height);
       padding: 0 60px;
       background: linear-gradient(180deg, rgba(10, 10, 12, 0.95) 0%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0) 100%);
@@ -1325,7 +1327,7 @@
 
   <!-- Scroll Hint Badge -->
   <div class="scroll-hint">
-    <span>▼</span> SCROLL DOWN FOR EVENTS
+    <span>⟳</span> SCROLL OR CLICK TO EXPLORE
   </div>
 
   <!-- ========================================================================
@@ -1686,41 +1688,20 @@
         }, 200);
       }
 
-      // 3. Mouse Wheel Handler
+      // 3. Mouse Wheel Handler (Cycles carousel cards, stays within page)
       let wheelAccumulator = 0;
       window.addEventListener('wheel', (e) => {
-        if (isModalOpen || isAnimating || isNavigatingSection) return;
+        if (isModalOpen || isAnimating) return;
 
-        // Check if mouse is hovering over carousel cards
-        const isOverCarousel = e.target.closest('#carousel-container') || e.target.closest('.carousel-panel');
-
-        if (isOverCarousel) {
-          // Inside Carousel: cycle cards
-          wheelAccumulator += e.deltaY;
-          if (wheelAccumulator > 35) {
-            wheelAccumulator = 0;
-            if (activeIndex < totalCards - 1) {
-              activeIndex++;
-              triggerAnimationLock();
-            } else {
-              transitionTo('events.html');
-            }
-          } else if (wheelAccumulator < -35) {
-            wheelAccumulator = 0;
-            if (activeIndex > 0) {
-              activeIndex--;
-              triggerAnimationLock();
-            } else {
-              transitionTo('projects_section.html');
-            }
-          }
-        } else {
-          // Outside Carousel (header, background, info panel): move sections directly!
-          if (e.deltaY > 20) {
-            transitionTo('events.html');
-          } else if (e.deltaY < -20) {
-            transitionTo('projects_section.html');
-          }
+        wheelAccumulator += e.deltaY;
+        if (wheelAccumulator > 35) {
+          wheelAccumulator = 0;
+          activeIndex = (activeIndex + 1) % totalCards;
+          triggerAnimationLock();
+        } else if (wheelAccumulator < -35) {
+          wheelAccumulator = 0;
+          activeIndex = (activeIndex - 1 + totalCards) % totalCards;
+          triggerAnimationLock();
         }
       }, { passive: true });
 
@@ -1734,16 +1715,12 @@
         }
         if (isAnimating) return;
 
-        if (e.key === 'ArrowRight') {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
           activeIndex = (activeIndex + 1) % totalCards;
           triggerAnimationLock();
-        } else if (e.key === 'ArrowLeft') {
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
           activeIndex = (activeIndex - 1 + totalCards) % totalCards;
           triggerAnimationLock();
-        } else if (e.key === 'ArrowDown') {
-          window.location.href = 'events.html';
-        } else if (e.key === 'ArrowUp') {
-          window.location.href = 'projects_section.html';
         }
       });
 

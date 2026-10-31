@@ -29,13 +29,18 @@
       --header-height: 80px;
     }
 
+    html, body {
+      overflow-x: hidden;
+      max-width: 100%;
+    }
+
     body {
       background-color: var(--bg-black);
       font-family: 'Orbitron', sans-serif;
       color: #ffffff;
       overflow: hidden;
       user-select: none;
-      width: 100vw;
+      width: 100%;
       height: 100vh;
     }
 
@@ -61,6 +66,8 @@
       left: 0;
       right: 0;
       width: 100%;
+      max-width: 100vw;
+      box-sizing: border-box;
       height: var(--header-height);
       padding: 0 60px;
       background: linear-gradient(180deg, rgba(10, 10, 12, 0.95) 0%, rgba(0, 0, 0, 0.8) 85%, rgba(0, 0, 0, 0) 100%);
@@ -2638,7 +2645,7 @@
 
   <!-- Scroll Hint Badge -->
   <div class="scroll-hint" id="scroll-hint">
-    <span>▲</span> SCROLL UP TO RETURN TO BIO
+    <span>⚡</span> SELECT CATEGORY TO VIEW PROJECTS
   </div>
 
   <!-- ============================================================
@@ -3050,7 +3057,7 @@
       }
 
       /* ============================================================
-         PAGE-TO-PAGE WHEEL NAVIGATION (WHEN SCROLLING OUTSIDE)
+         PAGE-TO-PAGE WHEEL NAVIGATION (DISABLED TO PREVENT UNWANTED PAGE SHIFT)
       ============================================================ */
       let isNavigatingSection = false;
 
@@ -3066,21 +3073,6 @@
           window.location.href = url;
         }, 200);
       }
-
-      window.addEventListener('wheel', (e) => {
-        // If scrolling over sidebar or carousel zone, let their local wheel listeners handle it
-        if (sidebarArea && sidebarArea.matches(':hover')) return;
-        if (carouselZone && carouselZone.matches(':hover')) return;
-
-        // Scrolling UP outside -> go to About
-        if (e.deltaY < -15 && !isNavigatingSection) {
-          transitionTo('index.html#about');
-        }
-        // Scrolling DOWN outside -> go to Learnings
-        else if (e.deltaY > 15 && !isNavigatingSection) {
-          transitionTo('learnings.html');
-        }
-      }, { passive: true });
 
       // Keyboard Up/Down -> Page Navigation
       window.addEventListener('keydown', (e) => {

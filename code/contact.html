@@ -60,6 +60,8 @@
       left: 0;
       right: 0;
       width: 100%;
+      max-width: 100vw;
+      box-sizing: border-box;
       height: var(--header-height);
       padding: 0 60px;
       background: linear-gradient(180deg, rgba(10, 10, 12, 0.95) 0%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 0) 100%);
@@ -1341,7 +1343,7 @@
 
   <!-- Scroll hint -->
   <div class="scroll-hint">
-    <span>▲</span> SCROLL UP TO RETURN TO LEARNINGS
+    <span>✉</span> LET'S CONNECT · GET IN TOUCH
   </div>
 
   <!-- ========================================================================
@@ -1371,7 +1373,7 @@
       });
     });
 
-    // Scroll up wheel -> back to events
+    // Page transition helper (for clicks)
     let isReturning = false;
     function transitionTo(url) {
       if (isReturning) return;
@@ -1383,12 +1385,6 @@
         window.location.href = url;
       }, 200);
     }
-
-    window.addEventListener('wheel', (e) => {
-      if (e.deltaY < -15 && !isReturning) {
-        transitionTo('events.html');
-      }
-    }, { passive: true });
 
     // Keyboard Up Arrow -> Back to Events
     window.addEventListener('keydown', (e) => {
