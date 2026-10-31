@@ -327,7 +327,8 @@
        ========================================================================== */
         .split-layout {
           height: 100vh;
-          width: 100vw;
+          width: 100%;
+          max-width: 100%;
           padding-top: var(--header-height);
           display: flex;
           flex-direction: column;
@@ -1001,28 +1002,191 @@
           }
 
           .split-layout {
+            display: flex !important;
+            flex-direction: column !important;
             height: auto !important;
-            min-height: 100vh;
-            padding-bottom: 70px;
+            min-height: calc(100vh - var(--header-height, 80px)) !important;
+            padding-top: calc(var(--header-height, 80px) + 20px) !important;
+            padding-bottom: 75px !important;
+            justify-content: flex-start !important;
+            align-items: center !important;
+            box-sizing: border-box !important;
           }
 
+          /* Option 1: Hero Carousel Panel at Top */
+          .carousel-panel {
+            order: 1 !important;
+            height: 250px !important;
+            min-height: 250px !important;
+            max-height: 260px !important;
+            width: 100% !important;
+            margin-bottom: 6px !important;
+            position: relative !important;
+            overflow: hidden !important;
+          }
+
+          /* Center the wheel container as a static hero deck on mobile */
+          .wheel-container {
+            transform: none !important;
+            top: 50% !important;
+            left: 50% !important;
+            width: 0 !important;
+            height: 0 !important;
+            position: absolute !important;
+          }
+
+          .hub-ring,
+          .radial-scroll-hint {
+            display: none !important;
+          }
+
+          /* Cards Deck */
+          .radial-card {
+            position: absolute !important;
+            left: 0 !important;
+            top: 0 !important;
+            width: 290px !important;
+            height: 222px !important;
+            margin-left: -145px !important;
+            margin-top: -111px !important;
+            border-radius: 6px !important;
+            overflow: hidden !important;
+            transform: translate(0, 0) scale(0.65) !important;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+              opacity 0.5s ease,
+              filter 0.5s ease,
+              border-color 0.3s ease,
+              box-shadow 0.5s ease !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            filter: brightness(35%) !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85) !important;
+            border: 2px solid rgba(255, 255, 255, 0.08) !important;
+            cursor: pointer !important;
+          }
+
+          .radial-card img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            background-color: #08080a !important;
+          }
+
+          .radial-card.active {
+            transform: translate(0, 0) scale(1) !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            filter: brightness(100%) !important;
+            border: 2px solid var(--primary) !important;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.35), 0 12px 30px rgba(0, 0, 0, 0.9) !important;
+            z-index: 20 !important;
+          }
+
+          .radial-card.prev {
+            transform: translate(-105px, 0) scale(0.68) !important;
+            opacity: 0.55 !important;
+            filter: brightness(35%) !important;
+            pointer-events: auto !important;
+            z-index: 10 !important;
+          }
+
+          .radial-card.next {
+            transform: translate(105px, 0) scale(0.68) !important;
+            opacity: 0.55 !important;
+            filter: brightness(35%) !important;
+            pointer-events: auto !important;
+            z-index: 10 !important;
+          }
+
+          .radial-card.far {
+            display: none !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+          }
+
+          .radial-card .card-label {
+            position: absolute !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            padding: 8px 10px !important;
+            font-size: 10px !important;
+            font-weight: 700 !important;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.9) 100%) !important;
+            color: rgba(255, 255, 255, 0.9) !important;
+            letter-spacing: 1px !important;
+          }
+
+          .radial-card.active .card-label {
+            color: var(--primary) !important;
+          }
+
+          .radial-card.active .card-zoom-btn {
+            opacity: 0.95 !important;
+            pointer-events: auto !important;
+          }
+
+          /* Option 1: Info & Controls Directly Below */
           .info-panel {
+            order: 2 !important;
             height: auto !important;
             width: 100% !important;
-            padding: 1.5rem 1rem !important;
+            max-width: 480px !important;
+            padding: 0 1rem 1.5rem 1rem !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
           }
 
           .glass-box {
+            transform: none !important;
             height: auto !important;
             min-height: auto !important;
             max-height: none !important;
-            padding: 24px 20px !important;
+            padding: 18px 20px !important;
+            width: 100% !important;
+            max-width: 440px !important;
+            background: rgba(18, 18, 23, 0.85) !important;
           }
 
-          .carousel-panel {
-            height: 380px !important;
-            min-height: 340px !important;
-            width: 100% !important;
+          .title-slot {
+            height: auto !important;
+            min-height: unset !important;
+            max-height: none !important;
+            margin-top: 8px !important;
+          }
+
+          #dyn-title {
+            font-size: 1.25rem !important;
+            line-height: 1.25 !important;
+          }
+
+          .desc-slot {
+            height: auto !important;
+            min-height: unset !important;
+            max-height: none !important;
+            margin-top: 8px !important;
+          }
+
+          #dyn-desc {
+            font-size: 0.82rem !important;
+            line-height: 1.45 !important;
+          }
+
+          .tags-slot {
+            height: auto !important;
+            min-height: 28px !important;
+            max-height: none !important;
+            margin-top: 10px !important;
+            padding-bottom: 2px !important;
+          }
+
+          .scroll-hint {
+            display: none !important;
+          }
+
+          .view-indicator {
+            bottom: 16px !important;
           }
         }
 
@@ -1075,17 +1239,60 @@
         }
 
         @media (max-width: 640px) {
+          .split-layout {
+            padding-top: calc(var(--header-height, 80px) + 16px) !important;
+            padding-bottom: 60px !important;
+          }
+
           .carousel-panel {
-            height: 300px !important;
-            min-height: 270px !important;
+            height: 235px !important;
+            min-height: 235px !important;
+            max-height: 245px !important;
+            margin-bottom: 2px !important;
+          }
+
+          .radial-card {
+            width: 250px !important;
+            height: 192px !important;
+            margin-left: -125px !important;
+            margin-top: -96px !important;
+          }
+
+          .radial-card.active {
+            transform: translate(0, 0) scale(1) !important;
+          }
+
+          .radial-card.prev {
+            transform: translate(-90px, 0) scale(0.65) !important;
+          }
+
+          .radial-card.next {
+            transform: translate(90px, 0) scale(0.65) !important;
+          }
+
+          .info-panel {
+            padding: 0 0.75rem 1rem 0.75rem !important;
           }
 
           .glass-box {
-            padding: 18px 14px !important;
+            padding: 14px 16px !important;
+          }
+
+          #dyn-title {
+            font-size: 1.1rem !important;
+          }
+
+          #dyn-desc {
+            font-size: 0.78rem !important;
+          }
+
+          .card-label {
+            font-size: 0.65rem !important;
+            padding: 5px 6px !important;
           }
 
           .view-indicator {
-            bottom: 14px;
+            bottom: 12px !important;
           }
         }
   </style>
@@ -1439,8 +1646,9 @@
         if (diff !== 0) {
           currentIndex += diff;
           triggerLock();
+        } else {
+          openModal(active);
         }
-        // Normal click on active card does nothing (enlarge only via enlarge button)
       });
 
       wheelContainer.appendChild(card);
@@ -1450,9 +1658,20 @@
     function updateGallery() {
       wheelContainer.style.transform = `rotate(${-currentIndex * degInc}deg)`;
       const active = ((currentIndex % numCards) + numCards) % numCards;
+      const prev = (active - 1 + numCards) % numCards;
+      const next = (active + 1) % numCards;
 
       cards.forEach((c, i) => {
-        i === active ? c.classList.add('active') : c.classList.remove('active');
+        c.classList.remove('active', 'prev', 'next', 'far');
+        if (i === active) {
+          c.classList.add('active');
+        } else if (i === prev) {
+          c.classList.add('prev');
+        } else if (i === next) {
+          c.classList.add('next');
+        } else {
+          c.classList.add('far');
+        }
       });
 
       const textElements = [dynTitle, dynYear, dynStatus, dynDesc, dynTags];
@@ -1598,11 +1817,24 @@
 
     // Touch / swipe
     let touchStartX = 0;
-    window.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    let touchStartY = 0;
+    window.addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
     window.addEventListener('touchend', e => {
       if (isAnimating || isModalOpen) return;
-      const diff = e.changedTouches[0].clientX - touchStartX;
-      if (Math.abs(diff) > 40) { diff < 0 ? currentIndex++ : currentIndex--; triggerLock(); }
+      const diffX = e.changedTouches[0].clientX - touchStartX;
+      const diffY = e.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+        if (diffX < 0) {
+          currentIndex++;
+          triggerLock();
+        } else {
+          currentIndex--;
+          triggerLock();
+        }
+      }
     }, { passive: true });
 
     // Init
