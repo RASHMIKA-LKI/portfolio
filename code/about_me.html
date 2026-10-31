@@ -446,10 +446,61 @@
             .hud-split-left {
                 border-right: none;
                 border-bottom: 2px solid var(--primary);
+                width: 100%;
+                padding: 14px 20px;
             }
 
             .hud-split-left::after {
                 display: none;
+            }
+
+            .hud-split-label {
+                transform: none;
+            }
+
+            .about-hud-card {
+                flex-direction: column;
+            }
+
+            .hud-stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hud-content-right {
+                padding: 24px 18px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hud-content-right {
+                padding: 18px 14px;
+                gap: 16px;
+            }
+
+            .hud-heading {
+                font-size: 1.6rem;
+            }
+
+            .hud-bio-text {
+                font-size: 0.85rem;
+                line-height: 1.65;
+            }
+
+            .hud-stats-grid {
+                gap: 8px;
+            }
+
+            .hud-data-block {
+                padding: 8px 10px;
+            }
+
+            .hud-data-value {
+                font-size: 1.05rem;
+            }
+
+            .tech-chip {
+                font-size: 10px;
+                padding: 5px 8px;
             }
         }
     </style>

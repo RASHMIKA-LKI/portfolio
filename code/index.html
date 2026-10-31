@@ -1111,8 +1111,18 @@
         padding: 20px;
       }
 
+      .about-view-container {
+        align-items: flex-start;
+        justify-content: center;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 16px 16px 90px 16px;
+      }
+
       .about-hud-card {
         flex-direction: column;
+        max-width: 100%;
+        margin: 0 auto;
       }
 
       .hud-split-left {
@@ -1178,6 +1188,51 @@
 
       .cyber-frame {
         max-width: 260px;
+      }
+
+      .scroll-hint {
+        display: none !important;
+      }
+
+      .view-indicator {
+        bottom: 12px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .about-view-container {
+        padding: 12px 10px 80px 10px;
+      }
+
+      .hud-content-right {
+        padding: 18px 14px;
+        gap: 16px;
+      }
+
+      .hud-heading {
+        font-size: 1.6rem;
+      }
+
+      .hud-bio-text {
+        font-size: 0.85rem;
+        line-height: 1.65;
+      }
+
+      .hud-stats-grid {
+        gap: 8px;
+      }
+
+      .hud-data-block {
+        padding: 8px 10px;
+      }
+
+      .hud-block-value {
+        font-size: 1.05rem;
+      }
+
+      .tech-chip {
+        font-size: 10px;
+        padding: 5px 8px;
       }
     }
   </style>
