@@ -1061,19 +1061,21 @@
 
     /* Responsive adjustments - Mobile View: 3D Particle Animation on top, Contact HUD Panel below */
     @media (max-width: 900px) {
-      body {
+      html, body {
         overflow-y: auto !important;
         overflow-x: hidden !important;
         height: auto !important;
-        min-height: 100vh;
+        min-height: 100% !important;
+        -webkit-overflow-scrolling: touch !important;
       }
       .split-container {
         flex-direction: column !important;
         height: auto !important;
-        min-height: 100vh;
-        padding-top: calc(var(--header-height, 80px) + 24px) !important;
-        padding-bottom: 70px !important;
+        min-height: calc(100vh - var(--header-height, 80px)) !important;
+        padding-top: calc(var(--header-height, 80px) + 12px) !important;
+        padding-bottom: 90px !important;
         justify-content: flex-start !important;
+        align-items: center !important;
       }
       .left-panel {
         order: 1 !important;
@@ -1081,50 +1083,82 @@
         flex: none !important;
         width: 100% !important;
         max-width: 100% !important;
-        height: 280px !important;
-        min-height: 250px !important;
+        height: 180px !important;
+        min-height: 160px !important;
         border-bottom: 1px dotted rgba(255, 255, 255, 0.2) !important;
         border-top: none !important;
         position: relative !important;
         margin-top: 0 !important;
-        margin-bottom: 24px !important;
+        margin-bottom: 14px !important;
       }
       .right-panel {
         order: 2 !important;
         flex: none !important;
         width: 100% !important;
-        max-width: 580px !important;
+        max-width: 520px !important;
         margin: 0 auto !important;
         border-left: none !important;
-        padding: 0 16px 40px 16px !important;
+        padding: 0 14px 40px 14px !important;
         box-sizing: border-box !important;
       }
       .hud-glass-box {
         width: 100% !important;
         max-width: 100% !important;
-        padding: 24px 20px !important;
+        padding: 16px 16px 20px 16px !important;
         box-sizing: border-box !important;
+      }
+      .hud-header-bar {
+        padding-bottom: 8px !important;
+        margin-bottom: 10px !important;
+      }
+      .hud-contact-heading {
+        font-size: 1.35rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 10px !important;
+      }
+      .hud-blurb {
+        font-size: 0.8rem !important;
+        line-height: 1.5 !important;
+        margin-bottom: 12px !important;
+        padding-bottom: 10px !important;
       }
       .hud-stat-grid {
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 8px !important;
-        margin-bottom: 22px !important;
+        gap: 6px !important;
+        margin-bottom: 14px !important;
+      }
+      .hud-data-block {
+        padding: 6px 10px !important;
+      }
+      .hud-data-label {
+        font-size: 8.5px !important;
+        margin-bottom: 2px !important;
+      }
+      .hud-data-value {
+        font-size: 11.5px !important;
+      }
+      .menu-container {
+        margin-bottom: 8px !important;
       }
       .contact-menu {
-        gap: 10px !important;
+        gap: 8px !important;
       }
       .contact-item,
       .cv-download-btn {
-        padding: 12px 14px !important;
-        font-size: 11px !important;
-        gap: 8px !important;
+        padding: 10px 12px !important;
+        font-size: 10.5px !important;
+        gap: 7px !important;
         letter-spacing: 1.2px !important;
-        min-height: 44px !important;
+        min-height: 40px !important;
       }
       .contact-item svg,
       .cv-download-btn svg {
-        width: 18px !important;
-        height: 18px !important;
+        width: 16px !important;
+        height: 16px !important;
+      }
+      .cv-download-container {
+        padding-top: 10px !important;
+        width: 100% !important;
       }
       .contact-item::before,
       .contact-item::after,
@@ -1167,7 +1201,7 @@
       .contact-menu {
         display: grid !important;
         grid-template-columns: 1fr 1fr !important;
-        gap: 10px !important;
+        gap: 8px !important;
       }
       .contact-menu .contact-item:nth-child(1) {
         order: 1;
@@ -1183,59 +1217,67 @@
 
     @media (max-width: 480px) {
       .split-container {
-        padding-top: calc(var(--header-height, 80px) + 16px) !important;
-        padding-bottom: 60px !important;
+        padding-top: calc(var(--header-height, 80px) + 8px) !important;
+        padding-bottom: 80px !important;
       }
       .left-panel {
         order: 1 !important;
-        height: 240px !important;
-        min-height: 210px !important;
-        margin-bottom: 18px !important;
+        height: 150px !important;
+        min-height: 140px !important;
+        margin-bottom: 10px !important;
       }
       .right-panel {
         order: 2 !important;
-        padding: 0 12px 30px 12px !important;
+        padding: 0 10px 30px 10px !important;
       }
       .hud-glass-box {
-        padding: 20px 15px !important;
+        padding: 14px 12px 16px 12px !important;
       }
       .hud-contact-heading {
-        font-size: 1.55rem !important;
-        line-height: 1.2 !important;
-        margin-bottom: 16px !important;
+        font-size: 1.2rem !important;
+        line-height: 1.15 !important;
+        margin-bottom: 8px !important;
       }
       .hud-blurb {
-        font-size: 0.82rem !important;
-        line-height: 1.55 !important;
-        margin-bottom: 14px !important;
-        padding-bottom: 12px !important;
+        font-size: 0.74rem !important;
+        line-height: 1.45 !important;
+        margin-bottom: 10px !important;
+        padding-bottom: 8px !important;
       }
       .hud-stat-grid {
-        gap: 6px !important;
-        margin-bottom: 18px !important;
+        gap: 5px !important;
+        margin-bottom: 10px !important;
       }
       .hud-data-block {
-        padding: 6px 8px !important;
+        padding: 4px 6px !important;
       }
       .hud-data-label {
-        font-size: 8.5px !important;
+        font-size: 7.5px !important;
       }
       .hud-data-value {
-        font-size: 11.5px !important;
+        font-size: 10.5px !important;
       }
       .contact-item,
       .cv-download-btn {
-        font-size: 10px !important;
-        padding: 10px 8px !important;
-        letter-spacing: 1px !important;
-        min-height: 42px !important;
+        font-size: 9.5px !important;
+        padding: 8px 10px !important;
+        letter-spacing: 0.8px !important;
+        min-height: 38px !important;
+      }
+      .contact-item svg,
+      .cv-download-btn svg {
+        width: 14px !important;
+        height: 14px !important;
+      }
+      .view-indicator {
+        bottom: 12px !important;
       }
       .view-indicator .dot-btn {
-        width: 22px !important;
+        width: 20px !important;
         height: 3px !important;
       }
       .view-indicator .dot-btn.active {
-        width: 34px !important;
+        width: 32px !important;
       }
     }
   </style>
