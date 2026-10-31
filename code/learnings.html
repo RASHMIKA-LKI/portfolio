@@ -757,8 +757,8 @@
         display: flex !important;
         flex-direction: column !important;
         height: auto !important;
-        min-height: calc(100vh - var(--header-height, 60px)) !important;
-        padding-top: 10px !important;
+        min-height: calc(100vh - var(--header-height, 80px)) !important;
+        padding-top: calc(var(--header-height, 80px) + 20px) !important;
         padding-bottom: 75px !important;
         justify-content: flex-start !important;
         align-items: center !important;
@@ -885,7 +885,7 @@
 
     @media (max-width: 640px) {
       .split-layout {
-        padding-top: 4px !important;
+        padding-top: calc(var(--header-height, 80px) + 16px) !important;
         padding-bottom: 60px !important;
       }
 
