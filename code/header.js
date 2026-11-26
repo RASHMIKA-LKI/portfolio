@@ -395,8 +395,9 @@
       }
     });
 
-    // Fallback: load splash cursor if not already loaded
-    if (!window.__splashCursorInitialized && !document.querySelector('script[src*="splash_cursor.js"]')) {
+    // Fallback: load splash cursor if not already loaded (disabled on projects page)
+    const currentPath = window.location.pathname.toLowerCase();
+    if (!window.__disableSplashCursor && !currentPath.includes('projects_section') && !window.__splashCursorInitialized && !document.querySelector('script[src*="splash_cursor.js"]')) {
       const sc = document.createElement('script');
       sc.src = 'splash_cursor.js';
       document.head.appendChild(sc);
